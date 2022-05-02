@@ -1,0 +1,14 @@
+.view {
+  padding: 25px;
+}
+
+.search-bar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+}
+
+.control {
+  padding-right: 10px;
+  width: 100%;
+}
