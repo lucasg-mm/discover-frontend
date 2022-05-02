@@ -7,6 +7,10 @@
   background-color: whitesmoke;
 }
 
+.cover-container {
+  text-align: center;
+}
+
 .cover-art {
   border-radius: 6px;
 }
