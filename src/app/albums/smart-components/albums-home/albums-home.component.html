@@ -16,6 +16,6 @@
         </button>
     </div>
     <div class="album-listing">
-        <app-specific-album></app-specific-album>
+        <app-specific-album *ngFor="let album of displayedAlbums" [album]="album"></app-specific-album>
     </div>
 </div>
