@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { AlbumsHomeComponent } from './smart-components/albums-home/albums-home.component';
 import { AlbumSuperiorBarComponent } from './smart-components/superior-bar/album-superior-bar.component';
 import { SpecificAlbumComponent } from './presentational-components/specific-album/specific-album.component';
+import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 
 
 @NgModule({
   declarations: [
     AlbumsHomeComponent,
     SpecificAlbumComponent,
-    AlbumSuperiorBarComponent
+    AlbumSuperiorBarComponent,
+    AlbumPaginatorComponent
   ],
   imports: [
     CommonModule,
