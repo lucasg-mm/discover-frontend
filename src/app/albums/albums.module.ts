@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from "@angular/common/http";
+import { RouterModule } from '@angular/router';
 
 // smart components
 import { AlbumsHomeComponent } from './smart-components/albums-home/albums-home.component';
@@ -17,7 +18,8 @@ import { SpecificAlbumComponent } from './presentational-components/specific-alb
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ]
 })
 export class AlbumsModule { }

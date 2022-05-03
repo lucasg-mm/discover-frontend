@@ -35,9 +35,9 @@ export class SpecificAlbumComponent implements OnInit {
       ''
     );
 
-    return artistsNames.length === maxChars
+    return artistsNames.length <= maxChars
       ? artistsNames
-      : artistsNames.substring(0, maxChars);
+      : artistsNames.substring(0, maxChars) + "...";
   }
 
   // returns the album's title
@@ -46,7 +46,7 @@ export class SpecificAlbumComponent implements OnInit {
     // if the title is longer than maxChars, it's truncated
     const maxChars = 15;
 
-    return this.album.title.length === maxChars
+    return this.album.title.length <= maxChars
       ? this.album.title
       : this.album.title.substring(0, maxChars) + '...';
   }
