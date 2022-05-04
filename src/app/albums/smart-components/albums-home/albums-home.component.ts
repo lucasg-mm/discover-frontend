@@ -15,6 +15,8 @@ export class AlbumsHomeComponent implements OnInit {
 
   finalPage: number = 10;
 
+  isAlbumCreatorVisible: boolean = false;
+
   constructor(
     private albumsService: AlbumsService,
     private route: ActivatedRoute,
@@ -28,6 +30,14 @@ export class AlbumsHomeComponent implements OnInit {
       this.initialPage = pageParam;
       this.findAlbumsPaginated(pageParam);
     });
+  }
+
+  openAlbumCreatorModal(): void{
+    this.isAlbumCreatorVisible = true;
+  }
+
+  closeAlbumCreatorModal(): void{
+    this.isAlbumCreatorVisible = false;
   }
 
   // changes the query params (this is triggered by a click in the paginator)

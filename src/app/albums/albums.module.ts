@@ -7,6 +7,7 @@ import { AlbumsHomeComponent } from './smart-components/albums-home/albums-home.
 import { AlbumSuperiorBarComponent } from './smart-components/superior-bar/album-superior-bar.component';
 import { SpecificAlbumComponent } from './presentational-components/specific-album/specific-album.component';
 import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
+import { AlbumCreatorComponent } from './presentational-components/album-creator/album-creator/album-creator.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AlbumPaginatorComponent } from './presentational-components/album-pagin
     AlbumsHomeComponent,
     SpecificAlbumComponent,
     AlbumSuperiorBarComponent,
-    AlbumPaginatorComponent
+    AlbumPaginatorComponent,
+    AlbumCreatorComponent
   ],
   imports: [
     CommonModule,
