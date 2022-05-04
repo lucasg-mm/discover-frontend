@@ -3,5 +3,6 @@
     <div class="album-listing">
         <app-specific-album *ngFor="let album of displayedAlbums" [album]="album"></app-specific-album>
     </div>
-    <app-album-paginator></app-album-paginator>
+    <!-- when the user clicks it, it must redirect to the corresponding page -->
+    <app-album-paginator [finalPage]="finalPage" [initialPage]="initialPage" (pageChange)="retrieveAlbumsOnPage($event)"></app-album-paginator>
 </div>

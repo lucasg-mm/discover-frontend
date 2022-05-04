@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlbumsService } from '../../albums.service';
 import { Album } from '../../models/album.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-albums-home',
@@ -8,18 +9,39 @@ import { Album } from '../../models/album.model';
   styleUrls: ['./albums-home.component.css'],
 })
 export class AlbumsHomeComponent implements OnInit {
-
   displayedAlbums: Album[] = [];
 
-  constructor(private albumsService: AlbumsService) {}
+  initialPage: number = 1;
+
+  finalPage: number = 10;
+
+  constructor(
+    private albumsService: AlbumsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.findAll();
+    // watches for query params changes
+    this.route.queryParams.subscribe((params) => {
+      const pageParam: number = parseInt(params['page']) | 1;
+      this.initialPage = pageParam;
+      this.findAlbumsPaginated(pageParam);
+    });
   }
 
-  findAll(): void {
-    this.albumsService.findAllAlbums().subscribe((res) => {
-      this.displayedAlbums = res;
+  // changes the query params (this is triggered by a click in the paginator)
+  retrieveAlbumsOnPage(pageNumber: number) {
+    this.router.navigate(['/albums'], { queryParams: { page: pageNumber } });
+  }
+
+  // find the albums in a paginated way
+  findAlbumsPaginated(pageNumber: number): void {
+    this.albumsService.findAlbumsPaginated(pageNumber).subscribe((res) => {
+      this.displayedAlbums = res.items;
+      this.finalPage = res.totalPages;
+    }, (err) => {
+      console.log(err);
     });
   }
 }

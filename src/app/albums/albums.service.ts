@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http'; 
-import { Album } from './models/album.model';
+import { AlbumsPaginated } from './models/albums-paginated.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,9 @@ export class AlbumsService {
   }
 
   // find every album
-  findAllAlbums() {
-    return this.http.get<Album[]>(this.apiUri);
+  findAlbumsPaginated(pageNumber: number) {
+    const pageSize: Number = 10;
+    return this.http.get<AlbumsPaginated>(`${this.apiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
 }

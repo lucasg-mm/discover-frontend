@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-album-paginator',
@@ -6,29 +6,28 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./album-paginator.component.css'],
 })
 export class AlbumPaginatorComponent implements OnInit {
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currPage = this.initialPage;
+  }
 
   @Input()
+  initialPage: number = 1
+
   currPage: number = 1;
 
   @Input()
   finalPage: number = 10;
 
+  @Output()
+  pageChange: EventEmitter<number> = new EventEmitter();
+
   goToPage(pageNumber: number): void{
-    this.currPage = pageNumber;
-  }
-
-  previousPage(): void{
-    if (this.currPage !== 1) {
-      this.currPage--;
-    }
-  }
-
-  nextPage(): void{
-    if (this.currPage !== this.finalPage) {
-      this.currPage++;
+    if (pageNumber >= 1 && pageNumber <= this.finalPage) {
+      this.currPage = pageNumber;
+      this.pageChange.emit(this.currPage);
     }
   }
 
