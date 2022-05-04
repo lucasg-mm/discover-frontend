@@ -2,7 +2,40 @@
     <div (click)="emitCloseEvent()" class="modal-background"></div>
     <div class="modal-content">
         <div class="box">
-            album-creator works!!
+            <form [formGroup]="newAlbumForm" (ngSubmit)="onSubmit(newAlbumForm)">
+                <div class="field">
+                    <label class="label">Title<span class="red">*</span></label>
+                    <div class="control">
+                        <input formControlName="title" class="input" type="text" placeholder="Album's title">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Release date<span class="red">*</span></label>
+                    <div class="control">
+                        <input formControlName="releaseDate" class="input" type="date">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Label</label>
+                    <div class="control">
+                        <input formControlName="label" class="input" type="text" placeholder="Album's label">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Length (in seconds)<span class="red">*</span></label>
+                    <div class="control">
+                        <input formControlName="length" class="input" type="number" placeholder="Album's length">
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button (click)="emitSubmitEvent()" class="button is-link">Add</button>
+                    </div>
+                    <div class="control">
+                        <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <button (click)="emitCloseEvent()" class="modal-close is-large" aria-label="close"></button>

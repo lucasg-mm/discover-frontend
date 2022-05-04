@@ -29,11 +29,17 @@ export class SpecificAlbumComponent implements OnInit {
     const maxChars = 15;
 
     // get the names separated by commas
-    const artistsNames = this.album.artists.reduce(
-      (names, artist) =>
-        names === '' ? artist.name : names + ', ' + artist.name,
-      ''
-    );
+    let artistsNames;
+    if (this.album.artists) {      
+      artistsNames = this.album.artists.reduce(
+        (names, artist) =>
+          names === '' ? artist.name : names + ', ' + artist.name,
+        ''
+      );
+    }
+    else{
+      artistsNames = "";
+    }
 
     return artistsNames.length <= maxChars
       ? artistsNames

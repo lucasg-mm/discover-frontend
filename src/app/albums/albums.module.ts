@@ -8,6 +8,7 @@ import { AlbumSuperiorBarComponent } from './smart-components/superior-bar/album
 import { SpecificAlbumComponent } from './presentational-components/specific-album/specific-album.component';
 import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 import { AlbumCreatorComponent } from './presentational-components/album-creator/album-creator/album-creator.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AlbumCreatorComponent } from './presentational-components/album-creator
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class AlbumsModule { }
