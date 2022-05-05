@@ -27,10 +27,18 @@ export class AlbumsHomeComponent implements OnInit {
   ngOnInit(): void {
     // watches for query params changes
     this.route.queryParams.subscribe((params) => {
-      const pageParam: number = parseInt(params['page']) | 1;
-      this.initialPage = pageParam;
-      this.findAlbumsPaginated(pageParam);
+      this.initialPage = this.validatesAndGetsPage(params["page"]);
+      this.findAlbumsPaginated(this.initialPage);
     });
+  }
+
+  // validates the page param and returns it as a number
+  validatesAndGetsPage(page: any): number{
+    let pageParam: number = parseInt(page);
+
+    // it has to be a number and equal or greater than 1
+    pageParam = (pageParam && pageParam >= 1) ? pageParam : 1; 
+    return pageParam;
   }
 
   openAlbumCreatorModal(): void {
@@ -43,7 +51,7 @@ export class AlbumsHomeComponent implements OnInit {
 
   // changes the query params (this is triggered by a click in the paginator)
   retrieveAlbumsOnPage(pageNumber: number) {
-    this.router.navigate(['/albums'], { queryParams: { page: pageNumber } });
+    this.router.navigate(['/albums'], { queryParams: { page: pageNumber } });    
   }
 
   // find the albums in a paginated way
@@ -62,8 +70,10 @@ export class AlbumsHomeComponent implements OnInit {
   // creates a new album
   createAlbum(albumToBeCreated: Album): void {
     this.albumsService.createAlbum(albumToBeCreated).subscribe((res) => {
-      bulmaToast.toast({ message: 'Album successfully created.', type: 'is-success' })
+      bulmaToast.toast({ message: 'Album successfully created!', type: 'is-success' })
       this.closeAlbumCreatorModal();
+    }, (err) => {
+      console.log(err);  // just logs the error for now
     });
   }
 }

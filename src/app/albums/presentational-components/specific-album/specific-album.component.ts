@@ -30,7 +30,6 @@ export class SpecificAlbumComponent implements OnInit {
     this.albumTitle = this.getAlbumTitle();
   }
 
-
   // returns the artists names separated by commas
   // (it's truncated if it's too long)
   getArtistsNames(): string {
@@ -39,20 +38,19 @@ export class SpecificAlbumComponent implements OnInit {
 
     // get the names separated by commas
     let artistsNames;
-    if (this.album.artists) {      
+    if (this.album.artists?.length) {
       artistsNames = this.album.artists.reduce(
         (names, artist) =>
           names === '' ? artist.name : names + ', ' + artist.name,
         ''
       );
-    }
-    else{
-      artistsNames = "";
+    } else {
+      artistsNames = '&nbsp';  // renders white space if there are no artists in the album
     }
 
     return artistsNames.length <= maxChars
       ? artistsNames
-      : artistsNames.substring(0, maxChars) + "...";
+      : artistsNames.substring(0, maxChars) + '...';
   }
 
   // returns the album's title
@@ -73,8 +71,7 @@ export class SpecificAlbumComponent implements OnInit {
   }
 
   // if the image loading fails, substitutes the url by the local default album cover
-  insertDefaultAlbumCover(): void{
-    this.coverArtUrl = "assets/images/default-cover.png"
+  insertDefaultAlbumCover(): void {
+    this.coverArtUrl = 'assets/images/default-cover.png';
   }
-
 }

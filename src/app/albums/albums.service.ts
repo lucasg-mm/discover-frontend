@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http'; 
 import { AlbumsPaginated } from './models/albums-paginated.model';
 import { Album } from './models/album.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +16,13 @@ export class AlbumsService {
   }
 
   // find every album
-  findAlbumsPaginated(pageNumber: number) {
+  findAlbumsPaginated(pageNumber: number): Observable<AlbumsPaginated> {
     const pageSize: Number = 10;
     return this.http.get<AlbumsPaginated>(`${this.apiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   // creates a new album
-  createAlbum(albumToBeCreated: Album){
+  createAlbum(albumToBeCreated: Album): Observable<Album>{
     return this.http.post<Album>(this.apiUri, albumToBeCreated);
   }
 }
