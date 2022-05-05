@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from '../../albums.service';
 import { Album } from '../../models/album.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,11 +32,11 @@ export class AlbumsHomeComponent implements OnInit {
     });
   }
 
-  openAlbumCreatorModal(): void{
+  openAlbumCreatorModal(): void {
     this.isAlbumCreatorVisible = true;
   }
 
-  closeAlbumCreatorModal(): void{
+  closeAlbumCreatorModal(): void {
     this.isAlbumCreatorVisible = false;
   }
 
@@ -47,11 +47,21 @@ export class AlbumsHomeComponent implements OnInit {
 
   // find the albums in a paginated way
   findAlbumsPaginated(pageNumber: number): void {
-    this.albumsService.findAlbumsPaginated(pageNumber).subscribe((res) => {
-      this.displayedAlbums = res.items;
-      this.finalPage = res.totalPages;
-    }, (err) => {
-      console.log(err);
+    this.albumsService.findAlbumsPaginated(pageNumber).subscribe(
+      (res) => {
+        this.displayedAlbums = res.items;
+        this.finalPage = res.totalPages;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // creates a new album
+  createAlbum(albumToBeCreated: Album): void {
+    this.albumsService.createAlbum(albumToBeCreated).subscribe((res) => {
+      this.closeAlbumCreatorModal();
     });
   }
 }

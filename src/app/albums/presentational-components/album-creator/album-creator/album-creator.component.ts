@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Album } from 'src/app/albums/models/album.model';
 
 @Component({
@@ -11,15 +11,14 @@ import { Album } from 'src/app/albums/models/album.model';
 export class AlbumCreatorComponent implements OnInit {
   newAlbumForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.newAlbumForm = this.formBuilder.group({
-      title: "",
-      releaseDate: "",
-      label: "",
-      length: ""
+      title: ['', Validators.required],
+      releaseDate: ['', Validators.required],
+      label: [''],
+      length: ['', [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -27,17 +26,33 @@ export class AlbumCreatorComponent implements OnInit {
   close: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  submit: EventEmitter<any> = new EventEmitter();
-
-  emitSubmitEvent(): void {
-    this.submit.emit();
-  }
+  submitAlbum: EventEmitter<Album> = new EventEmitter();
 
   emitCloseEvent(): void {
     this.close.emit();
   }
 
-  onSubmit(form: FormGroup): void{
-    console.log(form);
+  emitSubmitEvent(form: FormGroup): void {
+    if (form.valid) {      
+      const albumToBeCreated: Album = {
+        title: form.value.title,
+        releaseDate: form.value.releaseDate,
+        length: form.value.length,
+        label: form.value.label,
+      };    
+      
+      // emits event with the album to be created (that is, only if the form is valid)
+      this.submitAlbum.emit(albumToBeCreated);
+    }
+  }
+
+  isFieldInvalidAndInteracted(fieldName: string): boolean{
+    const field : AbstractControl | null = this.newAlbumForm.get(fieldName);
+
+    if (field === null) {
+      return false;
+    }
+
+    return field.invalid && (field.dirty || field.touched)
   }
 }

@@ -4,5 +4,5 @@
         <app-specific-album *ngFor="let album of displayedAlbums" [album]="album"></app-specific-album>
     </div>
     <app-album-paginator [finalPage]="finalPage" [initialPage]="initialPage" (pageChange)="retrieveAlbumsOnPage($event)"></app-album-paginator>
-    <app-album-creator *ngIf="isAlbumCreatorVisible" (close)="closeAlbumCreatorModal()"></app-album-creator>
+    <app-album-creator *ngIf="isAlbumCreatorVisible" (close)="closeAlbumCreatorModal()" (submitAlbum)="createAlbum($event)"></app-album-creator>
 </div>

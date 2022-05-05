@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http'; 
 import { AlbumsPaginated } from './models/albums-paginated.model';
+import { Album } from './models/album.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,4 +20,8 @@ export class AlbumsService {
     return this.http.get<AlbumsPaginated>(`${this.apiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
+  // creates a new album
+  createAlbum(albumToBeCreated: Album){
+    return this.http.post<Album>(this.apiUri, albumToBeCreated);
+  }
 }
