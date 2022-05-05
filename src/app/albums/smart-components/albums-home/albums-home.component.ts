@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from '../../albums.service';
 import { Album } from '../../models/album.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as bulmaToast from 'bulma-toast'
 
 @Component({
   selector: 'app-albums-home',
@@ -61,6 +62,7 @@ export class AlbumsHomeComponent implements OnInit {
   // creates a new album
   createAlbum(albumToBeCreated: Album): void {
     this.albumsService.createAlbum(albumToBeCreated).subscribe((res) => {
+      bulmaToast.toast({ message: 'Album successfully created.', type: 'is-success' })
       this.closeAlbumCreatorModal();
     });
   }

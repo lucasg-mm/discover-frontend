@@ -1,6 +1,6 @@
 <a class="box" routerLink="/">
     <div class="cover-container">
-        <img height="150px" width="150px" class="cover-art" [src]="coverArtUrl">
+        <img height="150px" width="150px" class="cover-art" [src]="coverArtUrl" (error)="insertDefaultAlbumCover()">
     </div>
     <div class="title is-6">
         {{ albumTitle }}

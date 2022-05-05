@@ -10,6 +10,15 @@ import { environment } from 'src/environments/environment';
 export class SpecificAlbumComponent implements OnInit {
   constructor() {}
 
+  @Input()
+  album!: Album;
+
+  artistsNames: string = '';
+
+  coverArtUrl: string = '';
+
+  albumTitle: string = '';
+
   ngOnInit(): void {
     // gets the artists names from the array
     this.artistsNames = this.getArtistsNames();
@@ -63,12 +72,9 @@ export class SpecificAlbumComponent implements OnInit {
     return `${apiUrl}/albums/${albumId}/cover`;
   }
 
-  @Input()
-  album!: Album;
+  // if the image loading fails, substitutes the url by the local default album cover
+  insertDefaultAlbumCover(): void{
+    this.coverArtUrl = "assets/images/default-cover.png"
+  }
 
-  artistsNames: string = '';
-
-  coverArtUrl: string = '';
-
-  albumTitle: string = '';
 }
