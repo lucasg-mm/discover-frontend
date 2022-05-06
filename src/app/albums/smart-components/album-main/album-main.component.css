@@ -1,0 +1,25 @@
+.main-container{
+    margin-top: 120px;
+}
+
+.album-info{
+    font-weight: bold;
+    padding: 55px;
+}
+
+.album-meta-info{
+    list-style-type: none;
+    margin-left: 0;
+    font-size: .8rem;
+    color: #757575;
+}
+
+.album-header{
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    align-items: center;
+}
+
+.button{
+    margin-right: 15px;
+}

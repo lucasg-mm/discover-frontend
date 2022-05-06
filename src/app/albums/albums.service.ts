@@ -9,20 +9,31 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AlbumsService {
-  apiUri: string;
+  albumApiUri: string;
 
   constructor(private http: HttpClient) {
-    this.apiUri = `${environment.apiUrl}/albums`;
+    this.albumApiUri = `${environment.apiUrl}/albums`;
   }
 
   // find every album
   findAlbumsPaginated(pageNumber: number): Observable<AlbumsPaginated> {
     const pageSize: Number = 10;
-    return this.http.get<AlbumsPaginated>(`${this.apiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    return this.http.get<AlbumsPaginated>(`${this.albumApiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
+
+  // find album by id
+  findAlbumById(albumId: number): Observable<Album> {
+    return this.http.get<Album>(`${this.albumApiUri}/${albumId}`);
+  }
+
+  // get album cover art url
+  getCoverArtUrl(albumId: string): string {
+    const apiUrl = environment.apiUrl;
+    return `${apiUrl}/albums/${albumId}/cover`;
   }
 
   // creates a new album
   createAlbum(albumToBeCreated: Album): Observable<Album>{
-    return this.http.post<Album>(this.apiUri, albumToBeCreated);
+    return this.http.post<Album>(this.albumApiUri, albumToBeCreated);
   }
 }

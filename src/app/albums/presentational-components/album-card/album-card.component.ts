@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Album } from '../../models/album.model';
 import { environment } from 'src/environments/environment';
+import { AlbumsService } from '../../albums.service';
 
 @Component({
   selector: 'app-album-card',
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./album-card.component.css'],
 })
 export class AlbumCardComponent implements OnInit {
-  constructor() {}
+  constructor(private albumService: AlbumsService) {}
 
   @Input()
   album!: Album;
@@ -24,7 +25,7 @@ export class AlbumCardComponent implements OnInit {
     this.artistsNames = this.getArtistsNames();
 
     // gets the album's cover art url
-    this.coverArtUrl = this.getCoverArtUrl(this.album.id!);
+    this.coverArtUrl = this.albumService.getCoverArtUrl(this.album.id!);
 
     // gets the album's title
     this.albumTitle = this.getAlbumTitle();
@@ -62,12 +63,6 @@ export class AlbumCardComponent implements OnInit {
     return this.album.title.length <= maxChars
       ? this.album.title
       : this.album.title.substring(0, maxChars) + '...';
-  }
-
-  // get album cover art url
-  getCoverArtUrl(albumId: string): string {
-    const apiUrl = environment.apiUrl;
-    return `${apiUrl}/albums/${albumId}/cover`;
   }
 
   // if the image loading fails, substitutes the url by the local default album cover
