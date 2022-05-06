@@ -9,6 +9,7 @@ import { AlbumCardComponent } from './presentational-components/album-card/album
 import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 import { AlbumCreatorComponent } from './presentational-components/album-creator/album-creator/album-creator.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlbumMainComponent } from './smart-components/album-main/album-main.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AlbumCardComponent,
     AlbumSuperiorBarComponent,
     AlbumPaginatorComponent,
-    AlbumCreatorComponent
+    AlbumCreatorComponent,
+    AlbumMainComponent
   ],
   imports: [
     CommonModule,
