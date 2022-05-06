@@ -3,11 +3,11 @@ import { Album } from '../../models/album.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-specific-album',
-  templateUrl: './specific-album.component.html',
-  styleUrls: ['./specific-album.component.css'],
+  selector: 'app-album-card',
+  templateUrl: './album-card.component.html',
+  styleUrls: ['./album-card.component.css'],
 })
-export class SpecificAlbumComponent implements OnInit {
+export class AlbumCardComponent implements OnInit {
   constructor() {}
 
   @Input()
