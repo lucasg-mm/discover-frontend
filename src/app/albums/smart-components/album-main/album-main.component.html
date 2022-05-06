@@ -1,6 +1,7 @@
 <div class="main-container" *ngIf="isAlbumLoaded">
     <div class="album-header">
-        <img class="cover-art" height="300px" width="300px" [src]="albumCoverArtUrl" (error)="insertDefaultAlbumCover()">
+        <img class="cover-art" height="300px" width="300px" [src]="albumCoverArtUrl"
+            (error)="insertDefaultAlbumCover()">
 
         <div class="album-info">
             <h1 class="title is-1">
@@ -33,6 +34,14 @@
                 </li>
             </ul>
             <div class="action-btns">
+                <button class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                    <span>
+                        Add artists
+                    </span>
+                </button>
                 <button class="button is-warning is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-pen"></i>
@@ -53,6 +62,31 @@
         </div>
     </div>
     <div class="album-tracks">
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>TITLE</th>
+                    <th>
+                        <i class="fa-solid fa-clock"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- the data loads here -->
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <div class="trackName">
+                            Feel The Love
+                        </div>
+                        <div class="featuredArtists">
+                            Kanye West, Kid Cudi, Pusha T
+                        </div>
+                    </td>
+                    <td>2:50</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
