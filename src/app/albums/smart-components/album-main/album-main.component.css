@@ -7,6 +7,10 @@
     padding: 55px;
 }
 
+.album-title{
+    font-weight: bold;
+}
+
 .album-meta-info{
     list-style-type: none;
     margin-left: 0;

@@ -4,7 +4,7 @@
             (error)="insertDefaultAlbumCover()">
 
         <div class="album-info">
-            <h1 class="title is-1">
+            <h1 class="album-title title is-1">
                 {{albumTitle}}
             </h1>
             <ul class="album-meta-info">
@@ -36,10 +36,26 @@
             <div class="action-btns">
                 <button class="button is-success is-small is-rounded">
                     <span class="icon">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-music"></i>
                     </span>
                     <span>
-                        Add artists
+                        Manage tracks
+                    </span>
+                </button>
+                <button class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-guitar"></i>
+                    </span>
+                    <span>
+                        Manage genres
+                    </span>
+                </button>
+                <button class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </span>
+                    <span>
+                        Manage artists
                     </span>
                 </button>
                 <button class="button is-warning is-small is-rounded">
@@ -47,7 +63,7 @@
                         <i class="fa-solid fa-pen"></i>
                     </span>
                     <span>
-                        Edit
+                        Edit info
                     </span>
                 </button>
                 <button class="button is-danger is-small is-rounded">
@@ -55,7 +71,7 @@
                         <i class="fa-solid fa-trash"></i>
                     </span>
                     <span>
-                        Delete
+                        Delete album
                     </span>
                 </button>
             </div>
