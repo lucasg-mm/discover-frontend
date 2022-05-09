@@ -10,6 +10,7 @@ import { AlbumPaginatorComponent } from './presentational-components/album-pagin
 import { AlbumCreatorComponent } from './presentational-components/album-creator/album-creator/album-creator.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlbumMainComponent } from './smart-components/album-main/album-main.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,13 +20,14 @@ import { AlbumMainComponent } from './smart-components/album-main/album-main.com
     AlbumSuperiorBarComponent,
     AlbumPaginatorComponent,
     AlbumCreatorComponent,
-    AlbumMainComponent
+    AlbumMainComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AlbumsModule { }

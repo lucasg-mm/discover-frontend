@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div class="action-btns">
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-music"></i>
                     </span>
@@ -42,7 +42,7 @@
                         Manage tracks
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-guitar"></i>
                     </span>
@@ -50,7 +50,7 @@
                         Manage genres
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-user-group"></i>
                     </span>
@@ -94,7 +94,9 @@
                     <td>1</td>
                     <td>
                         <div class="trackName">
-                            Feel The Love
+                            <b>
+                                Feel The Love
+                            </b>
                         </div>
                         <div class="featuredArtists">
                             Kanye West, Kid Cudi, Pusha T
@@ -105,4 +107,5 @@
             </tbody>
         </table>
     </div>
+    <app-resource-manager *ngIf="showResourceManager"></app-resource-manager>
 </div>

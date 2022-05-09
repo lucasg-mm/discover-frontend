@@ -15,6 +15,7 @@ export class AlbumMainComponent implements OnInit {
   albumLabel: string;
   isAlbumLoaded: boolean = false;
   albumCoverArtUrl: string;
+  showResourceManager: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -61,12 +62,9 @@ export class AlbumMainComponent implements OnInit {
   // gets a certain album by its id
   getAlbumById(id: number): void {
     this.albumService.findAlbumById(id).subscribe((res) => {
-
       // gets the relevant info from the api
       this.artistsNames = this.getArtistsNames(res.artists!);
-      this.formattedAlbumLength = this.getFormattedAlbumLength(
-        res.length
-      );
+      this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
       this.formattedReleaseDate = this.getFormattedDate(res.releaseDate!);
       this.albumTitle = res.title;
       this.albumLabel = res.label;
@@ -77,9 +75,13 @@ export class AlbumMainComponent implements OnInit {
     });
   }
 
-    // if the image loading fails, substitutes the url by the local default album cover
-    // ******duplicated code (how to avoid it?)*******
-    insertDefaultAlbumCover(): void {
-      this.albumCoverArtUrl = 'assets/images/default-cover.png';
-    }
+  // if the image loading fails, substitutes the url by the local default album cover
+  // ******duplicated code (how to avoid it?)*******
+  insertDefaultAlbumCover(): void {
+    this.albumCoverArtUrl = 'assets/images/default-cover.png';
+  }
+
+  openResourceManager(): void{
+    this.showResourceManager = true;
+  }
 }
