@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumsService } from '../../albums.service';
+import { TracksService } from 'src/app/tracks/tracks.service';
 
 @Component({
   selector: 'app-album-main',
@@ -19,7 +20,8 @@ export class AlbumMainComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private albumService: AlbumsService
+    private albumService: AlbumsService,
+    private trackService: TracksService
   ) {}
 
   ngOnInit(): void {
@@ -81,11 +83,13 @@ export class AlbumMainComponent implements OnInit {
     this.albumCoverArtUrl = 'assets/images/default-cover.png';
   }
 
-  openTrackManager(): void{
+  openTrackManager(): void {
     this.showTrackManager = true;
   }
 
-  searchTracks(searchTerm: string): void{
-    console.log(searchTerm);
+  searchTracks(searchTerm: string, pageNumber: number = 1): void {
+    this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
+      console.log(res);
+    });
   }
 }

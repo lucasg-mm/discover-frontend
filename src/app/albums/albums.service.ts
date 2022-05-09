@@ -17,8 +17,7 @@ export class AlbumsService {
 
   // find every album
   findAlbumsPaginated(pageNumber: number): Observable<AlbumsPaginated> {
-    const pageSize: Number = 10;
-    return this.http.get<AlbumsPaginated>(`${this.albumApiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    return this.http.get<AlbumsPaginated>(`${this.albumApiUri}?pageNumber=${pageNumber}&pageSize=${10}`);
   }
 
   // find album by id
@@ -28,8 +27,7 @@ export class AlbumsService {
 
   // get album cover art url
   getCoverArtUrl(albumId: string): string {
-    const apiUrl = environment.apiUrl;
-    return `${apiUrl}/albums/${albumId}/cover`;
+    return `${this.albumApiUri}/${albumId}/cover`;
   }
 
   // creates a new album
