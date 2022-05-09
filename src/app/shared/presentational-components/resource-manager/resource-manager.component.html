@@ -6,11 +6,28 @@
             <h1 class="title">Manage tracks</h1>
             <div class="columns">
                 <div class="column">
+                    <div class="columns">
+                        <div class="column">
+                            <div class="control has-icons-left">
+                                <input [(ngModel)]="searchTerm" class="input is-rounded" type="text">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button (click)="emitSearchEvent()" class="button is-rounded is-info">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </span>
+                                <span>
+                                    Search
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="table-container">
                         <table class="table">
-                            <tr>
+                            <tr *ngFor="let resource of resources">
                                 <td>
-                                    Hey
+                                    {{ resource.name }}
                                 </td>
                             </tr>
                         </table>

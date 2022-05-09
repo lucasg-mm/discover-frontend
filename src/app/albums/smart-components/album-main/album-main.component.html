@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div class="action-btns">
-                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
+                <button (click)="openTrackManager()" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-music"></i>
                     </span>
@@ -42,7 +42,7 @@
                         Manage tracks
                     </span>
                 </button>
-                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
+                <button class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-guitar"></i>
                     </span>
@@ -50,7 +50,7 @@
                         Manage genres
                     </span>
                 </button>
-                <button (click)="openResourceManager()" class="button is-success is-small is-rounded">
+                <button class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-user-group"></i>
                     </span>
@@ -89,7 +89,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- the data loads here -->
                 <tr>
                     <td>1</td>
                     <td>
@@ -107,5 +106,5 @@
             </tbody>
         </table>
     </div>
-    <app-resource-manager *ngIf="showResourceManager"></app-resource-manager>
+    <app-resource-manager (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
 </div>

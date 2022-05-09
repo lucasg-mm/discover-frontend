@@ -15,7 +15,7 @@ export class AlbumMainComponent implements OnInit {
   albumLabel: string;
   isAlbumLoaded: boolean = false;
   albumCoverArtUrl: string;
-  showResourceManager: boolean = false;
+  showTrackManager: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -81,7 +81,11 @@ export class AlbumMainComponent implements OnInit {
     this.albumCoverArtUrl = 'assets/images/default-cover.png';
   }
 
-  openResourceManager(): void{
-    this.showResourceManager = true;
+  openTrackManager(): void{
+    this.showTrackManager = true;
+  }
+
+  searchTracks(searchTerm: string): void{
+    console.log(searchTerm);
   }
 }
