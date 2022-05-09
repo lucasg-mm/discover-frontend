@@ -6,41 +6,94 @@
             <h1 class="title">Manage tracks</h1>
             <div class="columns">
                 <div class="column">
-                    <div class="columns">
-                        <div class="column">
-                            <div class="control has-icons-left">
-                                <input [(ngModel)]="searchTerm" class="input is-rounded" type="text">
-                            </div>
-                        </div>
-                        <div class="column">
-                            <button (click)="emitSearchEvent()" class="button is-rounded is-info">
-                                <span class="icon is-small">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </span>
-                                <span>
-                                    Search
-                                </span>
-                            </button>
-                        </div>
+                    <div class="control">
+                        <input [(ngModel)]="searchTerm" class="input is-rounded" type="text">
                     </div>
+                </div>
+                <div class="column">
+                    <button (click)="emitSearchEvent()" class="button is-rounded is-info">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <span>
+                            Search
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column">
                     <div class="table-container">
                         <table class="table">
-                            <tr *ngFor="let resource of resources">
-                                <td>
-                                    {{ resource.name }}
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <b>
+                                            ID
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            NAME
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            ACTION
+                                        </b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let resourceToBeAttached of resourcesToBeAttached">
+                                    <td>
+                                        {{ resourceToBeAttached.id }}
+                                    </td>
+                                    <td>
+                                        {{ resourceToBeAttached.name }}
+                                    </td>
+                                    <td>
+                                        <button class="button is-rounded is-small is-success">
+                                            <span class="icon is-small">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="column">
                     <div class="table-container">
                         <table class="table">
-                            <tr>
-                                <td>
-                                    Hey
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <b>
+                                            ID
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            NAME
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            ACTION
+                                        </b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Hey
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

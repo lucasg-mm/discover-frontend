@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Resource } from '../../models/resource.model';
 
@@ -9,8 +9,10 @@ import { Resource } from '../../models/resource.model';
 })
 export class ResourceManagerComponent implements OnInit {
 
+
+  // holds the managed resources (can be tracks, genres, artists)
   @Input()
-  resources: Resource[];
+  resourcesToBeAttached: Resource[];
 
   @Output()
   search: EventEmitter<string> = new EventEmitter();

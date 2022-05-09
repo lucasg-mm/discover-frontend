@@ -106,5 +106,5 @@
             </tbody>
         </table>
     </div>
-    <app-resource-manager (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
+    <app-resource-manager [resourcesToBeAttached]="managedResources" (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
 </div>

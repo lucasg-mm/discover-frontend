@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumsService } from '../../albums.service';
 import { TracksService } from 'src/app/tracks/tracks.service';
+import { Resource } from 'src/app/shared/models/resource.model';
 
 @Component({
   selector: 'app-album-main',
@@ -17,6 +18,7 @@ export class AlbumMainComponent implements OnInit {
   isAlbumLoaded: boolean = false;
   albumCoverArtUrl: string;
   showTrackManager: boolean = false;
+  managedResources: Resource[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -87,9 +89,17 @@ export class AlbumMainComponent implements OnInit {
     this.showTrackManager = true;
   }
 
+  // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
     this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
-      console.log(res);
+      this.managedResources = res.items.map((track) => {
+        const resource: Resource = {
+          id: track.id,
+          name: track.title,
+        };
+
+        return resource;
+      });
     });
   }
 }
