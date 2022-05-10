@@ -1,0 +1,40 @@
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <b>
+                        ID
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        NAME
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        ACTION
+                    </b>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let resource of resources">
+                <td>
+                    {{ resource.id }}
+                </td>
+                <td>
+                    {{ resource.name }}
+                </td>
+                <td>
+                    <button (click)="emitAttachEvent(resource.id!)" class="button is-rounded is-small is-success">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

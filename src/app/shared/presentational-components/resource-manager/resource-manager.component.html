@@ -4,98 +4,13 @@
     <div class="modal-content">
         <div class="box">
             <h1 class="title">Manage tracks</h1>
+            <app-search-resource-bar (search)="emitSearchEvent($event)"></app-search-resource-bar>
             <div class="columns">
                 <div class="column">
-                    <div class="control">
-                        <input [(ngModel)]="searchTerm" class="input is-rounded" type="text">
-                    </div>
+                    <app-resource-table (attach)="emitAttachEvent($event)" [resources]="resourcesToBeAttached"></app-resource-table>
                 </div>
                 <div class="column">
-                    <button (click)="emitSearchEvent()" class="button is-rounded is-info">
-                        <span class="icon is-small">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                        <span>
-                            Search
-                        </span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="columns">
-                <div class="column">
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>
-                                        <b>
-                                            ID
-                                        </b>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            NAME
-                                        </b>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            ACTION
-                                        </b>
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let resourceToBeAttached of resourcesToBeAttached">
-                                    <td>
-                                        {{ resourceToBeAttached.id }}
-                                    </td>
-                                    <td>
-                                        {{ resourceToBeAttached.name }}
-                                    </td>
-                                    <td>
-                                        <button class="button is-rounded is-small is-success">
-                                            <span class="icon is-small">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>
-                                        <b>
-                                            ID
-                                        </b>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            NAME
-                                        </b>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            ACTION
-                                        </b>
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Hey
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <app-resource-table [resources]="alreadyAttachedResources"></app-resource-table>
                 </div>
             </div>
         </div>
