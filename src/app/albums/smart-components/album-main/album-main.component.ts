@@ -4,6 +4,7 @@ import { AlbumsService } from '../../albums.service';
 import { TracksService } from 'src/app/tracks/tracks.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { Track } from 'src/app/tracks/models/track.model';
+import * as bulmaToast from 'bulma-toast'
 
 @Component({
   selector: 'app-album-main',
@@ -136,6 +137,7 @@ export class AlbumMainComponent implements OnInit {
     this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
       // reloads the tracklist
       this.loadTracks();
+      bulmaToast.toast({ message: 'Track attached!', type: 'is-success' })
     });
   }
 
