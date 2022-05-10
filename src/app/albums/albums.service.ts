@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlbumsPaginated } from './models/albums-paginated.model';
 import { Album } from './models/album.model';
 import { Observable } from 'rxjs';
+import { Track } from '../tracks/models/track.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AlbumsService {
   }
 
   // find album by id
-  findAlbumById(albumId: number): Observable<Album> {
+  findAlbumById(albumId: string): Observable<Album> {
     return this.http.get<Album>(`${this.albumApiUri}/${albumId}`);
   }
 
@@ -34,4 +35,20 @@ export class AlbumsService {
   createAlbum(albumToBeCreated: Album): Observable<Album>{
     return this.http.post<Album>(this.albumApiUri, albumToBeCreated);
   }
+
+  // attach a track to the album
+  attachTrackToAlbum(albumId: string, trackId: string): Observable<Track>{
+    return this.http.put<Track>(`${this.albumApiUri}/${albumId}/tracks/${trackId}`, {});
+  }
+
+  // detach a track from the album
+  detachTrackFromAlbum(albumId: string, trackId: string): Observable<Album>{
+    return this.http.delete<Album>(`${this.albumApiUri}/${albumId}/tracks/${trackId}`);
+  }
+
+  // get all tracks from an album
+  getAllTracks(albumId: string): Observable<Track[]>{
+    return this.http.get<Track[]>(`${this.albumApiUri}/${albumId}/tracks`);
+  }
+
 }

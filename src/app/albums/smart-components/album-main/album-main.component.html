@@ -89,12 +89,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
+                <tr *ngFor="let track of tracks; let i = index">
+                    <td>{{ i + 1 }}</td>
                     <td>
                         <div class="trackName">
                             <b>
-                                Feel The Love
+                                {{ track.title }}
                             </b>
                         </div>
                         <div class="featuredArtists">
@@ -106,5 +106,7 @@
             </tbody>
         </table>
     </div>
-    <app-resource-manager [resourcesToBeAttached]="managedResources" (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
+    <app-resource-manager [alreadyAttachedResources]="alreadyAttachedResources"
+        [resourcesToBeAttached]="resourcesToBeAttached" (attach)="attachTrackToAlbum($event)"
+        (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
 </div>

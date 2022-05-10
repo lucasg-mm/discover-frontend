@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlbumsService } from '../../albums.service';
 import { TracksService } from 'src/app/tracks/tracks.service';
 import { Resource } from 'src/app/shared/models/resource.model';
+import { Track } from 'src/app/tracks/models/track.model';
 
 @Component({
   selector: 'app-album-main',
@@ -15,10 +16,13 @@ export class AlbumMainComponent implements OnInit {
   formattedAlbumLength: string;
   formattedReleaseDate: string;
   albumLabel: string;
+  albumId: string;
   isAlbumLoaded: boolean = false;
   albumCoverArtUrl: string;
   showTrackManager: boolean = false;
-  managedResources: Resource[] = [];
+  resourcesToBeAttached: Resource[] = [];
+  alreadyAttachedResources: Resource[] = [];
+  tracks: Track[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,10 +31,9 @@ export class AlbumMainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const albumId = parseInt(
-      this.activatedRoute.snapshot.paramMap.get('albumId')!
-    );
-    this.getAlbumById(albumId);
+    this.albumId = this.activatedRoute.snapshot.paramMap.get('albumId')!
+    this.loadAlbumInfo();
+    this.loadTracks()
   }
 
   getArtistsNames(artists: any[]): string {
@@ -63,9 +66,10 @@ export class AlbumMainComponent implements OnInit {
     return `${day}/${month}/${year}`;
   }
 
-  // gets a certain album by its id
-  getAlbumById(id: number): void {
-    this.albumService.findAlbumById(id).subscribe((res) => {
+  // loads the album's info
+  loadAlbumInfo(): void {
+    const albumId = this.albumId;
+    this.albumService.findAlbumById(albumId).subscribe((res) => {
       // gets the relevant info from the api
       this.artistsNames = this.getArtistsNames(res.artists!);
       this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
@@ -85,14 +89,64 @@ export class AlbumMainComponent implements OnInit {
     this.albumCoverArtUrl = 'assets/images/default-cover.png';
   }
 
+  // opens the modal to add/remove tracks
   openTrackManager(): void {
     this.showTrackManager = true;
+  }
+
+  // attach a track with a certain id to this album
+  attachTrackToAlbum(trackId: string): void {
+    const albumId = this.albumId;
+
+    this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  // starts the loading of all tracks inside the tracks property
+  loadTracks(): void {
+    const albumId = this.albumId;
+
+    // get every track of an album
+    // assigns it to the tracks property
+    this.albumService.getAllTracks(albumId).subscribe((res) => {
+      // parsing the tracks array to a format that can be used by the app
+      this.tracks = this.parsesTracksToTrackListFormat(res);
+
+      // parsing the tracks array to a format that can be used by the resource generator
+      this.alreadyAttachedResources = this.parsesTracksToAlreadyAttachedResources(res);
+    });
+  }
+
+  // the already attached resources expects the track data in certain format
+  // this just parses a Track array to a Resource array
+  parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[]{
+    return tracks.map((track) => {
+      return {
+        id: track.id,
+        name: track.title
+      };
+    });
+  }
+
+  // do data manipulation on some Track's properties, to make 
+  // it appropriate to display it on the track list component
+  parsesTracksToTrackListFormat(tracks: Track[]): Track[]{
+    return tracks.map((track) => {
+      return track;
+    });
+  }
+
+  // detach a track with a certain id from this album
+  detachTrackFromAlbum(trackId: string): void {
+    // todo!!
+    console.log('Removing track with id', trackId);
   }
 
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
     this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
-      this.managedResources = res.items.map((track) => {
+      this.resourcesToBeAttached = res.items.map((track) => {
         const resource: Resource = {
           id: track.id,
           name: track.title,

@@ -1,10 +1,8 @@
 import {
   Component,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Resource } from '../../models/resource.model';
@@ -41,7 +39,7 @@ export class ResourceManagerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  
+
   emitAttachEvent(id: string): void {
     this.attach.emit(id);
   }
