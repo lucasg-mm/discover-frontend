@@ -1,5 +1,5 @@
 <div class="modal is-active">
-    <div class="modal-background">
+    <div (click)="emitCloseEvent()" class="modal-background">
     </div>
     <div class="modal-content">
         <div class="box">
@@ -15,5 +15,5 @@
             </div>
         </div>
     </div>
-
+    <button (click)="emitCloseEvent()" class="modal-close is-large" aria-label="close"></button>
 </div>

@@ -94,30 +94,22 @@ export class AlbumMainComponent implements OnInit {
     this.showTrackManager = true;
   }
 
-  // attach a track with a certain id to this album
-  attachTrackToAlbum(trackId: string): void {
-    const albumId = this.albumId;
-
-    this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
-      console.log(res);
-    });
-  }
-
-  // starts the loading of all tracks inside the tracks property
+  
+  // starts the loading of all tracks inside the tracklist
   loadTracks(): void {
     const albumId = this.albumId;
-
+    
     // get every track of an album
     // assigns it to the tracks property
     this.albumService.getAllTracks(albumId).subscribe((res) => {
       // parsing the tracks array to a format that can be used by the app
       this.tracks = this.parsesTracksToTrackListFormat(res);
-
+      
       // parsing the tracks array to a format that can be used by the resource generator
       this.alreadyAttachedResources = this.parsesTracksToAlreadyAttachedResources(res);
     });
   }
-
+  
   // the already attached resources expects the track data in certain format
   // this just parses a Track array to a Resource array
   parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[]{
@@ -128,12 +120,22 @@ export class AlbumMainComponent implements OnInit {
       };
     });
   }
-
+  
   // do data manipulation on some Track's properties, to make 
   // it appropriate to display it on the track list component
   parsesTracksToTrackListFormat(tracks: Track[]): Track[]{
     return tracks.map((track) => {
       return track;
+    });
+  }
+
+  // attach a track with a certain id to this album
+  attachTrackToAlbum(trackId: string): void {
+    const albumId = this.albumId;
+
+    this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
+      // reloads the tracklist
+      this.loadTracks();
     });
   }
 
@@ -155,5 +157,10 @@ export class AlbumMainComponent implements OnInit {
         return resource;
       });
     });
+  }
+  
+  // closes the track manager modal
+  closeTrackManager(): void {
+    this.showTrackManager = false;
   }
 }

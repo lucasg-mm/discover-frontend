@@ -108,5 +108,5 @@
     </div>
     <app-resource-manager [alreadyAttachedResources]="alreadyAttachedResources"
         [resourcesToBeAttached]="resourcesToBeAttached" (attach)="attachTrackToAlbum($event)"
-        (search)="searchTracks($event)" *ngIf="showTrackManager"></app-resource-manager>
+        (search)="searchTracks($event)" (close)="closeTrackManager()" *ngIf="showTrackManager"></app-resource-manager>
 </div>

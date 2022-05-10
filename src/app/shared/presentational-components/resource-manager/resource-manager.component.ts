@@ -35,6 +35,9 @@ export class ResourceManagerComponent implements OnInit {
   @Output()
   detach: EventEmitter<string> = new EventEmitter();
 
+  @Output()
+  close: EventEmitter<void> = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -50,5 +53,9 @@ export class ResourceManagerComponent implements OnInit {
 
   emitSearchEvent(searchTerm: string): void{
     this.search.emit(searchTerm);
+  }
+
+  emitCloseEvent(): void{
+    this.close.emit();
   }
 }
