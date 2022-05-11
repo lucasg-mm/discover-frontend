@@ -10,6 +10,7 @@
                         <app-search-resource-bar (search)="emitSearchEvent($event)"></app-search-resource-bar>
                     </div>
                     <app-resource-table buttonType="add" [resources]="resourcesToBeAttached" (attach)="emitAttachEvent($event)"></app-resource-table>
+                    <app-album-paginator></app-album-paginator>
                 </div>
                 <div class="column attached-column">
                     <h1 class="title">Attached</h1>

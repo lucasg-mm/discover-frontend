@@ -13,6 +13,8 @@ export class AlbumPaginatorComponent implements OnInit {
     this.currPage = this.initialPage;
   }
 
+  // the page that the paginator should be 
+  // when it's first rendered
   @Input()
   initialPage: number = 1
 

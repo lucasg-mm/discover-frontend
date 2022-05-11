@@ -1,16 +1,18 @@
 <nav class="pagination is-rounded" role="navigation">
-    <a *ngIf="!isPageTheFirst(currPage)" (click)="goToPage(currPage - 1)" class="pagination-previous">Previous</a>
-    <a *ngIf="!isPageTheFinal(currPage)" (click)="goToPage(currPage + 1)" class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-        <li *ngIf="!isPageTheFirst(currPage)"><a (click)="goToPage(1)" class="pagination-link">1</a></li>
-        <li *ngIf="pagesBetweenExist(1, currPage - 1)"><span class="pagination-ellipsis">&hellip;</span></li>
-        <li *ngIf="!isPageTheFirst(currPage - 1) && !isPageTheFirst(currPage)"><a (click)="goToPage(currPage - 1)"
-                class="pagination-link">{{ currPage - 1 }}</a></li>
-        <li><a class="pagination-link is-current">{{ currPage }}</a></li>
-        <li *ngIf="!isPageTheFinal(currPage + 1) && !isPageTheFinal(currPage)"><a (click)="goToPage(currPage + 1)"
-                class="pagination-link">{{ currPage + 1 }}</a></li>
-        <li *ngIf="pagesBetweenExist(currPage + 1, finalPage)"><span class="pagination-ellipsis">&hellip;</span></li>
-        <li *ngIf="!isPageTheFinal(currPage)"><a (click)="goToPage(finalPage)" class="pagination-link">{{ finalPage
-                }}</a></li>
-    </ul>
+        <a *ngIf="!isPageTheFirst(currPage)" (click)="goToPage(currPage - 1)" class="pagination-previous">Previous</a>
+        <a *ngIf="!isPageTheFinal(currPage)" (click)="goToPage(currPage + 1)" class="pagination-next">Next page</a>
+        <ul class="pagination-list">
+                <li *ngIf="!isPageTheFirst(currPage)"><a (click)="goToPage(1)" class="pagination-link">1</a></li>
+                <li *ngIf="pagesBetweenExist(1, currPage - 1)"><span class="pagination-ellipsis">&hellip;</span></li>
+                <li *ngIf="!isPageTheFirst(currPage - 1) && !isPageTheFirst(currPage)"><a
+                                (click)="goToPage(currPage - 1)" class="pagination-link">{{ currPage - 1 }}</a></li>
+                <li><a class="pagination-link is-current">{{ currPage }}</a></li>
+                <li *ngIf="!isPageTheFinal(currPage + 1) && !isPageTheFinal(currPage)"><a
+                                (click)="goToPage(currPage + 1)" class="pagination-link">{{ currPage + 1 }}</a></li>
+                <li *ngIf="pagesBetweenExist(currPage + 1, finalPage)"><span class="pagination-ellipsis">&hellip;</span>
+                </li>
+                <li *ngIf="!isPageTheFinal(currPage)"><a (click)="goToPage(finalPage)" class="pagination-link">{{
+                                finalPage
+                                }}</a></li>
+        </ul>
 </nav>
