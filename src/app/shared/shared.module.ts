@@ -4,10 +4,11 @@ import { ResourceManagerComponent } from './presentational-components/resource-m
 import { FormsModule } from '@angular/forms';
 import { ResourceTableComponent } from './presentational-components/resource-table/resource-table/resource-table.component';
 import { SearchResourceBarComponent } from './presentational-components/search-resource-bar/search-resource-bar.component';
+import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 
 @NgModule({
-  declarations: [ResourceManagerComponent, ResourceTableComponent, SearchResourceBarComponent],
+  declarations: [ResourceManagerComponent, ResourceTableComponent, SearchResourceBarComponent, AlbumPaginatorComponent],
   imports: [CommonModule, FormsModule],
-  exports: [ResourceManagerComponent],
+  exports: [ResourceManagerComponent, AlbumPaginatorComponent],
 })
 export class SharedModule {}
