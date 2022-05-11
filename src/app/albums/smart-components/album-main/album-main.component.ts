@@ -154,14 +154,9 @@ export class AlbumMainComponent implements OnInit {
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
     this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
-      this.resourcesToBeAttached = res.items.map((track) => {
-        const resource: Resource = {
-          id: track.id,
-          name: track.title,
-        };
-
-        return resource;
-      });
+      // the search input is for the resources to be attached
+      // so, we parse the Track array to a Resource array 
+      this.resourcesToBeAttached = this.parsesTracksToAlreadyAttachedResources(res.items);
     });
   }
   
