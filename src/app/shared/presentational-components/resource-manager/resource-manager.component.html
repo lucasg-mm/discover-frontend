@@ -7,10 +7,10 @@
             <app-search-resource-bar (search)="emitSearchEvent($event)"></app-search-resource-bar>
             <div class="columns">
                 <div class="column">
-                    <app-resource-table (attach)="emitAttachEvent($event)" [resources]="resourcesToBeAttached"></app-resource-table>
+                    <app-resource-table buttonType="add" [resources]="resourcesToBeAttached" (attach)="emitAttachEvent($event)"></app-resource-table>
                 </div>
                 <div class="column">
-                    <app-resource-table [resources]="alreadyAttachedResources"></app-resource-table>
+                    <app-resource-table buttonType="remove" [resources]="alreadyAttachedResources" (detach)="emitDetachEvent($event)"></app-resource-table>
                 </div>
             </div>
         </div>

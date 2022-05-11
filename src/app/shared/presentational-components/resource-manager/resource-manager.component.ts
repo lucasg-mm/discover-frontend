@@ -35,6 +35,8 @@ export class ResourceManagerComponent implements OnInit {
   @Output()
   detach: EventEmitter<string> = new EventEmitter();
 
+  // tells the parent the user clicked either in
+  // the close icon, or outside the modal
   @Output()
   close: EventEmitter<void> = new EventEmitter();
 
@@ -42,13 +44,12 @@ export class ResourceManagerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-
   emitAttachEvent(id: string): void {
     this.attach.emit(id);
   }
 
-  emitDetachEvent(): void {
-    console.log('Detach!!!');
+  emitDetachEvent(id: string): void {
+    this.detach.emit(id);
   }
 
   emitSearchEvent(searchTerm: string): void{

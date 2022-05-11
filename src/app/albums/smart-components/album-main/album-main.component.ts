@@ -143,8 +143,12 @@ export class AlbumMainComponent implements OnInit {
 
   // detach a track with a certain id from this album
   detachTrackFromAlbum(trackId: string): void {
-    // todo!!
-    console.log('Removing track with id', trackId);
+    const albumId = this.albumId;
+
+    this.albumService.detachTrackFromAlbum(albumId, trackId).subscribe((res) => {
+      this.loadTracks();
+      bulmaToast.toast({ message: 'Track detached!', type: 'is-success' })
+    })    
   }
 
   // search for tracks (the result is paginated)

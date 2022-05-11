@@ -28,9 +28,14 @@
                     {{ resource.name }}
                 </td>
                 <td>
-                    <button (click)="emitAttachEvent(resource.id!)" class="button is-rounded is-small is-success">
+                    <button *ngIf="isButtonAdd()" (click)="emitAttachEvent(resource.id!)" class="button is-rounded is-small is-success">
                         <span class="icon is-small">
                             <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </button>
+                    <button *ngIf="isButtonRemove()" (click)="emitDetachEvent(resource.id!)" class="button is-rounded is-small is-danger">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-circle-minus"></i>
                         </span>
                     </button>
                 </td>

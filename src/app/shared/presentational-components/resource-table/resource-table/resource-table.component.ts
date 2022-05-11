@@ -4,15 +4,17 @@ import { Resource } from 'src/app/shared/models/resource.model';
 @Component({
   selector: 'app-resource-table',
   templateUrl: './resource-table.component.html',
-  styleUrls: ['./resource-table.component.css']
+  styleUrls: ['./resource-table.component.css'],
 })
 export class ResourceTableComponent implements OnInit {
-
   // the resources that should be displayed in the table
   @Input()
   resources: Resource[];
 
-  // emitted when the attach button is clicked 
+  @Input()
+  buttonType: string;
+
+  // emitted when the attach button is clicked
   @Output()
   attach: EventEmitter<string> = new EventEmitter();
 
@@ -20,12 +22,25 @@ export class ResourceTableComponent implements OnInit {
   @Output()
   detach: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  // tells if the button in each row should be an add button
+  isButtonAdd(): boolean {
+    return this.buttonType === 'add';
   }
 
-  emitAttachEvent(id: string): void{
+  // tells if the button in each row should be a remove button
+  isButtonRemove(): boolean {
+    return this.buttonType === 'remove';
+  }
+
+  emitAttachEvent(id: string): void {
     this.attach.emit(id);
+  }
+
+  emitDetachEvent(id: string): void {    
+    this.detach.emit(id);
   }
 }
