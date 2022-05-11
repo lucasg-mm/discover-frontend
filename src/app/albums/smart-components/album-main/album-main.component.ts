@@ -4,7 +4,7 @@ import { AlbumsService } from '../../albums.service';
 import { TracksService } from 'src/app/tracks/tracks.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { Track } from 'src/app/tracks/models/track.model';
-import * as bulmaToast from 'bulma-toast'
+import * as bulmaToast from 'bulma-toast';
 
 @Component({
   selector: 'app-album-main',
@@ -24,6 +24,8 @@ export class AlbumMainComponent implements OnInit {
   resourcesToBeAttached: Resource[] = [];
   alreadyAttachedResources: Resource[] = [];
   tracks: Track[];
+  resourceInitialPage: number = 1;
+  resourceFinalPage: number = 10;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,9 +34,9 @@ export class AlbumMainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.albumId = this.activatedRoute.snapshot.paramMap.get('albumId')!
+    this.albumId = this.activatedRoute.snapshot.paramMap.get('albumId')!;
     this.loadAlbumInfo();
-    this.loadTracks()
+    this.loadTracks();
   }
 
   getArtistsNames(artists: any[]): string {
@@ -92,39 +94,55 @@ export class AlbumMainComponent implements OnInit {
 
   // opens the modal to add/remove tracks
   openTrackManager(): void {
+    this.resourceInitialPage = 1;
+    this.loadAllTracksFromPage(1);
     this.showTrackManager = true;
   }
 
-  
+  // loads all tracks from a certain page
+  loadAllTracksFromPage(pageNumber: number): void{
+    this.trackService.getAllTracks(pageNumber).subscribe((res) => {
+      // getting the final page information
+      this.resourceFinalPage = res.totalPages;
+
+      // the search input is for the resources to be attached
+      // so, we parse the Track array to a Resource array
+      this.resourcesToBeAttached = this.parsesTracksToAlreadyAttachedResources(
+        res.items
+      );
+    });
+  }
+
   // starts the loading of all tracks inside the tracklist
   loadTracks(): void {
     const albumId = this.albumId;
-    
+
     // get every track of an album
     // assigns it to the tracks property
-    this.albumService.getAllTracks(albumId).subscribe((res) => {
+    this.albumService.getAllTracksFromAlbum(albumId).subscribe((res) => {
       // parsing the tracks array to a format that can be used by the app
       this.tracks = this.parsesTracksToTrackListFormat(res);
-      
+
       // parsing the tracks array to a format that can be used by the resource generator
-      this.alreadyAttachedResources = this.parsesTracksToAlreadyAttachedResources(res);
+      this.alreadyAttachedResources =
+        this.parsesTracksToAlreadyAttachedResources(res);
     });
   }
-  
+
   // the already attached resources expects the track data in certain format
   // this just parses a Track array to a Resource array
-  parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[]{
+  parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[] {
     return tracks.map((track) => {
       return {
         id: track.id,
-        name: track.title
+        name: track.title,
       };
     });
   }
-  
-  // do data manipulation on some Track's properties, to make 
+
+  // do data manipulation on some Track's properties, to make
   // it appropriate to display it on the track list component
-  parsesTracksToTrackListFormat(tracks: Track[]): Track[]{
+  parsesTracksToTrackListFormat(tracks: Track[]): Track[] {
     return tracks.map((track) => {
       return track;
     });
@@ -137,7 +155,7 @@ export class AlbumMainComponent implements OnInit {
     this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
       // reloads the tracklist
       this.loadTracks();
-      bulmaToast.toast({ message: 'Track attached!', type: 'is-success' })
+      bulmaToast.toast({ message: 'Track attached!', type: 'is-success' });
     });
   }
 
@@ -145,21 +163,29 @@ export class AlbumMainComponent implements OnInit {
   detachTrackFromAlbum(trackId: string): void {
     const albumId = this.albumId;
 
-    this.albumService.detachTrackFromAlbum(albumId, trackId).subscribe((res) => {
-      this.loadTracks();
-      bulmaToast.toast({ message: 'Track detached!', type: 'is-success' })
-    })    
+    this.albumService
+      .detachTrackFromAlbum(albumId, trackId)
+      .subscribe((res) => {
+        this.loadTracks();
+        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' });
+      });
   }
 
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
     this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
+      // getting page information
+      this.resourceInitialPage = 1;
+      this.resourceFinalPage = res.totalPages;
+
       // the search input is for the resources to be attached
-      // so, we parse the Track array to a Resource array 
-      this.resourcesToBeAttached = this.parsesTracksToAlreadyAttachedResources(res.items);
+      // so, we parse the Track array to a Resource array
+      this.resourcesToBeAttached = this.parsesTracksToAlreadyAttachedResources(
+        res.items
+      );
     });
   }
-  
+
   // closes the track manager modal
   closeTrackManager(): void {
     this.showTrackManager = false;

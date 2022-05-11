@@ -47,7 +47,7 @@ export class AlbumsService {
   }
 
   // get all tracks from an album
-  getAllTracks(albumId: string): Observable<Track[]>{
+  getAllTracksFromAlbum(albumId: string): Observable<Track[]>{
     return this.http.get<Track[]>(`${this.albumApiUri}/${albumId}/tracks`);
   }
 

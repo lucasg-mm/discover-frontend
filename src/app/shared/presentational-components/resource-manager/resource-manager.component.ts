@@ -23,6 +23,12 @@ export class ResourceManagerComponent implements OnInit {
   @Input()
   alreadyAttachedResources: Resource[];
 
+  @Input()
+  initialPage: number = 1;
+
+  @Input()
+  finalPage: number = 10;
+
   // searches for a resource to be attached
   @Output()
   search: EventEmitter<string> = new EventEmitter();
