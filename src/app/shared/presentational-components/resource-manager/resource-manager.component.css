@@ -1,3 +1,15 @@
 .modal-content {
   width: 70%;
 }
+
+.box{
+  padding: 50px;
+}
+
+.attached-column{
+  margin-left: 50px;
+}
+
+.search-bar{
+  margin-bottom: 30px;
+}
