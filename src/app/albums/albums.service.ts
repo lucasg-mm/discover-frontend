@@ -22,12 +22,12 @@ export class AlbumsService {
   }
 
   // find album by id
-  findAlbumById(albumId: string): Observable<Album> {
+  findAlbumById(albumId: number): Observable<Album> {
     return this.http.get<Album>(`${this.albumApiUri}/${albumId}`);
   }
 
   // get album cover art url
-  getCoverArtUrl(albumId: string): string {
+  getCoverArtUrl(albumId: number): string {
     return `${this.albumApiUri}/${albumId}/cover`;
   }
 
@@ -37,17 +37,17 @@ export class AlbumsService {
   }
 
   // attach a track to the album
-  attachTrackToAlbum(albumId: string, trackId: string): Observable<Track>{
+  attachTrackToAlbum(albumId: number, trackId: number): Observable<Track>{
     return this.http.put<Track>(`${this.albumApiUri}/${albumId}/tracks/${trackId}`, {});
   }
 
   // detach a track from the album
-  detachTrackFromAlbum(albumId: string, trackId: string): Observable<Album>{
+  detachTrackFromAlbum(albumId: number, trackId: number): Observable<Album>{
     return this.http.delete<Album>(`${this.albumApiUri}/${albumId}/tracks/${trackId}`);
   }
 
   // get all tracks from an album
-  getAllTracksFromAlbum(albumId: string): Observable<Track[]>{
+  getAllTracksFromAlbum(albumId: number): Observable<Track[]>{
     return this.http.get<Track[]>(`${this.albumApiUri}/${albumId}/tracks`);
   }
 

@@ -34,11 +34,11 @@ export class ResourceManagerComponent implements OnInit {
 
   // attach a resource to the specific one
   @Output()
-  attach: EventEmitter<string> = new EventEmitter();
+  attach: EventEmitter<number> = new EventEmitter();
 
   // detach a resource from the specific one
   @Output()
-  detach: EventEmitter<string> = new EventEmitter();
+  detach: EventEmitter<number> = new EventEmitter();
 
   // tells the parent the user clicked either in
   // the close icon, or outside the modal
@@ -61,11 +61,11 @@ export class ResourceManagerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  emitAttachEvent(id: string): void {
+  emitAttachEvent(id: number): void {
     this.attach.emit(id);
   }
 
-  emitDetachEvent(id: string): void {
+  emitDetachEvent(id: number): void {
     this.detach.emit(id);
   }
 

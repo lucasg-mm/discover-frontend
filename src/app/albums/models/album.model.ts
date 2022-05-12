@@ -1,8 +1,11 @@
+import { Genre } from "src/app/genres/models/genre.model"
+import { Artist } from "src/app/artists/models/artists.model"
+
 export interface Album{
-    id?: string,
+    id?: number,
     title: string,
-    artists?: any[],
-    genres?: any[],
+    artists?: Artist[],
+    genres?: Genre[],
     releaseDate?: string,
     label: string,
     length: number

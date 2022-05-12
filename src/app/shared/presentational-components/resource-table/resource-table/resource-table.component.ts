@@ -16,11 +16,11 @@ export class ResourceTableComponent implements OnInit {
 
   // emitted when the attach button is clicked
   @Output()
-  attach: EventEmitter<string> = new EventEmitter();
+  attach: EventEmitter<number> = new EventEmitter();
 
   // emitted when the detach button is clicked
   @Output()
-  detach: EventEmitter<string> = new EventEmitter();
+  detach: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
@@ -36,11 +36,11 @@ export class ResourceTableComponent implements OnInit {
     return this.buttonType === 'remove';
   }
 
-  emitAttachEvent(id: string): void {
+  emitAttachEvent(id: number): void {
     this.attach.emit(id);
   }
 
-  emitDetachEvent(id: string): void {    
+  emitDetachEvent(id: number): void {    
     this.detach.emit(id);
   }
 }

@@ -5,6 +5,7 @@ import { TracksService } from 'src/app/tracks/tracks.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { Track } from 'src/app/tracks/models/track.model';
 import * as bulmaToast from 'bulma-toast';
+import { Artist } from 'src/app/artists/models/artists.model';
 
 @Component({
   selector: 'app-album-main',
@@ -17,7 +18,7 @@ export class AlbumMainComponent implements OnInit {
   formattedAlbumLength: string;
   formattedReleaseDate: string;
   albumLabel: string;
-  albumId: string;
+  albumId: number;
   isAlbumLoaded: boolean = false;
   albumCoverArtUrl: string;
   showTrackManager: boolean = false;
@@ -34,20 +35,20 @@ export class AlbumMainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.albumId = this.activatedRoute.snapshot.paramMap.get('albumId')!;
+    this.albumId = Number(this.activatedRoute.snapshot.paramMap.get('albumId')!);
     this.loadAlbumInfo();
     this.loadTracks();
   }
 
-  getArtistsNames(artists: any[]): string {
-    const artistsNames = artists.reduce(
-      (names, artist) =>
-        names === '' ? artist.name : names + ', ' + artist.name,
-      ''
-    );
+  // getArtistsNames(artists: any[]): string {
+  //   const artistsNames = artists.reduce(
+  //     (names, artist) =>
+  //       names === '' ? artist.name : names + ', ' + artist.name,
+  //     ''
+  //   );
 
-    return artistsNames;
-  }
+  //   return artistsNames;
+  // }
 
   // takes the album's length (in seconds), and returns a formatted string,
   // mode 'info': 55min, 1h 20min, etc...
@@ -158,6 +159,10 @@ export class AlbumMainComponent implements OnInit {
     });
   }
 
+  getArtistsNames(artists: Artist[]): string{
+    return 'hello'
+  }
+
   // the already attached resources expects the track data in certain format
   // this just parses a Track array to a Resource array
   parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[] {
@@ -170,7 +175,7 @@ export class AlbumMainComponent implements OnInit {
   }
 
   // attach a track with a certain id to this album
-  attachTrackToAlbum(trackId: string): void {
+  attachTrackToAlbum(trackId: number): void {
     const albumId = this.albumId;
 
     this.albumService.attachTrackToAlbum(albumId, trackId).subscribe((res) => {
@@ -181,7 +186,7 @@ export class AlbumMainComponent implements OnInit {
   }
 
   // detach a track with a certain id from this album
-  detachTrackFromAlbum(trackId: string): void {
+  detachTrackFromAlbum(trackId: number): void {
     const albumId = this.albumId;
 
     this.albumService
