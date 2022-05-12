@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Resource } from '../../models/resource.model';
 
@@ -56,11 +51,11 @@ export class ResourceManagerComponent implements OnInit {
   pageChangeSearch: EventEmitter<any> = new EventEmitter();
 
   // tells the parent the user wants to go to a certain page
-  // when viewing all resources 
+  // when viewing all resources
   @Output()
   pageChangeAll: EventEmitter<number> = new EventEmitter();
 
-  currSearchTerm: string = "";
+  currSearchTerm: string = '';
 
   constructor() {}
 
@@ -74,29 +69,31 @@ export class ResourceManagerComponent implements OnInit {
     this.detach.emit(id);
   }
 
-  emitSearchEvent(searchTerm: string): void{
-    this.isSearching = true;
+  emitSearchEvent(searchTerm: string): void {
+    if (searchTerm === '') {
+      // if the search term is the empty string,
+      // the user will view every track 
+      this.isSearching = false;
+    } else {
+      // if the search term is NOT the empty string,
+      // the user will view the search results
+      this.isSearching = true;
+    }
     this.currSearchTerm = searchTerm;
     this.search.emit(searchTerm);
   }
 
-  emitCloseEvent(): void{
+  emitCloseEvent(): void {
     this.close.emit();
   }
 
-  emitPageChangeTypeEvent(pageToGo: number): void{
+  emitPageChangeTypeEvent(pageToGo: number): void {
     if (this.isSearching) {
-      console.log("Is searching!");
-      
       this.pageChangeSearch.emit({
         pageToGo,
-        searchTerm: this.currSearchTerm 
+        searchTerm: this.currSearchTerm,
       });
-    }
-    else{
-
-      console.log("Is NOT searching!");
-      
+    } else {
       this.pageChangeAll.emit(pageToGo);
     }
   }

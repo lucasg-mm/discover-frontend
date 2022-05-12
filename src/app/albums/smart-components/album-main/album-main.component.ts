@@ -177,6 +177,8 @@ export class AlbumMainComponent implements OnInit {
 
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
+    // if the the search term is the empty string
+    // returns all the tracks
     if (searchTerm === '') {
       this.loadAllTracksFromPage(1);
       return;
