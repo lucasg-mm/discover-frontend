@@ -23,7 +23,7 @@ export class AlbumMainComponent implements OnInit {
   showTrackManager: boolean = false;
   resourcesToBeAttached: Resource[] = [];
   alreadyAttachedResources: Resource[] = [];
-  tracks: Track[];
+  tracks: any;
   resourceCurrPage: number = 1;
   resourceFinalPage: number = 10;
 
@@ -50,8 +50,9 @@ export class AlbumMainComponent implements OnInit {
   }
 
   // takes the album's length (in seconds), and returns a formatted string,
-  // like 55min, 1h 20min, etc...
-  getFormattedAlbumLength(albumLength: number): string {
+  // mode 'info': 55min, 1h 20min, etc...
+  // mode
+  getFormattedAlbumLength(albumLength: number, format = 'info'): string {
     let hours: number;
     let minutes: number;
 
@@ -59,8 +60,20 @@ export class AlbumMainComponent implements OnInit {
     hours = Math.floor(albumLength / 3600);
     minutes = Math.floor((albumLength % 3600) / 60);
 
-    // displays hours and minutes (just minutes, if the album is not longer than an hour)
-    return hours !== 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
+    if (format === 'info') {
+      // displays hours and minutes (just minutes, if the album is not longer than an hour)
+      return hours !== 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
+    } else if (format === 'tracklist') {
+      // gets the  number of seconds,
+      // representing it with at least two digits, like 05 minutes, 15 minutes, etc 
+      const seconds = (albumLength % 60).toLocaleString(undefined, {
+        minimumIntegerDigits: 2,
+      });
+      // displays hours and minutes (just minutes, if the album is not longer than an hour)
+      return `${minutes}:${seconds}`;
+    }
+
+    return '';
   }
 
   // converts date from yyyy-MM-dd to dd/MM/yyyy
@@ -106,7 +119,7 @@ export class AlbumMainComponent implements OnInit {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
 
-      // changes the initial page  
+      // changes the initial page
       this.resourceCurrPage = pageNumber;
 
       // the search input is for the resources to be attached
@@ -133,6 +146,18 @@ export class AlbumMainComponent implements OnInit {
     });
   }
 
+  // do data manipulation on some Track's properties, to make
+  // it appropriate to display it on the track list component
+  parsesTracksToTrackListFormat(tracks: Track[]): any {
+    return tracks.map((track) => {
+      return {
+        title: track.title,
+        length: this.getFormattedAlbumLength(track.length, 'tracklist'),
+        artists: 'K. Dot',
+      };
+    });
+  }
+
   // the already attached resources expects the track data in certain format
   // this just parses a Track array to a Resource array
   parsesTracksToAlreadyAttachedResources(tracks: Track[]): Resource[] {
@@ -141,14 +166,6 @@ export class AlbumMainComponent implements OnInit {
         id: track.id,
         name: track.title,
       };
-    });
-  }
-
-  // do data manipulation on some Track's properties, to make
-  // it appropriate to display it on the track list component
-  parsesTracksToTrackListFormat(tracks: Track[]): Track[] {
-    return tracks.map((track) => {
-      return track;
     });
   }
 
@@ -184,17 +201,18 @@ export class AlbumMainComponent implements OnInit {
       return;
     }
 
-    this.trackService.searchTracks(searchTerm, pageNumber, 5).subscribe((res) => {
-      // getting page information
-      this.resourceCurrPage = pageNumber;
-      this.resourceFinalPage = res.totalPages;
+    this.trackService
+      .searchTracks(searchTerm, pageNumber, 5)
+      .subscribe((res) => {
+        // getting page information
+        this.resourceCurrPage = pageNumber;
+        this.resourceFinalPage = res.totalPages;
 
-      // the search input is for the resources to be attached
-      // so, we parse the Track array to a Resource array
-      this.resourcesToBeAttached = this.parsesTracksToAlreadyAttachedResources(
-        res.items
-      );
-    });
+        // the search input is for the resources to be attached
+        // so, we parse the Track array to a Resource array
+        this.resourcesToBeAttached =
+          this.parsesTracksToAlreadyAttachedResources(res.items);
+      });
   }
 
   // closes the track manager modal
