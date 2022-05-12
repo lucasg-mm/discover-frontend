@@ -23,7 +23,6 @@ export class SearchResourceBarComponent implements OnInit {
 
   // emits the search event 
   emitSearchEvent(): void {
-    console.log("Heyheyhey");
     this.search.emit(this.searchTerm);
   }
 }

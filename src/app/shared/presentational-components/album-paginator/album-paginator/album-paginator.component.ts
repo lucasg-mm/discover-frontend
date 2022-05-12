@@ -10,14 +10,9 @@ export class AlbumPaginatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currPage = this.initialPage;
   }
 
-  // the page that the paginator should be 
-  // when it's first rendered
   @Input()
-  initialPage: number = 1
-
   currPage: number = 1;
 
   @Input()

@@ -24,7 +24,7 @@ export class AlbumMainComponent implements OnInit {
   resourcesToBeAttached: Resource[] = [];
   alreadyAttachedResources: Resource[] = [];
   tracks: Track[];
-  resourceInitialPage: number = 1;
+  resourceCurrPage: number = 1;
   resourceFinalPage: number = 10;
 
   constructor(
@@ -94,16 +94,20 @@ export class AlbumMainComponent implements OnInit {
 
   // opens the modal to add/remove tracks
   openTrackManager(): void {
-    this.resourceInitialPage = 1;
+    // the resource manager's paginator begins at 1
+    this.resourceCurrPage = 1;
     this.loadAllTracksFromPage(1);
     this.showTrackManager = true;
   }
 
   // loads all tracks from a certain page
-  loadAllTracksFromPage(pageNumber: number): void{
+  loadAllTracksFromPage(pageNumber: number): void {
     this.trackService.getAllTracks(pageNumber).subscribe((res) => {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
+
+      // changes the initial page  
+      this.resourceCurrPage = pageNumber;
 
       // the search input is for the resources to be attached
       // so, we parse the Track array to a Resource array
@@ -173,9 +177,14 @@ export class AlbumMainComponent implements OnInit {
 
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
+    if (searchTerm === '') {
+      this.loadAllTracksFromPage(1);
+      return;
+    }
+
     this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
       // getting page information
-      this.resourceInitialPage = 1;
+      this.resourceCurrPage = pageNumber;
       this.resourceFinalPage = res.totalPages;
 
       // the search input is for the resources to be attached

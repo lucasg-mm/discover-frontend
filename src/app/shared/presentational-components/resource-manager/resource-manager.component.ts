@@ -28,7 +28,7 @@ export class ResourceManagerComponent implements OnInit {
   alreadyAttachedResources: Resource[];
 
   @Input()
-  initialPage: number = 1;
+  currPage: number = 1;
 
   @Input()
   finalPage: number = 10;
@@ -86,12 +86,17 @@ export class ResourceManagerComponent implements OnInit {
 
   emitPageChangeTypeEvent(pageToGo: number): void{
     if (this.isSearching) {
+      console.log("Is searching!");
+      
       this.pageChangeSearch.emit({
         pageToGo,
         searchTerm: this.currSearchTerm 
       });
     }
     else{
+
+      console.log("Is NOT searching!");
+      
       this.pageChangeAll.emit(pageToGo);
     }
   }

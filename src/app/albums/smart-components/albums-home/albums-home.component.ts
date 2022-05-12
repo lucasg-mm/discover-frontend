@@ -12,7 +12,7 @@ import * as bulmaToast from 'bulma-toast'
 export class AlbumsHomeComponent implements OnInit {
   displayedAlbums: Album[] = [];
 
-  initialPage: number = 1;
+  currPage: number = 1;
 
   finalPage: number = 10;
 
@@ -27,8 +27,8 @@ export class AlbumsHomeComponent implements OnInit {
   ngOnInit(): void {
     // watches for query params changes
     this.route.queryParams.subscribe((params) => {
-      this.initialPage = this.validatesAndGetsPage(params["page"]);
-      this.findAlbumsPaginated(this.initialPage);
+      this.currPage = this.validatesAndGetsPage(params["page"]);
+      this.findAlbumsPaginated(this.currPage);
     });
   }
 
