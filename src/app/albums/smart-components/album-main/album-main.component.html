@@ -108,6 +108,8 @@
     </div>
     <app-resource-manager [initialPage]="this.resourceInitialPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
-        (attach)="attachTrackToAlbum($event)" (detach)="detachTrackFromAlbum($event)" (search)="searchTracks($event)"
-        (close)="closeTrackManager()" *ngIf="showTrackManager"></app-resource-manager>
+        (attach)="attachTrackToAlbum($event)" (pageChangeAll)="loadAllTracksFromPage($event)"
+        (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
+        (detach)="detachTrackFromAlbum($event)" (search)="searchTracks($event)" (close)="closeTrackManager()"
+        *ngIf="showTrackManager"></app-resource-manager>
 </div>

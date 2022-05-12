@@ -13,6 +13,10 @@ import { Resource } from '../../models/resource.model';
   styleUrls: ['./resource-manager.component.css'],
 })
 export class ResourceManagerComponent implements OnInit {
+  // tells whether the user is searching for a resource
+  // or just viewing all the resources
+  isSearching: boolean = false;
+
   // holds the resources that can be attached to another specific one
   // (for example, tracks/artists/genres that can be attached to a certain album)
   @Input()
@@ -46,6 +50,18 @@ export class ResourceManagerComponent implements OnInit {
   @Output()
   close: EventEmitter<void> = new EventEmitter();
 
+  // tells the parent the user wants to go to a certain page
+  // of a search
+  @Output()
+  pageChangeSearch: EventEmitter<any> = new EventEmitter();
+
+  // tells the parent the user wants to go to a certain page
+  // when viewing all resources 
+  @Output()
+  pageChangeAll: EventEmitter<number> = new EventEmitter();
+
+  currSearchTerm: string = "";
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -59,10 +75,24 @@ export class ResourceManagerComponent implements OnInit {
   }
 
   emitSearchEvent(searchTerm: string): void{
+    this.isSearching = true;
+    this.currSearchTerm = searchTerm;
     this.search.emit(searchTerm);
   }
 
   emitCloseEvent(): void{
     this.close.emit();
+  }
+
+  emitPageChangeTypeEvent(pageToGo: number): void{
+    if (this.isSearching) {
+      this.pageChangeSearch.emit({
+        pageToGo,
+        searchTerm: this.currSearchTerm 
+      });
+    }
+    else{
+      this.pageChangeAll.emit(pageToGo);
+    }
   }
 }
