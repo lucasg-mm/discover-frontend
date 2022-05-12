@@ -9,19 +9,18 @@ import { TracksPaginated } from './models/tracks-paginated.model';
 })
 export class TracksService {
   trackApiUri: string;
-  pageSize: number = 10;
 
   constructor(private http: HttpClient) {
     this.trackApiUri = `${environment.apiUrl}/tracks`;
   }
 
   // get all tracks in a paginated way
-  getAllTracks(pageNumber: number): Observable<TracksPaginated>{
-    return this.http.get<TracksPaginated>(`${this.trackApiUri}?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
+  getAllTracks(pageNumber: number, pageSize: number = 10): Observable<TracksPaginated>{
+    return this.http.get<TracksPaginated>(`${this.trackApiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   // search tracks (the result are paginated)
-  searchTracks(searchTerm: string, pageNumber: number): Observable<TracksPaginated> {
-    return this.http.get<TracksPaginated>(`${this.trackApiUri}/search?title=${searchTerm}&pageNumber=${pageNumber}&pageSize=${this.pageSize}`)
+  searchTracks(searchTerm: string, pageNumber: number, pageSize: number = 10): Observable<TracksPaginated> {
+    return this.http.get<TracksPaginated>(`${this.trackApiUri}/search?title=${searchTerm}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
   }
 }

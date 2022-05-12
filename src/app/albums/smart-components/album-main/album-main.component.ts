@@ -102,7 +102,7 @@ export class AlbumMainComponent implements OnInit {
 
   // loads all tracks from a certain page
   loadAllTracksFromPage(pageNumber: number): void {
-    this.trackService.getAllTracks(pageNumber).subscribe((res) => {
+    this.trackService.getAllTracks(pageNumber, 5).subscribe((res) => {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
 
@@ -184,7 +184,7 @@ export class AlbumMainComponent implements OnInit {
       return;
     }
 
-    this.trackService.searchTracks(searchTerm, pageNumber).subscribe((res) => {
+    this.trackService.searchTracks(searchTerm, pageNumber, 5).subscribe((res) => {
       // getting page information
       this.resourceCurrPage = pageNumber;
       this.resourceFinalPage = res.totalPages;
