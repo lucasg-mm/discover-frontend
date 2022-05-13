@@ -28,6 +28,9 @@ export class ResourceManagerComponent implements OnInit {
   @Input()
   finalPage: number = 10;
 
+  @Input()
+  resourceName = '';
+
   // searches for a resource to be attached
   @Output()
   search: EventEmitter<string> = new EventEmitter();
@@ -72,7 +75,7 @@ export class ResourceManagerComponent implements OnInit {
   emitSearchEvent(searchTerm: string): void {
     if (searchTerm === '') {
       // if the search term is the empty string,
-      // the user will view every track 
+      // the user will view every track
       this.isSearching = false;
     } else {
       // if the search term is NOT the empty string,

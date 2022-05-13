@@ -40,15 +40,15 @@ export class AlbumMainComponent implements OnInit {
     this.loadTracks();
   }
 
-  // getArtistsNames(artists: any[]): string {
-  //   const artistsNames = artists.reduce(
-  //     (names, artist) =>
-  //       names === '' ? artist.name : names + ', ' + artist.name,
-  //     ''
-  //   );
+  getArtistsNames(artists:  Artist[]): string {
+    const artistsNames = artists.reduce(
+      (names, artist) =>
+        names === '' ? artist.name : names + ', ' + artist.name,
+      ''
+    );
 
-  //   return artistsNames;
-  // }
+    return artistsNames;
+  }
 
   // takes the album's length (in seconds), and returns a formatted string,
   // mode 'info': 55min, 1h 20min, etc...
@@ -154,13 +154,9 @@ export class AlbumMainComponent implements OnInit {
       return {
         title: track.title,
         length: this.getFormattedAlbumLength(track.length, 'tracklist'),
-        artists: 'K. Dot',
+        artists: this.getArtistsNames(track.artists!),
       };
     });
-  }
-
-  getArtistsNames(artists: Artist[]): string{
-    return 'hello'
   }
 
   // the already attached resources expects the track data in certain format

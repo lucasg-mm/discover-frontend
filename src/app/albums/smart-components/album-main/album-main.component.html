@@ -106,7 +106,7 @@
             </tbody>
         </table>
     </div>
-    <app-resource-manager [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+    <app-resource-manager resourceName="tracks" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
         (attach)="attachTrackToAlbum($event)" (pageChangeAll)="loadAllTracksFromPage($event)"
         (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"

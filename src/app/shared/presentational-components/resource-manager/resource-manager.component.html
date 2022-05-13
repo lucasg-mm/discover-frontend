@@ -5,7 +5,7 @@
         <div class="box">
             <div class="columns">
                 <div class="column available-column">
-                    <h1 class="title">Available</h1>
+                    <h1 class="title">Available {{resourceName}}</h1>
                     <div class="search-bar">
                         <app-search-resource-bar (search)="emitSearchEvent($event)"></app-search-resource-bar>
                     </div>
@@ -13,7 +13,7 @@
                     <app-album-paginator (pageChange)="emitPageChangeTypeEvent($event)" [finalPage]="finalPage" [currPage]="currPage"></app-album-paginator>
                 </div>
                 <div class="column attached-column">
-                    <h1 class="title">Attached</h1>
+                    <h1 class="title">Attached {{resourceName}}</h1>
                     <div class="attached-table">
                         <app-resource-table buttonType="remove" [resources]="alreadyAttachedResources" (detach)="emitDetachEvent($event)"></app-resource-table>
                     </div>
