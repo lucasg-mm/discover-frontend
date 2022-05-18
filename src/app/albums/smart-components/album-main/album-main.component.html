@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div class="action-btns">
-                <button (click)="openTrackManager()" class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('track')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-music"></i>
                     </span>
@@ -42,7 +42,7 @@
                         Manage tracks
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('genre')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-guitar"></i>
                     </span>
@@ -50,7 +50,7 @@
                         Manage genres
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('artist')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-user-group"></i>
                     </span>
@@ -89,7 +89,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let track of tracks; let i = index">
+                <tr *ngFor="let track of tracklist; let i = index">
                     <td>{{ i + 1 }}</td>
                     <td>
                         <div class="trackName">
@@ -106,10 +106,27 @@
             </tbody>
         </table>
     </div>
+    <!-- manager for tracks -->
     <app-resource-manager resourceName="tracks" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
         (attach)="attachTrackToAlbum($event)" (pageChangeAll)="loadAllTracksFromPage($event)"
         (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachTrackFromAlbum($event)" (search)="searchTracks($event)" (close)="closeTrackManager()"
         *ngIf="showTrackManager"></app-resource-manager>
+
+    <!-- manager for artists -->
+    <app-resource-manager resourceName="artists" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
+        (attach)="attachArtistToAlbum($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
+        (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
+        (detach)="detachArtistFromAlbum($event)" (search)="searchArtists($event)" (close)="closeArtistManager()"
+        *ngIf="showArtistManager"></app-resource-manager>
+
+    <!-- manager for genre -->
+    <app-resource-manager resourceName="genres" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
+        (attach)="attachGenreToAlbum($event)" (pageChangeAll)="loadAllGenresFromPage($event)"
+        (pageChangeSearch)="searchGenres($event['searchTerm'], $event['pageToGo'])"
+        (detach)="detachGenreFromAlbum($event)" (search)="searchGenres($event)" (close)="closeGenreManager()"
+        *ngIf="showGenreManager"></app-resource-manager>
 </div>
