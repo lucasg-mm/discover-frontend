@@ -25,7 +25,6 @@ export class ResourceTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.resources);
   }
 
   // tells if the button in each row should be an add button
