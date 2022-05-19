@@ -181,6 +181,7 @@ export class AlbumMainComponent implements OnInit {
   parsesTracksToTrackListFormat(tracks: Track[]): any {
     return tracks.map((track) => {
       return {
+        id: track.id,
         title: track.title,
         length: this.getFormattedAlbumLength(track.length, 'tracklist'),
         artists: this.getArtistsNames(track.artists!),
@@ -248,9 +249,10 @@ export class AlbumMainComponent implements OnInit {
 
     this.albumService
       .detachTrackFromAlbum(albumId, trackId)
-      .subscribe((res) => {
-        this.loadTracklist();
-        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' });
+      .pipe(mergeMap(() => this.loadTracklist()))
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('track');
+        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' })
       });
   }
 
