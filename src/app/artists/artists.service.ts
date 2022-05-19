@@ -26,7 +26,7 @@ export class ArtistsService {
   }
 
   // attaches an album to an artist
-  attachAlbumToArtist(artistId: number, albumId: number){
+  attachAlbumToArtist(artistId: number, albumId: number): Observable<Album>{
     return this.http.put<Album>(`${this.artistApiUri}/${artistId}/albums/${albumId}`, {});
   }
 

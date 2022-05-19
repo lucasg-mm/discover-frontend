@@ -1,7 +1,7 @@
-import { Artist } from "./artists.model";
+import { Artist } from './artists.model';
 
 export interface ArtistsPaginated {
-    totalItems: number;
-    totalPages: number;
-    items: Artist[];
-  }
+  totalItems: number;
+  totalPages: number;
+  items: Artist[];
+}
