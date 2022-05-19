@@ -98,20 +98,22 @@ export class AlbumMainComponent implements OnInit {
   // loads the album's info
   loadAlbumInfo(): Observable<void> {
     const albumId = this.albumId;
-    return this.albumService.findAlbumById(albumId).pipe(map((res) => {
-      // gets the relevant info from the api
-      this.artistsNames = this.getArtistsNames(res.artists!);
-      this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
-      this.formattedReleaseDate = this.getFormattedDate(res.releaseDate!);
-      this.albumTitle = res.title;
-      this.albumLabel = res.label;
-      this.albumCoverArtUrl = this.albumService.getCoverArtUrl(res.id!);
-      this.genres = res.genres!;
-      this.artists = res.artists!;
+    return this.albumService.findAlbumById(albumId).pipe(
+      map((res) => {
+        // gets the relevant info from the api
+        this.artistsNames = this.getArtistsNames(res.artists!);
+        this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
+        this.formattedReleaseDate = this.getFormattedDate(res.releaseDate!);
+        this.albumTitle = res.title;
+        this.albumLabel = res.label;
+        this.albumCoverArtUrl = this.albumService.getCoverArtUrl(res.id!);
+        this.genres = res.genres!;
+        this.artists = res.artists!;
 
-      // changes flag to indicate the album loaded
-      this.isAlbumLoaded = true;
-    }));
+        // changes flag to indicate the album loaded
+        this.isAlbumLoaded = true;
+      })
+    );
   }
 
   // if the image loading fails, substitutes the url by the local default album cover
@@ -156,7 +158,7 @@ export class AlbumMainComponent implements OnInit {
       this.loadAllTracksFromPage(1);
     } else if (resourceType === 'genre') {
       this.resourceCurrPage = 1;
-      console.log("HEYYYYYYYYYYYYYYYYYYYYYYYY BROTHERRRRRRR");
+      console.log('HEYYYYYYYYYYYYYYYYYYYYYYYY BROTHERRRRRRR');
       this.loadAllGenresFromPage(1);
     }
   }
@@ -236,12 +238,12 @@ export class AlbumMainComponent implements OnInit {
 
     // request to attach the artist
     this.artistService
-    .attachAlbumToArtist(artistId, albumId)
-    .pipe(mergeMap(() => this.loadAlbumInfo()))
-    .subscribe(() => {
-      this.loadAlreadyAttachedResources('artist');
-      bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' })
-    });
+      .attachAlbumToArtist(artistId, albumId)
+      .pipe(mergeMap(() => this.loadAlbumInfo()))
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
+      });
   }
 
   // detach a track with a certain id from this album
@@ -253,7 +255,7 @@ export class AlbumMainComponent implements OnInit {
       .pipe(mergeMap(() => this.loadTracklist()))
       .subscribe(() => {
         this.loadAlreadyAttachedResources('track');
-        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' })
+        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' });
       });
   }
 
@@ -261,8 +263,17 @@ export class AlbumMainComponent implements OnInit {
     console.log('TODO');
   }
 
+  // detach an artist from a certain album
   detachArtistFromAlbum(artistId: number): void {
-    console.log('TODO');
+    const albumId = this.albumId;
+
+    this.artistService
+      .detachAlbumFromArtist(albumId, artistId)
+      .pipe(mergeMap(() => this.loadAlbumInfo()))
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist detached!', type: 'is-success' });
+      });
   }
 
   // search for tracks (the result is paginated)
@@ -367,10 +378,8 @@ export class AlbumMainComponent implements OnInit {
     // this.genresService.getAllArtists(pageNumber, 5).subscribe((res) => {
     //   // getting the final page information
     //   this.resourceFinalPage = res.totalPages;
-
     //   // changes the initial page
     //   this.resourceCurrPage = pageNumber;
-
     //   // parses the results to resources
     //   this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(res.items);
     // });

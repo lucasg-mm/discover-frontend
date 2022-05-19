@@ -25,8 +25,13 @@ export class ArtistsService {
     return this.http.get<ArtistsPaginated>(`${this.artistApiUri}/search?name=${searchTerm}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
   }
 
-  // attaches an albm to an artist
+  // attaches an album to an artist
   attachAlbumToArtist(artistId: number, albumId: number){
     return this.http.put<Album>(`${this.artistApiUri}/${artistId}/albums/${albumId}`, {});
+  }
+
+  // detaches an album from an artist
+  detachAlbumFromArtist(albumId: number, artistId: number): Observable<Album>{
+    return this.http.delete<Album>(`${this.artistApiUri}/${artistId}/albums/${albumId}`);
   }
 }
