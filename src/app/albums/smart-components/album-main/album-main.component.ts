@@ -11,6 +11,7 @@ import { Genre } from 'src/app/genres/models/genre.model';
 import { Album } from '../../models/album.model';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
+import { GenresService } from 'src/app/genres/genres.service';
 
 @Component({
   selector: 'app-album-main',
@@ -41,7 +42,8 @@ export class AlbumMainComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private albumService: AlbumsService,
     private trackService: TracksService,
-    private artistService: ArtistsService
+    private artistService: ArtistsService,
+    private genreService: GenresService
   ) {}
 
   ngOnInit(): void {
@@ -158,7 +160,6 @@ export class AlbumMainComponent implements OnInit {
       this.loadAllTracksFromPage(1);
     } else if (resourceType === 'genre') {
       this.resourceCurrPage = 1;
-      console.log('HEYYYYYYYYYYYYYYYYYYYYYYYY BROTHERRRRRRR');
       this.loadAllGenresFromPage(1);
     }
   }
@@ -230,7 +231,15 @@ export class AlbumMainComponent implements OnInit {
   }
 
   attachGenreToAlbum(genreId: number): void {
-    console.log('TODO');
+    const albumId = this.albumId;
+
+    this.genreService
+      .attachAlbumToGenre(genreId, albumId)
+      .pipe(mergeMap(() => this.loadAlbumInfo()))
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('genre');
+        bulmaToast.toast({ message: 'Genre attached!', type: 'is-success' });
+      });
   }
 
   attachArtistToAlbum(artistId: number): void {
@@ -260,7 +269,15 @@ export class AlbumMainComponent implements OnInit {
   }
 
   detachGenreFromAlbum(genreId: number): void {
-    console.log('TODO');
+    const albumId = this.albumId;
+
+    this.genreService
+      .detachAlbumFromGenre(albumId, genreId)
+      .pipe(mergeMap(() => this.loadAlbumInfo()))
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('genre');
+        bulmaToast.toast({ message: 'Genre detached!', type: 'is-success' });
+      });
   }
 
   // detach an artist from a certain album
@@ -375,13 +392,15 @@ export class AlbumMainComponent implements OnInit {
   }
 
   loadAllGenresFromPage(pageNumber: number): void {
-    // this.genresService.getAllArtists(pageNumber, 5).subscribe((res) => {
-    //   // getting the final page information
-    //   this.resourceFinalPage = res.totalPages;
-    //   // changes the initial page
-    //   this.resourceCurrPage = pageNumber;
-    //   // parses the results to resources
-    //   this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(res.items);
-    // });
+    this.genreService.getAllGenres(pageNumber, 5).subscribe((res) => {
+      // getting the final page information
+      this.resourceFinalPage = res.totalPages;
+      // changes the initial page
+      this.resourceCurrPage = pageNumber;
+      // parses the results to resources
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+    });
   }
 }
