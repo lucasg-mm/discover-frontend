@@ -107,7 +107,7 @@
         </table>
     </div>
     <!-- manager for tracks -->
-    <app-resource-manager resourceName="tracks" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="tracks" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
         (attach)="attachTrackToAlbum($event)" (pageChangeAll)="loadAllTracksFromPage($event)"
         (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
@@ -115,7 +115,7 @@
         *ngIf="showTrackManager"></app-resource-manager>
 
     <!-- manager for artists -->
-    <app-resource-manager resourceName="artists" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="artists" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
         (attach)="attachArtistToAlbum($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
         (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
@@ -123,7 +123,7 @@
         *ngIf="showArtistManager"></app-resource-manager>
 
     <!-- manager for genre -->
-    <app-resource-manager resourceName="genres" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="genres" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
         [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
         (attach)="attachGenreToAlbum($event)" (pageChangeAll)="loadAllGenresFromPage($event)"
         (pageChangeSearch)="searchGenres($event['searchTerm'], $event['pageToGo'])"

@@ -60,6 +60,10 @@ export class ResourceManagerComponent implements OnInit {
 
   currSearchTerm: string = '';
 
+  // tells if the search input should be on loading state or not
+  @Input()
+  isLoading = false;
+
   constructor() {}
 
   ngOnInit(): void {}

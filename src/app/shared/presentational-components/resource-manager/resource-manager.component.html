@@ -7,7 +7,7 @@
                 <div class="column available-column">
                     <h1 class="title">Available {{resourceName}}</h1>
                     <div class="search-bar">
-                        <app-search-resource-bar (search)="emitSearchEvent($event)"></app-search-resource-bar>
+                        <app-search-resource-bar [isLoading]="isLoading" (search)="emitSearchEvent($event)"></app-search-resource-bar>
                     </div>
                     <app-resource-table buttonType="add" [resources]="resourcesToBeAttached" (attach)="emitAttachEvent($event)"></app-resource-table>
                     <app-album-paginator (pageChange)="emitPageChangeTypeEvent($event)" [finalPage]="finalPage" [currPage]="currPage"></app-album-paginator>

@@ -35,6 +35,7 @@ export class AlbumMainComponent implements OnInit {
   tracklist: Track[]; // an array of objects formatted to be displayed in the tracklist
   resourceCurrPage: number = 1;
   resourceFinalPage: number = 10;
+  isModalLoading: boolean = false;
   genres: Genre[];
   artists: Artist[];
 
@@ -295,6 +296,8 @@ export class AlbumMainComponent implements OnInit {
 
   // search for tracks (the result is paginated)
   searchTracks(searchTerm: string, pageNumber: number = 1): void {
+    this.isModalLoading = true;
+
     // if the the search term is the empty string
     // returns all the tracks
     if (searchTerm === '') {
@@ -314,19 +317,24 @@ export class AlbumMainComponent implements OnInit {
         this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(
           res.items
         );
+        this.isModalLoading = false;
       });
   }
 
   searchGenres(searchTerm: string, pageNumber: number = 1): void {
     if (searchTerm === '') {
       this.loadAllGenresFromPage(1);
+      return;
     }
   }
 
   // search for artists in a paginatedway
   searchArtists(searchTerm: string, pageNumber: number = 1): void {
+    this.isModalLoading = true;
+
     if (searchTerm === '') {
       this.loadAllArtistsFromPage(1);
+      return;
     }
 
     this.artistService
@@ -341,6 +349,7 @@ export class AlbumMainComponent implements OnInit {
         this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
           res.items
         );
+        this.isModalLoading = false;
       });
   }
 
@@ -361,6 +370,7 @@ export class AlbumMainComponent implements OnInit {
 
   // loads all tracks from a certain page
   loadAllTracksFromPage(pageNumber: number): void {
+    this.isModalLoading = true;
     this.trackService.getAllTracks(pageNumber, 5).subscribe((res) => {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
@@ -373,10 +383,13 @@ export class AlbumMainComponent implements OnInit {
       this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(
         res.items
       );
+
+      this.isModalLoading = false;
     });
   }
 
   loadAllArtistsFromPage(pageNumber: number): void {
+    this.isModalLoading = true;
     this.artistService.getAllArtists(pageNumber, 5).subscribe((res) => {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
@@ -388,10 +401,14 @@ export class AlbumMainComponent implements OnInit {
       this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
         res.items
       );
+
+      this.isModalLoading = false;
     });
   }
 
   loadAllGenresFromPage(pageNumber: number): void {
+    this.isModalLoading = true;
+
     this.genreService.getAllGenres(pageNumber, 5).subscribe((res) => {
       // getting the final page information
       this.resourceFinalPage = res.totalPages;
@@ -401,6 +418,8 @@ export class AlbumMainComponent implements OnInit {
       this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
         res.items
       );
+
+      this.isModalLoading = false;
     });
   }
 }

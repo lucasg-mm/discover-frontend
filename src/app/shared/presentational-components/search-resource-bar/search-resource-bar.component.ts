@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounce } from 'lodash';
 
 @Component({
@@ -10,12 +10,16 @@ export class SearchResourceBarComponent implements OnInit {
   // the term being searched
   searchTerm: string;
 
+  // should the input text show a loading spinner?
+  @Input()
+  isLoading: boolean = false;
+
   // searches for a resource to be attached
   @Output()
   search: EventEmitter<string> = new EventEmitter();
 
   constructor() {
-    this.emitSearchEvent = debounce(this.emitSearchEvent, 800);
+    this.emitSearchEvent = debounce(this.emitSearchEvent, 700);
   }
 
   ngOnInit(): void {

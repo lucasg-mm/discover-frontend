@@ -1,4 +1,4 @@
-<div class="control has-icons-left">
+<div [class]="{'control': true, 'has-icons-left': true, 'is-loading': isLoading}">
     <input (keyup)="emitSearchEvent()" [(ngModel)]="searchTerm" class="input is-rounded" type="text">
     <span class="icon is-left">
         <i class="fa-solid fa-magnifying-glass"></i>
