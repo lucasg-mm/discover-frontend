@@ -58,7 +58,7 @@
                         Manage artists
                     </span>
                 </button>
-                <button class="button is-warning is-small is-rounded">
+                <button (click)="openAlbumCreatorModal()" class="button is-warning is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-pen"></i>
                     </span>
@@ -107,26 +107,32 @@
         </table>
     </div>
     <!-- manager for tracks -->
-    <app-resource-manager [isLoading]="isModalLoading" resourceName="tracks" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
-        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
-        (attach)="attachTrackToAlbum($event)" (pageChangeAll)="loadAllTracksFromPage($event)"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="tracks" [currPage]="this.resourceCurrPage"
+        [finalPage]="this.resourceFinalPage" [alreadyAttachedResources]="alreadyAttachedResources"
+        [resourcesToBeAttached]="resourcesToBeAttached" (attach)="attachTrackToAlbum($event)"
+        (pageChangeAll)="loadAllTracksFromPage($event)"
         (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachTrackFromAlbum($event)" (search)="searchTracks($event)" (close)="closeTrackManager()"
         *ngIf="showTrackManager"></app-resource-manager>
 
     <!-- manager for artists -->
-    <app-resource-manager [isLoading]="isModalLoading" resourceName="artists" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
-        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
-        (attach)="attachArtistToAlbum($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="artists" [currPage]="this.resourceCurrPage"
+        [finalPage]="this.resourceFinalPage" [alreadyAttachedResources]="alreadyAttachedResources"
+        [resourcesToBeAttached]="resourcesToBeAttached" (attach)="attachArtistToAlbum($event)"
+        (pageChangeAll)="loadAllArtistsFromPage($event)"
         (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachArtistFromAlbum($event)" (search)="searchArtists($event)" (close)="closeArtistManager()"
         *ngIf="showArtistManager"></app-resource-manager>
 
     <!-- manager for genre -->
-    <app-resource-manager [isLoading]="isModalLoading" resourceName="genres" [currPage]="this.resourceCurrPage" [finalPage]="this.resourceFinalPage"
-        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
-        (attach)="attachGenreToAlbum($event)" (pageChangeAll)="loadAllGenresFromPage($event)"
+    <app-resource-manager [isLoading]="isModalLoading" resourceName="genres" [currPage]="this.resourceCurrPage"
+        [finalPage]="this.resourceFinalPage" [alreadyAttachedResources]="alreadyAttachedResources"
+        [resourcesToBeAttached]="resourcesToBeAttached" (attach)="attachGenreToAlbum($event)"
+        (pageChangeAll)="loadAllGenresFromPage($event)"
         (pageChangeSearch)="searchGenres($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachGenreFromAlbum($event)" (search)="searchGenres($event)" (close)="closeGenreManager()"
         *ngIf="showGenreManager"></app-resource-manager>
+
+    <!-- the album editor -->
+    <app-album-creator [title]="albumTitle" [releaseDate]="releaseDate" [label]="albumLabel" [length]="length" mode="editor" *ngIf="isAlbumCreatorVisible" (close)="closeAlbumCreatorModal()"></app-album-creator>
 </div>

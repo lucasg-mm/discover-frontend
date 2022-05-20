@@ -2,7 +2,7 @@
     <div (click)="emitCloseEvent()" class="modal-background"></div>
     <div class="modal-content">
         <div class="box">
-            <h1 class="title">Create an album</h1>
+            <h1 class="title">{{ mode === 'creator' ? 'Create an album' : 'Edit an album\'s info'}}</h1>
             <form [formGroup]="newAlbumForm" (ngSubmit)="emitSubmitEvent(newAlbumForm)">
                 <div class="field">
                     <label class="label">Title<span class="red">*</span></label>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
-                        <button [disabled]="newAlbumForm.invalid" class="button is-link">Create</button>
+                        <button [disabled]="newAlbumForm.invalid" class="button is-link">{{ mode === 'creator' ? 'Create' : 'Update' }}</button>
                     </div>
                     <div class="control">
                         <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>

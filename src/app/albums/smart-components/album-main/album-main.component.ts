@@ -21,6 +21,8 @@ import { GenresService } from 'src/app/genres/genres.service';
 export class AlbumMainComponent implements OnInit {
   albumTitle: string;
   artistsNames: string;
+  releaseDate: string;
+  length: number;
   formattedAlbumLength: string;
   formattedReleaseDate: string;
   albumLabel: string;
@@ -38,6 +40,7 @@ export class AlbumMainComponent implements OnInit {
   isModalLoading: boolean = false;
   genres: Genre[];
   artists: Artist[];
+  isAlbumCreatorVisible: boolean = false;   // the creator modal is also used to update the album's data 
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,6 +56,14 @@ export class AlbumMainComponent implements OnInit {
     );
     this.loadAlbumInfo().subscribe();
     this.loadTracklist().subscribe();
+  }
+
+  openAlbumCreatorModal(): void {
+    this.isAlbumCreatorVisible = true;
+  }
+
+  closeAlbumCreatorModal(): void {
+    this.isAlbumCreatorVisible = false;
   }
 
   getArtistsNames(artists: Artist[]): string {
@@ -104,6 +115,8 @@ export class AlbumMainComponent implements OnInit {
     return this.albumService.findAlbumById(albumId).pipe(
       map((res) => {
         // gets the relevant info from the api
+        this.releaseDate = res.releaseDate!;
+        this.length = res.length; 
         this.artistsNames = this.getArtistsNames(res.artists!);
         this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
         this.formattedReleaseDate = this.getFormattedDate(res.releaseDate!);

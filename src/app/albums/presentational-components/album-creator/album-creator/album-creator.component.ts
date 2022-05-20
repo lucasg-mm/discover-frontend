@@ -1,6 +1,11 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Album } from 'src/app/albums/models/album.model';
 
 @Component({
@@ -15,12 +20,27 @@ export class AlbumCreatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.newAlbumForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      releaseDate: ['', Validators.required],
-      label: [''],
-      length: ['', [Validators.required, Validators.min(1)]],
+      title: [this.title, Validators.required],
+      releaseDate: [this.releaseDate, Validators.required],
+      label: [this.label],
+      length: [this.length, [Validators.required, Validators.min(1)]],
     });
   }
+
+  @Input()
+  title: string = "";
+
+  @Input()
+  releaseDate: string = ""
+
+  @Input()
+  label: string = "";
+
+  @Input()
+  length: number = 1;
+
+  @Input()
+  mode: string = 'creator';
 
   @Output()
   close: EventEmitter<any> = new EventEmitter();
@@ -33,26 +53,26 @@ export class AlbumCreatorComponent implements OnInit {
   }
 
   emitSubmitEvent(form: FormGroup): void {
-    if (form.valid) {      
+    if (form.valid) {
       const albumToBeCreated: Album = {
         title: form.value.title,
         releaseDate: form.value.releaseDate,
         length: form.value.length,
         label: form.value.label,
-      };    
-      
+      };
+
       // emits event with the album to be created (that is, only if the form is valid)
       this.submitAlbum.emit(albumToBeCreated);
     }
   }
 
-  isFieldInvalidAndInteracted(fieldName: string): boolean{
-    const field : AbstractControl | null = this.newAlbumForm.get(fieldName);
+  isFieldInvalidAndInteracted(fieldName: string): boolean {
+    const field: AbstractControl | null = this.newAlbumForm.get(fieldName);
 
     if (field === null) {
       return false;
     }
 
-    return field.invalid && (field.dirty || field.touched)
+    return field.invalid && (field.dirty || field.touched);
   }
 }
