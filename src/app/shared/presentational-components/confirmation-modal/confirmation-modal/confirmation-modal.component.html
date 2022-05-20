@@ -1,0 +1,17 @@
+<div class="modal is-active">
+    <div (click)="emitCloseEvent()" class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h1 class="title">Are you sure?</h1>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button (click)="emitCloseEvent()" class="button is-link">Confirm</button>
+                </div>
+                <div class="control">
+                    <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <button (click)="emitCloseEvent()" class="modal-close is-large" aria-label="close"></button>
+    </div>
+</div>

@@ -88,9 +88,13 @@ export class AlbumMainComponent implements OnInit {
     return artistsNames;
   }
 
+  deleteAlbum(): void {
+    console.log('This album is being deleted...');
+  }
+
   // takes the album's length (in seconds), and returns a formatted string,
   // mode 'info': 55min, 1h 20min, etc...
-  // mode
+  // mode 'tracklist': 12:55, 02:08 (meaning 2 minutes and 8 seconds)
   getFormattedAlbumLength(albumLength: number, format = 'info'): string {
     let hours: number;
     let minutes: number;
