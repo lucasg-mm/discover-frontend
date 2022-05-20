@@ -272,7 +272,7 @@ export class AlbumMainComponent implements OnInit {
     const albumId = this.albumId;
 
     this.genreService
-      .detachAlbumFromGenre(albumId, genreId)
+      .detachAlbumFromGenre(genreId, albumId)
       .pipe(mergeMap(() => this.loadAlbumInfo()))
       .subscribe(() => {
         this.loadAlreadyAttachedResources('genre');
