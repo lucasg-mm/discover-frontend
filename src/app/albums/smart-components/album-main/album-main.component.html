@@ -66,7 +66,7 @@
                         Edit info
                     </span>
                 </button>
-                <button (click)="deleteAlbum()" class="button is-danger is-small is-rounded">
+                <button (click)="openConfirmationModal()" class="button is-danger is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-trash"></i>
                     </span>
@@ -137,4 +137,8 @@
     <app-album-creator (submitAlbum)="updateAlbumInfo($event)" [title]="albumTitle" [releaseDate]="releaseDate"
         [label]="albumLabel" [length]="length" mode="editor" *ngIf="isAlbumCreatorVisible"
         (close)="closeAlbumCreatorModal()"></app-album-creator>
+
+    <!-- confirmation modal for when the user wants to delete an album -->
+    <app-confirmation-modal (confirm)="deleteAlbum()" (close)="closeConfirmationModal()" *ngIf="showConfirmationModal">
+    </app-confirmation-modal>
 </div>

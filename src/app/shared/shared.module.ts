@@ -10,6 +10,6 @@ import { ConfirmationModalComponent } from './presentational-components/confirma
 @NgModule({
   declarations: [ResourceManagerComponent, ResourceTableComponent, SearchResourceBarComponent, AlbumPaginatorComponent, ConfirmationModalComponent],
   imports: [CommonModule, FormsModule],
-  exports: [ResourceManagerComponent, AlbumPaginatorComponent],
+  exports: [ResourceManagerComponent, AlbumPaginatorComponent, ConfirmationModalComponent],
 })
 export class SharedModule {}

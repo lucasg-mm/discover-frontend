@@ -2,13 +2,13 @@
     <div (click)="emitCloseEvent()" class="modal-background"></div>
     <div class="modal-content">
         <div class="box">
-            <h1 class="title">Are you sure?</h1>
+            <h1 class="title is-4">Are you sure you want to proceed?</h1>
             <div class="field is-grouped">
                 <div class="control">
-                    <button (click)="emitCloseEvent()" class="button is-link">Confirm</button>
+                    <button (click)="emitConfirmEvent()" class="button is-link">Yes</button>
                 </div>
                 <div class="control">
-                    <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>
+                    <button (click)="emitCloseEvent()" class="button is-link is-light">No</button>
                 </div>
             </div>
         </div>

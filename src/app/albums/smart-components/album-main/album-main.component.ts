@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlbumsService } from '../../albums.service';
 import { TracksService } from 'src/app/tracks/tracks.service';
 import { Resource } from 'src/app/shared/models/resource.model';
@@ -41,13 +41,15 @@ export class AlbumMainComponent implements OnInit {
   genres: Genre[];
   artists: Artist[];
   isAlbumCreatorVisible: boolean = false; // the creator modal is also used to update the album's data
+  showConfirmationModal: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private albumService: AlbumsService,
     private trackService: TracksService,
     private artistService: ArtistsService,
-    private genreService: GenresService
+    private genreService: GenresService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,14 @@ export class AlbumMainComponent implements OnInit {
     );
     this.loadAlbumInfo().subscribe();
     this.loadTracklist().subscribe();
+  }
+
+  openConfirmationModal(): void {
+    this.showConfirmationModal = true;
+  }
+
+  closeConfirmationModal(): void {
+    this.showConfirmationModal = false;
   }
 
   updateAlbumInfo(album: Album): void {
@@ -88,8 +98,13 @@ export class AlbumMainComponent implements OnInit {
     return artistsNames;
   }
 
+  // deletes the album
   deleteAlbum(): void {
     console.log('This album is being deleted...');
+    this.albumService.deleteAlbumById(this.albumId).subscribe(() => {
+      bulmaToast.toast({ message: 'Album deleted!', type: 'is-success' });
+      this.router.navigate(['/albums']);
+    });
   }
 
   // takes the album's length (in seconds), and returns a formatted string,
