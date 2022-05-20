@@ -51,4 +51,9 @@ export class AlbumsService {
     return this.http.get<Track[]>(`${this.albumApiUri}/${albumId}/tracks`);
   }
 
+  // updates the album info, like the length, title, relase date and label
+  updateAlbumInfo(albumId: number, album: Album): Observable<Album>{
+    return this.http.put<Album>(`${this.albumApiUri}/${albumId}`, album);
+  }
+
 }

@@ -40,7 +40,7 @@ export class AlbumMainComponent implements OnInit {
   isModalLoading: boolean = false;
   genres: Genre[];
   artists: Artist[];
-  isAlbumCreatorVisible: boolean = false;   // the creator modal is also used to update the album's data 
+  isAlbumCreatorVisible: boolean = false; // the creator modal is also used to update the album's data
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -56,6 +56,18 @@ export class AlbumMainComponent implements OnInit {
     );
     this.loadAlbumInfo().subscribe();
     this.loadTracklist().subscribe();
+  }
+
+  updateAlbumInfo(album: Album): void {
+    this.albumService
+      .updateAlbumInfo(this.albumId, album)
+      .pipe(mergeMap(() => this.loadAlbumInfo()))
+      .subscribe(() => {
+        bulmaToast.toast({
+          message: 'Album info updated!',
+          type: 'is-success',
+        });
+      });
   }
 
   openAlbumCreatorModal(): void {
@@ -116,7 +128,7 @@ export class AlbumMainComponent implements OnInit {
       map((res) => {
         // gets the relevant info from the api
         this.releaseDate = res.releaseDate!;
-        this.length = res.length; 
+        this.length = res.length;
         this.artistsNames = this.getArtistsNames(res.artists!);
         this.formattedAlbumLength = this.getFormattedAlbumLength(res.length);
         this.formattedReleaseDate = this.getFormattedDate(res.releaseDate!);

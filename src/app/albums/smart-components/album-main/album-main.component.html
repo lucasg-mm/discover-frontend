@@ -134,5 +134,7 @@
         *ngIf="showGenreManager"></app-resource-manager>
 
     <!-- the album editor -->
-    <app-album-creator [title]="albumTitle" [releaseDate]="releaseDate" [label]="albumLabel" [length]="length" mode="editor" *ngIf="isAlbumCreatorVisible" (close)="closeAlbumCreatorModal()"></app-album-creator>
+    <app-album-creator (submitAlbum)="updateAlbumInfo($event)" [title]="albumTitle" [releaseDate]="releaseDate"
+        [label]="albumLabel" [length]="length" mode="editor" *ngIf="isAlbumCreatorVisible"
+        (close)="closeAlbumCreatorModal()"></app-album-creator>
 </div>
