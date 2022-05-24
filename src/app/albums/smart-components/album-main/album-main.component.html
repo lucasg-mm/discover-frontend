@@ -1,7 +1,15 @@
 <div class="main-container" *ngIf="isAlbumLoaded">
     <div class="album-header">
-        <img class="cover-art" height="300px" width="300px" [src]="albumCoverArtUrl"
-            (error)="insertDefaultAlbumCover()">
+        <div class="cover-container">
+            <img class="cover-art" height="300px" width="300px" [src]="albumCoverArtUrl"
+                (error)="insertDefaultAlbumCover()">
+
+            <div class="overlay">
+                <input class="file-input" type="file" name="resume">
+                <i class="fa-solid fa-pen"></i>
+                Change cover
+            </div>
+        </div>
 
         <div class="album-info">
             <h1 class="album-title title is-1">

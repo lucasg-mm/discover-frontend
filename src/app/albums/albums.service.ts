@@ -67,4 +67,9 @@ export class AlbumsService {
   deleteAlbumById(albumId: number): Observable<void> {
     return this.http.delete<void>(`${this.albumApiUri}/${albumId}`);
   }
+
+  // change the album's cover art
+  // setAlbumCoverArt(): Observable<Album> {
+
+  // }
 }
