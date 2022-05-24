@@ -1,33 +1,38 @@
-.main-container{
-    margin-top: 80px;
+.main-container {
+  margin-top: 80px;
 }
 
-.album-info{
-    font-weight: bold;
-    padding: 55px;
+.album-info {
+  font-weight: bold;
+  padding: 55px;
 }
 
-.album-title{
-    font-weight: bold;
+.album-title {
+  font-weight: bold;
 }
 
-.album-meta-info{
-    list-style-type: none;
-    margin-left: 0;
-    font-size: .8rem;
-    color: #757575;
+.album-meta-info {
+  list-style-type: none;
+  margin-left: 0;
+  font-size: 0.8rem;
+  color: #757575;
 }
 
-.album-header{
-    display: grid;
-    grid-template-columns: 2fr 8fr;
-    align-items: center;
+.album-header {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  align-items: center;
 }
 
-.button{
-    margin-right: 15px;
+.button {
+  margin-right: 15px;
 }
 
 .cover-art {
-    border-radius: 6px;
-  }
+  border-radius: 6px;
+}
+
+.album-tracks {
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
