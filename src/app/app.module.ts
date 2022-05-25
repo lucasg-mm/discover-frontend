@@ -3,12 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { AlbumsModule } from './albums/albums.module';
+import { ArtistsModule } from './artists/artists.module';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AlbumsModule, SidebarModule],
+  imports: [BrowserModule, AppRoutingModule, AlbumsModule, SidebarModule, ArtistsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
