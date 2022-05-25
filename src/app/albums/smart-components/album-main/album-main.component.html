@@ -5,9 +5,11 @@
                 (error)="insertDefaultAlbumCover()">
 
             <div class="overlay">
-                <input class="file-input" type="file" (change)="onFileSelect($event)">
+                <input class="file-input" type="file" accept=".jpg, .png, .jpeg" (change)="onFileSelect($event)">
                 <i class="fa-solid fa-pen"></i>
-                Change cover
+                <b>
+                    Change cover
+                </b>
             </div>
         </div>
 

@@ -60,8 +60,18 @@ export class AlbumMainComponent implements OnInit {
     this.loadTracklist().subscribe();
   }
 
+  // triggered when file is selected
   onFileSelect(event: any): void {
     const file: File = event.target.files[0];
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+    // validates the file extension
+    if (!allowedExtensions.exec(file.name)) {
+      bulmaToast.toast({ message: 'Please, select a .png, .jpeg, or .jpg!', type: 'is-danger' });
+      return;
+    }
+    
+    // uses the api to set the album cover art
     this.albumService.setAlbumCoverArt(file, this.albumId).subscribe(() => {
       bulmaToast.toast({ message: 'Cover art updated!', type: 'is-success' });
 
