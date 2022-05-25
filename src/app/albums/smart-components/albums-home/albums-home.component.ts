@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from '../../albums.service';
 import { Album } from '../../models/album.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as bulmaToast from 'bulma-toast'
+import * as bulmaToast from 'bulma-toast';
 
 @Component({
   selector: 'app-albums-home',
@@ -18,6 +18,12 @@ export class AlbumsHomeComponent implements OnInit {
 
   isAlbumCreatorVisible: boolean = false;
 
+  // the paginator change page triggers different
+  // api calls, depending if the user is searching or not
+  isSearching: boolean = false;
+
+  lastSearchTerm: string = "";
+
   constructor(
     private albumsService: AlbumsService,
     private route: ActivatedRoute,
@@ -27,17 +33,47 @@ export class AlbumsHomeComponent implements OnInit {
   ngOnInit(): void {
     // watches for query params changes
     this.route.queryParams.subscribe((params) => {
-      this.currPage = this.validatesAndGetsPage(params["page"]);
+      this.currPage = this.validatesAndGetsPage(params['page']);
       this.findAlbumsPaginated(this.currPage);
     });
   }
 
+  // searches for albums in the api
+  searchAlbums(searchTerm: string, pageNumber: number = 1): void {
+    // if the search term is empty, 
+    if (searchTerm === '') {
+      this.findAlbumsPaginated(1);
+      this.isSearching = false;
+      return;
+    }
+
+    this.isSearching = true;
+    this.lastSearchTerm = searchTerm;
+    // searches for albums
+    this.albumsService
+      .searchAlbums(searchTerm, pageNumber, 10)
+      .subscribe((res) => {
+        this.displayedAlbums = res.items;
+        this.finalPage = res.totalPages;
+        
+        this.currPage = 1;
+      });
+  }
+
+  changeCurrentPage(pageNumber: number): void{
+    if (this.isSearching) {
+      this.searchAlbums(this.lastSearchTerm, pageNumber);
+    } else {
+      this.findAlbumsPaginated(pageNumber);
+    }
+  }
+
   // validates the page param and returns it as a number
-  validatesAndGetsPage(page: any): number{
+  validatesAndGetsPage(page: any): number {
     let pageParam: number = parseInt(page);
 
     // it has to be a number and equal or greater than 1
-    pageParam = (pageParam && pageParam >= 1) ? pageParam : 1; 
+    pageParam = pageParam && pageParam >= 1 ? pageParam : 1;
     return pageParam;
   }
 
@@ -51,7 +87,7 @@ export class AlbumsHomeComponent implements OnInit {
 
   // changes the query params (this is triggered by a click in the paginator)
   retrieveAlbumsOnPage(pageNumber: number) {
-    this.router.navigate(['/albums'], { queryParams: { page: pageNumber } });    
+    this.router.navigate(['/albums'], { queryParams: { page: pageNumber } });
   }
 
   // find the albums in a paginated way
@@ -69,11 +105,17 @@ export class AlbumsHomeComponent implements OnInit {
 
   // creates a new album
   createAlbum(albumToBeCreated: Album): void {
-    this.albumsService.createAlbum(albumToBeCreated).subscribe((res) => {
-      bulmaToast.toast({ message: 'Album successfully created!', type: 'is-success' })
-      this.closeAlbumCreatorModal();
-    }, (err) => {
-      console.log(err);  // just logs the error for now
-    });
+    this.albumsService.createAlbum(albumToBeCreated).subscribe(
+      (res) => {
+        bulmaToast.toast({
+          message: 'Album successfully created!',
+          type: 'is-success',
+        });
+        this.closeAlbumCreatorModal();
+      },
+      (err) => {
+        console.log(err); // just logs the error for now
+      }
+    );
   }
 }

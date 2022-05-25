@@ -72,8 +72,22 @@ export class AlbumsService {
   setAlbumCoverArt(coverArt: File, albumId: number): Observable<Album> {
     // constructs the form-data
     const formData = new FormData();
-    formData.append("coverArt", coverArt);
+    formData.append('coverArt', coverArt);
 
-    return this.http.put<Album>(`${this.albumApiUri}/${albumId}/cover`, formData);
+    return this.http.put<Album>(
+      `${this.albumApiUri}/${albumId}/cover`,
+      formData
+    );
+  }
+
+  // search for an album
+  searchAlbums(
+    searchTerm: string,
+    pageNumber: number,
+    pageSize: number = 10
+  ): Observable<AlbumsPaginated> {
+    return this.http.get<AlbumsPaginated>(
+      `${this.albumApiUri}/search?title=${searchTerm}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
   }
 }

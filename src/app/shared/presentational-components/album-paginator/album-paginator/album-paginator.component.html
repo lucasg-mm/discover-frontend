@@ -1,4 +1,4 @@
-<nav class="pagination is-rounded" role="navigation">
+<nav *ngIf="finalPage !== 0" class="pagination is-rounded" role="navigation">
         <a *ngIf="!isPageTheFirst(currPage)" (click)="goToPage(currPage - 1)" class="pagination-previous">Previous</a>
         <a *ngIf="!isPageTheFinal(currPage)" (click)="goToPage(currPage + 1)" class="pagination-next">Next page</a>
         <ul class="pagination-list">

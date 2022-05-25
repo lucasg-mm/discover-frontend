@@ -1,11 +1,5 @@
 <div class="superior-bar">
-    <!-- <p class="control has-icons-left">
-        <input type="text" class="input is-rounded" placeholder="Search for an album...">
-        <span class="icon is-left">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
-    </p> -->
-    <app-search-resource-bar class="search-bar"></app-search-resource-bar>
+    <app-search-resource-bar (search)="emitSearchEvent($event)" [isLoading]="isLoading" class="search-bar"></app-search-resource-bar>
     <button class="button is-rounded is-success" (click)="emitCreateAlbumEvent()">
         <span class="icon">
             <i class="fa-solid fa-plus"></i>

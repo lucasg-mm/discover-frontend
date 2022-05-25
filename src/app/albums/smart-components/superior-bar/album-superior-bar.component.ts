@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-album-superior-bar',
@@ -9,8 +9,18 @@ export class AlbumSuperiorBarComponent implements OnInit {
 
   constructor() { }
 
+  @Input()
+  isLoading: boolean = false;
+
   @Output()
   createAlbum: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  search: EventEmitter<string> = new EventEmitter();
+
+  emitSearchEvent(searchTerm: string): void{
+    this.search.emit(searchTerm);
+  }
 
   ngOnInit(): void {
   }

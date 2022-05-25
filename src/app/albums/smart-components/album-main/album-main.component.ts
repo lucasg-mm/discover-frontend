@@ -396,7 +396,7 @@ export class AlbumMainComponent implements OnInit {
     }
   }
 
-  // search for artists in a paginatedway
+  // search for artists in a paginated way
   searchArtists(searchTerm: string, pageNumber: number = 1): void {
     this.isModalLoading = true;
 
