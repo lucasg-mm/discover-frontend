@@ -60,6 +60,20 @@ export class AlbumMainComponent implements OnInit {
     this.loadTracklist().subscribe();
   }
 
+  onFileSelect(event: any): void {
+    const file: File = event.target.files[0];
+    this.albumService.setAlbumCoverArt(file, this.albumId).subscribe(() => {
+      bulmaToast.toast({ message: 'Cover art updated!', type: 'is-success' });
+
+      // appends a timestamp to the cover art url
+      // this makes the img tag tag update (without updating the whole page) 
+      this.albumCoverArtUrl =
+        this.albumService.getCoverArtUrl(this.albumId) +
+        '?random=' +
+        new Date().getTime();
+    });
+  }
+
   openConfirmationModal(): void {
     this.showConfirmationModal = true;
   }

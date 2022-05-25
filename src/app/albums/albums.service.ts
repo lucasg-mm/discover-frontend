@@ -69,7 +69,11 @@ export class AlbumsService {
   }
 
   // change the album's cover art
-  // setAlbumCoverArt(): Observable<Album> {
+  setAlbumCoverArt(coverArt: File, albumId: number): Observable<Album> {
+    // constructs the form-data
+    const formData = new FormData();
+    formData.append("coverArt", coverArt);
 
-  // }
+    return this.http.put<Album>(`${this.albumApiUri}/${albumId}/cover`, formData);
+  }
 }
