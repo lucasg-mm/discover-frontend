@@ -5,11 +5,13 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArtistCardComponent } from './presentational-components/artist-card/artist-card.component';
 
 
 @NgModule({
   declarations: [
-    ArtistsHomeComponent
+    ArtistsHomeComponent,
+    ArtistCardComponent
   ],
   imports: [
     CommonModule,

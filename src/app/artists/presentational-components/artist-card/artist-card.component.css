@@ -1,0 +1,19 @@
+.box {
+  width: 200px;
+  padding-bottom: 40px;
+}
+
+.img-container {
+  text-align: center;
+}
+
+.artist-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.title {
+  margin-top: 15px;
+}
