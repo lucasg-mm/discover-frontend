@@ -3,8 +3,8 @@
     <div class="album-listing">
         <app-album-card class="album-card" *ngFor="let album of displayedAlbums" [album]="album"></app-album-card>
     </div>
-    <app-album-paginator [finalPage]="finalPage" [currPage]="currPage"
-        (pageChange)="retrieveAlbumsOnPage($event)"></app-album-paginator>
+    <app-paginator [finalPage]="finalPage" [currPage]="currPage"
+        (pageChange)="retrieveAlbumsOnPage($event)"></app-paginator>
     <app-album-creator *ngIf="isAlbumCreatorVisible" (close)="closeAlbumCreatorModal()"
         (submitAlbum)="createAlbum($event)"></app-album-creator>
 </div>

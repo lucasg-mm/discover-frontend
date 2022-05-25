@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-album-paginator',
+  selector: 'app-paginator',
   templateUrl: './album-paginator.component.html',
   styleUrls: ['./album-paginator.component.css'],
 })
