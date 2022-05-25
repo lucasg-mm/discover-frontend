@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlbumsHomeComponent } from './albums/smart-components/albums-home/albums-home.component';
 import { AlbumMainComponent } from './albums/smart-components/album-main/album-main.component';
+import { ArtistsHomeComponent } from './artists/smart-components/artists-home/artists-home.component';
 
 // my routes
 const routes: Routes = [
-  // path for the 'albums' path... should add the pageSize=1 default parameter (but how?)
+  // path for the 'albums' path
   {
     path: 'albums',
     component: AlbumsHomeComponent
@@ -13,6 +14,12 @@ const routes: Routes = [
   {
     path: 'albums/:albumId',
     component: AlbumMainComponent
+  },
+
+  // path for the 'artists' path
+  {
+    path: 'artists',
+    component: ArtistsHomeComponent
   }
 ];
 
