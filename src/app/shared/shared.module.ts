@@ -8,8 +8,19 @@ import { AlbumPaginatorComponent } from './presentational-components/album-pagin
 import { ConfirmationModalComponent } from './presentational-components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
-  declarations: [ResourceManagerComponent, ResourceTableComponent, SearchResourceBarComponent, AlbumPaginatorComponent, ConfirmationModalComponent],
+  declarations: [
+    ResourceManagerComponent,
+    ResourceTableComponent,
+    SearchResourceBarComponent,
+    AlbumPaginatorComponent,
+    ConfirmationModalComponent,
+  ],
   imports: [CommonModule, FormsModule],
-  exports: [ResourceManagerComponent, AlbumPaginatorComponent, ConfirmationModalComponent],
+  exports: [
+    ResourceManagerComponent,
+    AlbumPaginatorComponent,
+    ConfirmationModalComponent,
+    SearchResourceBarComponent,
+  ],
 })
 export class SharedModule {}
