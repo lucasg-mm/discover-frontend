@@ -1,4 +1,4 @@
-<a class="box">
+<a class="box" [routerLink]="'/artists/' + artist.id">
     <div class="img-container">
         <img class="artist-image" [src]="profilePictureUrl" (error)="insertDefaultAlbumCover()">
     </div>

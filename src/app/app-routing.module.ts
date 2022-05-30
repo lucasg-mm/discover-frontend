@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AlbumsHomeComponent } from './albums/smart-components/albums-home/albums-home.component';
 import { AlbumMainComponent } from './albums/smart-components/album-main/album-main.component';
 import { ArtistsHomeComponent } from './artists/smart-components/artists-home/artists-home.component';
+import { ArtistMainComponent } from './artists/smart-components/artist-main/artist-main.component';
 
 // my routes
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'artists',
     component: ArtistsHomeComponent
+  },
+  {
+    path: 'artists/:artistId',
+    component: ArtistMainComponent
   }
 ];
 
@@ -28,8 +33,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-
-// upon meeting new people
-// what i found out baffled me
-// 

@@ -7,13 +7,15 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArtistCardComponent } from './presentational-components/artist-card/artist-card.component';
 import { ArtistCreatorComponent } from './presentational-components/artist-creator/artist-creator.component';
+import { ArtistMainComponent } from './smart-components/artist-main/artist-main.component';
 
 
 @NgModule({
   declarations: [
     ArtistsHomeComponent,
     ArtistCardComponent,
-    ArtistCreatorComponent
+    ArtistCreatorComponent,
+    ArtistMainComponent
   ],
   imports: [
     CommonModule,
