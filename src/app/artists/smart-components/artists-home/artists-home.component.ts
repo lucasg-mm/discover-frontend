@@ -32,22 +32,31 @@ export class ArtistsHomeComponent implements OnInit {
   ngOnInit(): void {
     // watches for query params changes
     this.route.queryParams.subscribe((params) => {
-      // this.currPage = this.validatesAndGetsPage(params['page']);
-      this.currPage = 1;
+      this.currPage = this.validatesAndGetsPage(params['page']);
       this.findArtistsPaginated(this.currPage);
     });
   }
 
-  findArtistsPaginated(pageNumber: number): void{
+  // validates the page param and returns it as a number
+  validatesAndGetsPage(page: any): number {
+    let pageParam: number = parseInt(page);
+
+    // it has to be a number and equal or greater than 1
+    pageParam = pageParam && pageParam >= 1 ? pageParam : 1;
+    return pageParam;
+  }
+
+  findArtistsPaginated(pageNumber: number): void {
     this.artistsService.getAllArtists(pageNumber, 10).subscribe((res) => {
       this.displayedArtists = res.items;
       this.finalPage = res.totalPages;
 
       console.log(this.displayedArtists);
       console.log(this.finalPage);
-      
-      
-    })
+    });
   }
 
+  retrieveArtistsOnPage(pageNumber: number) {
+    this.router.navigate(['/artists'], { queryParams: { page: pageNumber } });
+  }
 }

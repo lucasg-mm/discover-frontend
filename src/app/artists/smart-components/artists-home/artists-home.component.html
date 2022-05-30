@@ -2,5 +2,5 @@
     <div class="artist-listing">
         <app-artist-card *ngFor="let artist of displayedArtists" [artist]="artist"></app-artist-card>
     </div>
-    <app-paginator [finalPage]="finalPage" [currPage]="1"></app-paginator>
+    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="retrieveArtistsOnPage($event)"></app-paginator>
 </div>
