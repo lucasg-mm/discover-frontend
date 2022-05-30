@@ -96,10 +96,7 @@ export class AlbumsHomeComponent implements OnInit {
       (res) => {
         this.displayedAlbums = res.items;
         this.finalPage = res.totalPages;
-      },
-      (err) => {
-        console.log(err);
-      }
+      } 
     );
   }
 

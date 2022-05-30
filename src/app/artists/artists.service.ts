@@ -34,4 +34,9 @@ export class ArtistsService {
   detachAlbumFromArtist(albumId: number, artistId: number): Observable<Album>{
     return this.http.delete<Album>(`${this.artistApiUri}/${artistId}/albums/${albumId}`);
   }
+
+  // get album cover art url
+  getProfilePictureUrl(artistId: number): string {
+    return `${this.artistApiUri}/${artistId}/image`;
+  }
 }

@@ -1,6 +1,6 @@
 <div class="view">
     <div class="artist-listing">
-        <app-artist-card></app-artist-card>
+        <app-artist-card *ngFor="let artist of displayedArtists" [artist]="artist"></app-artist-card>
     </div>
-    <app-paginator [finalPage]="10" [currPage]="1"></app-paginator>
+    <app-paginator [finalPage]="finalPage" [currPage]="1"></app-paginator>
 </div>

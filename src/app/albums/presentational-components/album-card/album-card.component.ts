@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Album } from '../../models/album.model';
-import { environment } from 'src/environments/environment';
 import { AlbumsService } from '../../albums.service';
 
 @Component({
