@@ -5,4 +5,5 @@
     </div>
     <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="changeCurrentPage($event)">
     </app-paginator>
+    <app-artist-creator *ngIf="isArtistCreatorVisible"></app-artist-creator>
 </div>

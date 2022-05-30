@@ -7,16 +7,21 @@
                 <div class="field">
                     <label class="label">Title<span class="red">*</span></label>
                     <div class="control">
-                        <input formControlName="title" [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('title')}" type="text" placeholder="Album's title">
+                        <input formControlName="title"
+                            [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('title')}" type="text"
+                            placeholder="Album's title">
                     </div>
                     <p *ngIf="isFieldInvalidAndInteracted('title')" class="help is-danger">Please, provide a title.</p>
                 </div>
                 <div class="field">
                     <label class="label">Release date<span class="red">*</span></label>
                     <div class="control">
-                        <input formControlName="releaseDate" [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('releaseDate')}" type="date">
+                        <input formControlName="releaseDate"
+                            [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('releaseDate')}"
+                            type="date">
                     </div>
-                    <p *ngIf="isFieldInvalidAndInteracted('releaseDate')" class="help is-danger">Please, provide a release date.</p>
+                    <p *ngIf="isFieldInvalidAndInteracted('releaseDate')" class="help is-danger">Please, provide a
+                        release date.</p>
                 </div>
                 <div class="field">
                     <label class="label">Label</label>
@@ -27,13 +32,17 @@
                 <div class="field">
                     <label class="label">Length (in seconds)<span class="red">*</span></label>
                     <div class="control">
-                        <input formControlName="length" [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('length')}" type="number" placeholder="Album's length">
+                        <input formControlName="length"
+                            [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('length')}" type="number"
+                            placeholder="Album's length">
                     </div>
-                    <p *ngIf="isFieldInvalidAndInteracted('length')" class="help is-danger">Please, provide a valid length (greater or equal than 1).</p>
+                    <p *ngIf="isFieldInvalidAndInteracted('length')" class="help is-danger">Please, provide a valid
+                        length (greater or equal than 1).</p>
                 </div>
-                <div class="field is-grouped">
+                <div class="btn-set field is-grouped">
                     <div class="control">
-                        <button [disabled]="newAlbumForm.invalid" class="button is-link">{{ mode === 'creator' ? 'Create' : 'Update' }}</button>
+                        <button [disabled]="newAlbumForm.invalid" class="button is-link">{{ mode === 'creator' ?
+                            'Create' : 'Update' }}</button>
                     </div>
                     <div class="control">
                         <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>

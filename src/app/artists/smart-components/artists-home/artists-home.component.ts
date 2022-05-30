@@ -62,7 +62,12 @@ export class ArtistsHomeComponent implements OnInit {
 
   // opens the modal to create an artist
   openArtistCreatorModal() {
-    console.log('TODO');
+    this.isArtistCreatorVisible = true;
+  }
+
+  // closes the modal to create an artist
+  closeArtistCreatorModal() {
+    this.isArtistCreatorVisible = false;
   }
 
   changeCurrentPage(pageNumber: number): void {

@@ -6,12 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArtistCardComponent } from './presentational-components/artist-card/artist-card.component';
+import { ArtistCreatorComponent } from './presentational-components/artist-creator/artist-creator.component';
 
 
 @NgModule({
   declarations: [
     ArtistsHomeComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    ArtistCreatorComponent
   ],
   imports: [
     CommonModule,
