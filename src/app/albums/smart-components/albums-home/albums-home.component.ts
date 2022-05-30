@@ -22,7 +22,7 @@ export class AlbumsHomeComponent implements OnInit {
   // api calls, depending if the user is searching or not
   isSearching: boolean = false;
 
-  lastSearchTerm: string = "";
+  lastSearchTerm: string = '';
 
   constructor(
     private albumsService: AlbumsService,
@@ -40,7 +40,7 @@ export class AlbumsHomeComponent implements OnInit {
 
   // searches for albums in the api
   searchAlbums(searchTerm: string, pageNumber: number = 1): void {
-    // if the search term is empty, 
+    // if the search term is empty,
     if (searchTerm === '') {
       this.router.navigate(['/albums']);
       this.retrieveAlbumsOnPage(1);
@@ -56,12 +56,12 @@ export class AlbumsHomeComponent implements OnInit {
       .subscribe((res) => {
         this.displayedAlbums = res.items;
         this.finalPage = res.totalPages;
-        
+
         this.currPage = 1;
       });
   }
 
-  changeCurrentPage(pageNumber: number): void{
+  changeCurrentPage(pageNumber: number): void {
     if (this.isSearching) {
       this.searchAlbums(this.lastSearchTerm, pageNumber);
     } else {
@@ -93,27 +93,21 @@ export class AlbumsHomeComponent implements OnInit {
 
   // find the albums in a paginated way
   findAlbumsPaginated(pageNumber: number): void {
-    this.albumsService.findAlbumsPaginated(pageNumber).subscribe(
-      (res) => {
-        this.displayedAlbums = res.items;
-        this.finalPage = res.totalPages;
-      } 
-    );
+    this.albumsService.findAlbumsPaginated(pageNumber).subscribe((res) => {
+      this.displayedAlbums = res.items;
+      this.finalPage = res.totalPages;
+    });
   }
 
   // creates a new album
   createAlbum(albumToBeCreated: Album): void {
-    this.albumsService.createAlbum(albumToBeCreated).subscribe(
-      (res) => {
-        bulmaToast.toast({
-          message: 'Album successfully created!',
-          type: 'is-success',
-        });
-        this.closeAlbumCreatorModal();
-      },
-      (err) => {
-        console.log(err); // just logs the error for now
-      }
-    );
+    this.albumsService.createAlbum(albumToBeCreated).subscribe((res) => {
+      bulmaToast.toast({
+        message: 'Album successfully created!',
+        type: 'is-success',
+      });
+      this.router.navigate([`/albums/${res.id}`]);
+      // this.closeAlbumCreatorModal();
+    });
   }
 }

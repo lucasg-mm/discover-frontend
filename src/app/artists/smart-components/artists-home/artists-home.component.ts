@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistsService } from '../../artists.service';
 import { Artist } from '../../models/artists.model';
+import * as bulmaToast from 'bulma-toast';
 
 @Component({
   selector: 'app-artists-home',
@@ -58,6 +59,18 @@ export class ArtistsHomeComponent implements OnInit {
         this.finalPage = res.totalPages;
         this.currPage = 1;
       });
+  }
+
+  // creates a new artist
+  createArtist(artistToBeCreated: Artist) {
+    this.artistsService.createArtist(artistToBeCreated).subscribe((res) => {
+      bulmaToast.toast({
+        message: 'Artist successfully created!',
+        type: 'is-success',
+      });
+      this.router.navigate([`/artists/${res.id}`]);
+      // this.closeArtistCreatorModal();
+    });
   }
 
   // opens the modal to create an artist
