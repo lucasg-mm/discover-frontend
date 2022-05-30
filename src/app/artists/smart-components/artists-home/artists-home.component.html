@@ -1,6 +1,8 @@
 <div class="view">
+    <app-superior-bar (search)="searchArtists($event)" (create)="openArtistCreatorModal()"></app-superior-bar>
     <div class="artist-listing">
         <app-artist-card *ngFor="let artist of displayedArtists" [artist]="artist"></app-artist-card>
     </div>
-    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="retrieveArtistsOnPage($event)"></app-paginator>
+    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="changeCurrentPage($event)">
+    </app-paginator>
 </div>

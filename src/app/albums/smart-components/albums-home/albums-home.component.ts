@@ -42,7 +42,8 @@ export class AlbumsHomeComponent implements OnInit {
   searchAlbums(searchTerm: string, pageNumber: number = 1): void {
     // if the search term is empty, 
     if (searchTerm === '') {
-      this.findAlbumsPaginated(1);
+      this.router.navigate(['/albums']);
+      this.retrieveAlbumsOnPage(1);
       this.isSearching = false;
       return;
     }
@@ -64,7 +65,7 @@ export class AlbumsHomeComponent implements OnInit {
     if (this.isSearching) {
       this.searchAlbums(this.lastSearchTerm, pageNumber);
     } else {
-      this.findAlbumsPaginated(pageNumber);
+      this.retrieveAlbumsOnPage(pageNumber);
     }
   }
 

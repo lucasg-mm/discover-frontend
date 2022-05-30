@@ -37,6 +37,42 @@ export class ArtistsHomeComponent implements OnInit {
     });
   }
 
+  // searches for artists
+  searchArtists(searchTerm: string, pageNumber: number = 1) {
+    // if the search term is empty,
+    if (searchTerm === '') {
+      this.router.navigate(['/artists']);
+      this.findArtistsPaginated(1);
+      this.isSearching = false;
+      return;
+    }
+
+    this.isSearching = true;
+    this.lastSearchTerm = searchTerm;
+
+    // searches for artists
+    this.artistsService
+      .searchArtists(searchTerm, pageNumber, 10)
+      .subscribe((res) => {
+        this.displayedArtists = res.items;
+        this.finalPage = res.totalPages;
+        this.currPage = 1;
+      });
+  }
+
+  // opens the modal to create an artist
+  openArtistCreatorModal() {
+    console.log('TODO');
+  }
+
+  changeCurrentPage(pageNumber: number): void {
+    if (this.isSearching) {
+      this.searchArtists(this.lastSearchTerm, pageNumber);
+    } else {
+      this.retrieveArtistsOnPage(pageNumber);
+    }
+  }
+
   // validates the page param and returns it as a number
   validatesAndGetsPage(page: any): number {
     let pageParam: number = parseInt(page);
