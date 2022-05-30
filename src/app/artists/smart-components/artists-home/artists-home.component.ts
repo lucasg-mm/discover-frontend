@@ -69,7 +69,11 @@ export class ArtistsHomeComponent implements OnInit {
         type: 'is-success',
       });
       this.router.navigate([`/artists/${res.id}`]);
-      // this.closeArtistCreatorModal();
+    }, (error) => {
+      bulmaToast.toast({
+        message: error.error.message,
+        type: 'is-danger',
+      });
     });
   }
 
