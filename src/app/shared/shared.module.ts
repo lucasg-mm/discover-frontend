@@ -6,6 +6,7 @@ import { ResourceTableComponent } from './presentational-components/resource-tab
 import { SearchResourceBarComponent } from './presentational-components/search-resource-bar/search-resource-bar.component';
 import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 import { ConfirmationModalComponent } from './presentational-components/confirmation-modal/confirmation-modal/confirmation-modal.component';
+import { SuperiorBarComponent } from './presentational-components/superior-bar/superior-bar.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ConfirmationModalComponent } from './presentational-components/confirma
     SearchResourceBarComponent,
     AlbumPaginatorComponent,
     ConfirmationModalComponent,
+    SuperiorBarComponent
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -21,6 +23,7 @@ import { ConfirmationModalComponent } from './presentational-components/confirma
     AlbumPaginatorComponent,
     ConfirmationModalComponent,
     SearchResourceBarComponent,
-  ],
+    SuperiorBarComponent
+  ]
 })
 export class SharedModule {}

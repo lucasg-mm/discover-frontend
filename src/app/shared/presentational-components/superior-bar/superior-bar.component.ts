@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-album-superior-bar',
-  templateUrl: './album-superior-bar.component.html',
-  styleUrls: ['./album-superior-bar.component.css']
+  selector: 'app-superior-bar',
+  templateUrl: './superior-bar.component.html',
+  styleUrls: ['./superior-bar.component.css']
 })
-export class AlbumSuperiorBarComponent implements OnInit {
+export class SuperiorBarComponent implements OnInit {
 
   constructor() { }
 
@@ -13,7 +13,7 @@ export class AlbumSuperiorBarComponent implements OnInit {
   isLoading: boolean = false;
 
   @Output()
-  createAlbum: EventEmitter<any> = new EventEmitter();
+  create: EventEmitter<any> = new EventEmitter();
 
   @Output()
   search: EventEmitter<string> = new EventEmitter();
@@ -25,8 +25,8 @@ export class AlbumSuperiorBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  emitCreateAlbumEvent(): void {
-    this.createAlbum.emit();
+  emitCreateEvent(): void {
+    this.create.emit();
   }
 
 }

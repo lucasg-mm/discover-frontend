@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlbumSuperiorBarComponent } from './album-superior-bar.component';
+import { SuperiorBarComponent } from './superior-bar.component';
 
 describe('SuperiorBarComponent', () => {
-  let component: AlbumSuperiorBarComponent;
-  let fixture: ComponentFixture<AlbumSuperiorBarComponent>;
+  let component: SuperiorBarComponent;
+  let fixture: ComponentFixture<SuperiorBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AlbumSuperiorBarComponent ]
+      declarations: [ SuperiorBarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlbumSuperiorBarComponent);
+    fixture = TestBed.createComponent(SuperiorBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

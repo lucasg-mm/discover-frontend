@@ -1,11 +1,11 @@
 <div class="superior-bar">
     <app-search-resource-bar (search)="emitSearchEvent($event)" [isLoading]="isLoading" class="search-bar"></app-search-resource-bar>
-    <button class="button is-rounded is-success" (click)="emitCreateAlbumEvent()">
+    <button class="button is-rounded is-success" (click)="emitCreateEvent()">
         <span class="icon">
             <i class="fa-solid fa-plus"></i>
         </span>
         <span>
-            Create album
+            Create
         </span>
     </button>
 </div>

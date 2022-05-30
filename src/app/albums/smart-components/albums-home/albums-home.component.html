@@ -1,5 +1,5 @@
 <div class="view">
-    <app-album-superior-bar (search)="searchAlbums($event)" (createAlbum)="openAlbumCreatorModal()"></app-album-superior-bar>
+    <app-superior-bar (search)="searchAlbums($event)" (create)="openAlbumCreatorModal()"></app-superior-bar>
     <div class="album-listing">
         <app-album-card *ngFor="let album of displayedAlbums" [album]="album"></app-album-card>
     </div>
