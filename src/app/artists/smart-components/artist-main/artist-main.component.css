@@ -1,0 +1,63 @@
+.main-container {
+  margin-top: 80px;
+}
+
+.artist-info {
+  font-weight: bold;
+  padding: 55px;
+}
+
+.artist-title {
+  font-weight: bold;
+}
+
+.artist-meta-info {
+  list-style-type: none;
+  margin-left: 0;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.artist-header {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  align-items: center;
+}
+
+.button {
+  margin-right: 15px;
+}
+
+/* below: CSS for the cover art overlay */
+
+.picture-container {
+  position: relative;
+}
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  clip-path: circle();
+}
+
+.picture-container:hover .profile-pic {
+  opacity: 0.3;
+}
+
+.picture-container:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  line-height: 300px;
+}

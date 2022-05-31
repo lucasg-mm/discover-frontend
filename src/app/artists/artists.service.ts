@@ -26,6 +26,11 @@ export class ArtistsService {
     );
   }
 
+  // find a specific artist by their id
+  findArtistById(artistId: number): Observable<Artist> {
+    return this.http.get<Artist>(`${this.artistApiUri}/${artistId}`);
+  }
+
   // creates a new artist
   createArtist(artistToBeCreated: Artist): Observable<Artist> {
     return this.http.post<Artist>(this.artistApiUri, artistToBeCreated);
