@@ -66,4 +66,17 @@ export class ArtistsService {
   getProfilePictureUrl(artistId: number): string {
     return `${this.artistApiUri}/${artistId}/image`;
   }
+
+  // uploads an artist's profile picture using multipart/form-data encoding
+  setProfilePicture(profilePic: File, artistId: number): Observable<Artist> {
+    // constructs the form-data
+    const formData = new FormData();
+    formData.append('image', profilePic);
+
+    // sends the http request
+    return this.http.put<Artist>(
+      `${this.artistApiUri}/${artistId}/image`,
+      formData
+    );
+  }
 }

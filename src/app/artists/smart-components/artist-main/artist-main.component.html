@@ -4,7 +4,7 @@
             <img class="profile-pic" [src]="artistProfilePictureURL" (error)="insertDefaultProfilePicture()">
 
             <div class="overlay">
-                <input class="file-input" type="file" accept=".jpg, .png, .jpeg">
+                <input class="file-input" type="file" accept=".jpg, .png, .jpeg" (change)="onFileSelect($event)">
                 <i class="fa-solid fa-pen"></i>
                 <b>
                     Change picture
