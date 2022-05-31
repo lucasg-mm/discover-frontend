@@ -14,6 +14,7 @@ import * as bulmaToast from 'bulma-toast';
 export class ArtistMainComponent implements OnInit {
   artist: Artist;
   artistProfilePictureURL: string = '';
+  isArtistLoaded: boolean = false;
 
   constructor(
     private artistService: ArtistsService,
@@ -25,6 +26,7 @@ export class ArtistMainComponent implements OnInit {
       this.activatedRoute.snapshot.paramMap.get('artistId')!
     );
     this.loadArtistInfo(artistId).subscribe(() => {
+      this.isArtistLoaded = true;
       this.updateProfilePicture();
     });
   }
