@@ -67,16 +67,19 @@ export class AlbumMainComponent implements OnInit {
 
     // validates the file extension
     if (!allowedExtensions.exec(file.name)) {
-      bulmaToast.toast({ message: 'Please, select a .png, .jpeg, or .jpg!', type: 'is-danger' });
+      bulmaToast.toast({
+        message: 'Please, select a .png, .jpeg, or .jpg!',
+        type: 'is-danger',
+      });
       return;
     }
-    
+
     // uses the api to set the album cover art
     this.albumService.setAlbumCoverArt(file, this.albumId).subscribe(() => {
       bulmaToast.toast({ message: 'Cover art updated!', type: 'is-success' });
 
       // appends a timestamp to the cover art url
-      // this makes the img tag tag update (without updating the whole page) 
+      // this makes the img tag tag update (without updating the whole page)
       this.albumCoverArtUrl =
         this.albumService.getCoverArtUrl(this.albumId) +
         '?random=' +
@@ -221,14 +224,12 @@ export class AlbumMainComponent implements OnInit {
   }
 
   loadToBeAttachedResource(resourceType: string): void {
+    this.resourceCurrPage = 1;
     if (resourceType === 'artist') {
-      this.resourceCurrPage = 1;
       this.loadAllArtistsFromPage(1);
     } else if (resourceType === 'track') {
-      this.resourceCurrPage = 1;
       this.loadAllTracksFromPage(1);
     } else if (resourceType === 'genre') {
-      this.resourceCurrPage = 1;
       this.loadAllGenresFromPage(1);
     }
   }

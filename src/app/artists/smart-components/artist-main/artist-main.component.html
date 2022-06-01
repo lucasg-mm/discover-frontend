@@ -70,13 +70,17 @@
     </div>
 
     <!-- manager for tracks -->
-    <app-resource-manager [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachTrackToArtist($event)"
+        (detach)="detachTrackFromArtist($event)" (search)="searchTracks($event)"
+        (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
+        (pageChangeAll)="loadAllTracksFromPage($event)" [isLoading]="isResourceManagerLoading"
+        [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
         [resourcesToBeAttached]="resourcesToBeAttached" [alreadyAttachedResources]="alreadyAttachedResources"
         *ngIf="showTrackManager" resourceName="tracks" (close)="closeResourceManager('track')"></app-resource-manager>
 
     <!-- manager for albums -->
-    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachArtistToAlbum($event)"
-        (detach)="detachArtistFromAlbum($event)"
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachAlbumToArtist($event)"
+        (detach)="detachAlbumFromArtist($event)"
         (pageChangeSearch)="searchAlbums($event['searchTerm'], $event['pageToGo'])" (search)="searchAlbums($event)"
         (pageChangeAll)="loadAllAlbumsFromPage($event)" [currPage]="this.resourceManagerCurrPage"
         [finalPage]="this.resourceManagerFinalPage" [resourcesToBeAttached]="resourcesToBeAttached"

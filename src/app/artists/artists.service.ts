@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Album } from '../albums/models/album.model';
+import { Track } from '../tracks/models/track.model';
 import { ArtistsPaginated } from './models/artists-paginated.model';
 import { Artist } from './models/artists.model';
 
@@ -62,6 +63,21 @@ export class ArtistsService {
     );
   }
 
+  // attaches a track to an artist
+  attachTrackToArtist(artistId: number, trackId: number): Observable<Track> {
+    return this.http.put<Track>(
+      `${this.artistApiUri}/${artistId}/tracks/${trackId}`,
+      {}
+    );
+  }
+
+  // detaches a track from an artist
+  detachTrackFromArtist(trackId: number, artistId: number): Observable<Track> {
+    return this.http.delete<Track>(
+      `${this.artistApiUri}/${artistId}/tracks/${trackId}`
+    );
+  }
+
   // get album cover art url
   getProfilePictureUrl(artistId: number): string {
     return `${this.artistApiUri}/${artistId}/image`;
@@ -81,7 +97,12 @@ export class ArtistsService {
   }
 
   // gets every album by a certain artist
-  getAlbumsByArtist(artistId: number): Observable<Album[]>{
+  getAlbumsByArtist(artistId: number): Observable<Album[]> {
     return this.http.get<Album[]>(`${this.artistApiUri}/${artistId}/albums`);
+  }
+
+  // gets every track by a certain artist
+  getTracksByArtist(artistId: number): Observable<Track[]> {
+    return this.http.get<Track[]>(`${this.artistApiUri}/${artistId}/tracks`);
   }
 }

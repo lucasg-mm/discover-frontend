@@ -10,6 +10,7 @@ import { AlbumsService } from 'src/app/albums/albums.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { Track } from 'src/app/tracks/models/track.model';
 import { Album } from 'src/app/albums/models/album.model';
+import { TracksService } from 'src/app/tracks/tracks.service';
 
 @Component({
   selector: 'app-artist-main',
@@ -33,6 +34,7 @@ export class ArtistMainComponent implements OnInit {
   constructor(
     private artistService: ArtistsService,
     private albumService: AlbumsService,
+    private trackService: TracksService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -126,6 +128,10 @@ export class ArtistMainComponent implements OnInit {
           this.parsesTracksOrAlbumsToResources(res);
       });
     } else if (resourceType === 'track') {
+      this.artistService.getTracksByArtist(this.artist.id!).subscribe((res) => {
+        this.alreadyAttachedResources =
+          this.parsesTracksOrAlbumsToResources(res);
+      });
     } else if (resourceType === 'genre') {
     }
   }
@@ -142,16 +148,34 @@ export class ArtistMainComponent implements OnInit {
   }
 
   loadToBeAttachedResource(resourceType: string): void {
+    this.resourceManagerCurrPage = 1;
     if (resourceType === 'album') {
-      this.resourceManagerCurrPage = 1;
       this.loadAllAlbumsFromPage(1);
     } else if (resourceType === 'track') {
-      // this.resourceCurrPage = 1;
-      // this.loadAllTracksFromPage(1);
+      this.loadAllTracksFromPage(1);
     } else if (resourceType === 'genre') {
-      // this.resourceCurrPage = 1;
       // this.loadAllGenresFromPage(1);
     }
+  }
+
+  // loads all tracks from a certain page
+  loadAllTracksFromPage(page: number): void {
+    this.isResourceManagerLoading = true;
+    this.trackService.getAllTracks(page, 5).subscribe((res) => {
+      // getting the final page information
+      this.resourceManagerFinalPage = res.totalPages;
+
+      // changes the initial page
+      this.resourceManagerCurrPage = page;
+
+      // the search input is for the resources to be attached
+      // so, we parse the Track array to a Resource array
+      this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(
+        res.items
+      );
+
+      this.isResourceManagerLoading = false;
+    });
   }
 
   loadAllAlbumsFromPage(page: number) {
@@ -190,29 +214,51 @@ export class ArtistMainComponent implements OnInit {
     });
   }
 
-  attachArtistToAlbum(albumId: number): void {
+  attachAlbumToArtist(albumId: number): void {
+    const artistId = this.artist.id!;
+
+    // request to attach the artist
+    this.artistService.attachAlbumToArtist(artistId, albumId).subscribe(() => {
+      this.loadAlreadyAttachedResources('album');
+      bulmaToast.toast({ message: 'Album attached!', type: 'is-success' });
+    });
+  }
+
+  // detach an artist from a certain album
+  detachAlbumFromArtist(albumId: number): void {
+    const artistId = this.artist.id!;
+
+    this.artistService
+      .detachAlbumFromArtist(albumId, artistId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('album');
+        bulmaToast.toast({ message: 'Album detached!', type: 'is-success' });
+      });
+  }
+
+  attachTrackToArtist(trackId: number): void {
     const artistId = this.artist.id!;
 
     // request to attach the artist
     this.artistService
-      .attachAlbumToArtist(artistId, albumId)
-      .subscribe(() => {
-        this.loadAlreadyAttachedResources('album');
-        bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
-      });
+    .attachTrackToArtist(artistId, trackId)
+    .subscribe(() => {
+      this.loadAlreadyAttachedResources('track');
+      bulmaToast.toast({ message: 'Track attached!', type: 'is-success' });
+    });
   }
 
-    // detach an artist from a certain album
-    detachArtistFromAlbum(albumId: number): void {
-      const artistId = this.artist.id!;
-  
-      this.artistService
-        .detachAlbumFromArtist(albumId, artistId)
-        .subscribe(() => {
-          this.loadAlreadyAttachedResources('album');
-          bulmaToast.toast({ message: 'Artist detached!', type: 'is-success' });
-        });
-    }
+  // detach an artist from a certain album
+  detachTrackFromArtist(trackId: number): void {
+    const artistId = this.artist.id!;
+
+    this.artistService
+      .detachTrackFromArtist(trackId, artistId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('track');
+        bulmaToast.toast({ message: 'Track detached!', type: 'is-success' });
+      });
+  }
 
   // search for albums (the result is paginated)
   searchAlbums(searchTerm: string, pageNumber: number = 1): void {
@@ -227,6 +273,33 @@ export class ArtistMainComponent implements OnInit {
 
     this.albumService
       .searchAlbums(searchTerm, pageNumber, 5)
+      .subscribe((res) => {
+        // getting page information
+        this.resourceManagerCurrPage = pageNumber;
+        this.resourceManagerFinalPage = res.totalPages;
+
+        // the search input is for the resources to be attached
+        // so, we parse the Track array to a Resource array
+        this.resourcesToBeAttached = this.parsesTracksOrAlbumsToResources(
+          res.items
+        );
+        this.isResourceManagerLoading = false;
+      });
+  }
+
+  // search for tracks (the result is paginated)
+  searchTracks(searchTerm: string, pageNumber: number = 1): void {
+    this.isResourceManagerLoading = true;
+
+    // if the the search term is the empty string
+    // returns all the tracks
+    if (searchTerm === '') {
+      this.loadAllTracksFromPage(1);
+      return;
+    }
+
+    this.trackService
+      .searchTracks(searchTerm, pageNumber, 5)
       .subscribe((res) => {
         // getting page information
         this.resourceManagerCurrPage = pageNumber;
