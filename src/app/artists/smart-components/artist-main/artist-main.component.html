@@ -89,9 +89,13 @@
     </app-resource-manager>
 
     <!-- manager for genres -->
-    <app-resource-manager [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
-        [resourcesToBeAttached]="resourcesToBeAttached" [alreadyAttachedResources]="alreadyAttachedResources"
-        *ngIf="showGenreManager" resourceName="genres" (close)="closeResourceManager('genre')">
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachGenreToArtist($event)"
+        (detach)="detachGenreFromArtist($event)"
+        (pageChangeSearch)="searchGenres($event['searchTerm'], $event['pageToGo'])" (search)="searchGenres($event)"
+        (pageChangeAll)="loadAllGenresFromPage($event)" [currPage]="this.resourceManagerCurrPage"
+        [finalPage]="this.resourceManagerFinalPage" [resourcesToBeAttached]="resourcesToBeAttached"
+        [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showGenreManager" resourceName="genres"
+        (close)="closeResourceManager('genre')">
     </app-resource-manager>
 
 </div>

@@ -391,10 +391,26 @@ export class AlbumMainComponent implements OnInit {
   }
 
   searchGenres(searchTerm: string, pageNumber: number = 1): void {
+    this.isModalLoading = true;
+
     if (searchTerm === '') {
       this.loadAllGenresFromPage(1);
       return;
     }
+
+    this.genreService.searchGenres(searchTerm, pageNumber).subscribe((res) => {
+      // getting page information
+      this.resourceCurrPage = pageNumber;
+      this.resourceFinalPage = res.totalPages;
+
+      // the search input is for the resources to be attached
+      // so, we parse the Track array to a Resource array
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+
+      this.isModalLoading = false;
+    });
   }
 
   // search for artists in a paginated way
