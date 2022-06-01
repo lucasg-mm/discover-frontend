@@ -79,4 +79,9 @@ export class ArtistsService {
       formData
     );
   }
+
+  // gets every album by a certain artist
+  getAlbumsByArtist(artistId: number): Observable<Album[]>{
+    return this.http.get<Album[]>(`${this.artistApiUri}/${artistId}/albums`);
+  }
 }

@@ -17,9 +17,9 @@ export class AlbumsService {
   }
 
   // find every album
-  findAlbumsPaginated(pageNumber: number): Observable<AlbumsPaginated> {
+  findAlbumsPaginated(pageNumber: number, pageSize: number = 10): Observable<AlbumsPaginated> {
     return this.http.get<AlbumsPaginated>(
-      `${this.albumApiUri}?pageNumber=${pageNumber}&pageSize=${10}`
+      `${this.albumApiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
   }
 

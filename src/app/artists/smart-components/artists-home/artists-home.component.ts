@@ -63,18 +63,21 @@ export class ArtistsHomeComponent implements OnInit {
 
   // creates a new artist
   createArtist(artistToBeCreated: Artist) {
-    this.artistsService.createArtist(artistToBeCreated).subscribe((res) => {
-      bulmaToast.toast({
-        message: 'Artist successfully created!',
-        type: 'is-success',
-      });
-      this.router.navigate([`/artists/${res.id}`]);
-    }, (error) => {
-      bulmaToast.toast({
-        message: error.error.message,
-        type: 'is-danger',
-      });
-    });
+    this.artistsService.createArtist(artistToBeCreated).subscribe(
+      (res) => {
+        bulmaToast.toast({
+          message: 'Artist successfully created!',
+          type: 'is-success',
+        });
+        this.router.navigate([`/artists/${res.id}`]);
+      },
+      (error) => {
+        bulmaToast.toast({
+          message: error.error.message,
+          type: 'is-danger',
+        });
+      }
+    );
   }
 
   // opens the modal to create an artist
@@ -108,9 +111,6 @@ export class ArtistsHomeComponent implements OnInit {
     this.artistsService.getAllArtists(pageNumber, 10).subscribe((res) => {
       this.displayedArtists = res.items;
       this.finalPage = res.totalPages;
-
-      console.log(this.displayedArtists);
-      console.log(this.finalPage);
     });
   }
 

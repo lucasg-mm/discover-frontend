@@ -17,15 +17,15 @@
                 {{artist.name}}
             </h1>
             <ul class="artist-meta-info">
-                <li>
+                <li *ngIf="formattedGenres">
                     <span class="icon is-right">
-                        <i class="fa-solid fa-user-group"></i>
+                        <i class="fa-solid fa-guitar"></i>
                     </span>
-                    Genres here!!
+                    {{formattedGenres}}
                 </li>
             </ul>
             <div class="action-btns">
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('track')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-music"></i>
                     </span>
@@ -33,7 +33,7 @@
                         Manage tracks
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('genre')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-guitar"></i>
                     </span>
@@ -41,9 +41,9 @@
                         Manage genres
                     </span>
                 </button>
-                <button class="button is-success is-small is-rounded">
+                <button (click)="openResourceManager('album')" class="button is-success is-small is-rounded">
                     <span class="icon">
-                        <i class="fa-solid fa-user-group"></i>
+                        <i class="fa-solid fa-compact-disc"></i>
                     </span>
                     <span>
                         Manage albums
@@ -62,10 +62,32 @@
                         <i class="fa-solid fa-trash"></i>
                     </span>
                     <span>
-                        Delete album
+                        Delete artist
                     </span>
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- manager for tracks -->
+    <app-resource-manager [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+        [resourcesToBeAttached]="resourcesToBeAttached" [alreadyAttachedResources]="alreadyAttachedResources"
+        *ngIf="showTrackManager" resourceName="tracks" (close)="closeResourceManager('track')"></app-resource-manager>
+
+    <!-- manager for albums -->
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachArtistToAlbum($event)"
+        (detach)="detachArtistFromAlbum($event)"
+        (pageChangeSearch)="searchAlbums($event['searchTerm'], $event['pageToGo'])" (search)="searchAlbums($event)"
+        (pageChangeAll)="loadAllAlbumsFromPage($event)" [currPage]="this.resourceManagerCurrPage"
+        [finalPage]="this.resourceManagerFinalPage" [resourcesToBeAttached]="resourcesToBeAttached"
+        [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showAlbumManager" resourceName="albums"
+        (close)="closeResourceManager('album')">
+    </app-resource-manager>
+
+    <!-- manager for genres -->
+    <app-resource-manager [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+        [resourcesToBeAttached]="resourcesToBeAttached" [alreadyAttachedResources]="alreadyAttachedResources"
+        *ngIf="showGenreManager" resourceName="genres" (close)="closeResourceManager('genre')">
+    </app-resource-manager>
+
 </div>
