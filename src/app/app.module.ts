@@ -7,10 +7,12 @@ import { ArtistsModule } from './artists/artists.module';
 
 import { AppComponent } from './app.component';
 import { TracksHomeComponent } from './tracks/smart-components/tracks-home/tracks-home.component';
+import { TracksModule } from './tracks/tracks.module';
+import { GenresModule } from './genres/genres.module';
 
 @NgModule({
   declarations: [AppComponent, TracksHomeComponent],
-  imports: [BrowserModule, AppRoutingModule, AlbumsModule, SidebarModule, ArtistsModule],
+  imports: [BrowserModule, AppRoutingModule, AlbumsModule, SidebarModule, ArtistsModule, TracksModule, GenresModule],
   providers: [],
   bootstrap: [AppComponent],
 })
