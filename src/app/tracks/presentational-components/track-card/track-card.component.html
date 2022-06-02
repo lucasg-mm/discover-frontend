@@ -1,0 +1,8 @@
+<a class="box">
+    <div class="cover-container">
+        <img class="cover-art" [src]="trackCoverUrl" (error)="insertDefaultTrackCover()">
+    </div>
+    <div class="title is-6">
+        {{ formattedTrackName }}
+    </div>
+</a>

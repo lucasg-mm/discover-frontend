@@ -1,3 +1,7 @@
 <div class="view">
     <app-superior-bar></app-superior-bar>
+    <div class="track-listing">
+        <app-track-card *ngFor="let track of displayedTracks" [track]="track"></app-track-card>
+    </div>
+    <app-paginator></app-paginator>
 </div>

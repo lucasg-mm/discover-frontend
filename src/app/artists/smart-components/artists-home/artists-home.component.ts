@@ -39,7 +39,7 @@ export class ArtistsHomeComponent implements OnInit {
   }
 
   // searches for artists
-  searchArtists(searchTerm: string, pageNumber: number = 1) {
+  searchArtists(searchTerm: string, pageNumber: number = 1): void {
     // if the search term is empty,
     if (searchTerm === '') {
       this.router.navigate(['/artists']);
