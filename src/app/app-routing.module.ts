@@ -4,6 +4,7 @@ import { AlbumsHomeComponent } from './albums/smart-components/albums-home/album
 import { AlbumMainComponent } from './albums/smart-components/album-main/album-main.component';
 import { ArtistsHomeComponent } from './artists/smart-components/artists-home/artists-home.component';
 import { ArtistMainComponent } from './artists/smart-components/artist-main/artist-main.component';
+import { TracksHomeComponent } from './tracks/smart-components/tracks-home/tracks-home.component';
 
 // my routes
 const routes: Routes = [
@@ -28,9 +29,10 @@ const routes: Routes = [
   },
 
   // path for the 'tracks' module
-  // {
-  //   path: 'tracks',
-  // },
+  {
+    path: 'tracks',
+    component: TracksHomeComponent,
+  },
   // {
   //   path: 'tracks/:trackId',
   // },
