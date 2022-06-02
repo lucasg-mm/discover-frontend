@@ -35,6 +35,7 @@ export class ArtistMainComponent implements OnInit {
   isArtistCreatorVisible: boolean = false;
 
   constructor(
+    private router: Router,
     private genreService: GenresService,
     private artistService: ArtistsService,
     private albumService: AlbumsService,
@@ -393,8 +394,6 @@ export class ArtistMainComponent implements OnInit {
   }
 
   updateArtistInfo(artist: Artist): void {
-    console.log(this.artist.id);
-    
     this.artistService
       .updateArtistInfo(this.artist.id!, artist)
       .pipe(mergeMap(() => this.loadArtistInfo(this.artist.id!)))
@@ -404,5 +403,20 @@ export class ArtistMainComponent implements OnInit {
           type: 'is-success',
         });
       });
+  }
+
+  closeConfirmationModal(): void {
+    this.isConfirmationModalVisible = false;
+  }
+
+  openConfirmationModal(): void {
+    this.isConfirmationModalVisible = true;
+  }
+
+  deleteArtist(): void{
+    this.artistService.deleteArtistById(this.artist.id!).subscribe(() => {
+      bulmaToast.toast({ message: 'Artist deleted!', type: 'is-success' });
+      this.router.navigate(['/artists']);
+    })
   }
 }

@@ -106,8 +106,13 @@ export class ArtistsService {
     return this.http.get<Track[]>(`${this.artistApiUri}/${artistId}/tracks`);
   }
 
-  // updates the artist info (their name) 
+  // updates the artist info (their name)
   updateArtistInfo(artistId: number, artist: Artist): Observable<Artist> {
     return this.http.put<Artist>(`${this.artistApiUri}/${artistId}`, artist);
+  }
+
+  // deletes an artist by their id
+  deleteArtistById(artistId: number): Observable<void> {
+    return this.http.delete<void>(`${this.artistApiUri}/${artistId}`);
   }
 }

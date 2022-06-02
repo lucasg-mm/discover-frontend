@@ -127,7 +127,6 @@ export class AlbumMainComponent implements OnInit {
 
   // deletes the album
   deleteAlbum(): void {
-    console.log('This album is being deleted...');
     this.albumService.deleteAlbumById(this.albumId).subscribe(() => {
       bulmaToast.toast({ message: 'Album deleted!', type: 'is-success' });
       this.router.navigate(['/albums']);

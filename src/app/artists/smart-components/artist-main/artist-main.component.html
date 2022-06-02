@@ -57,7 +57,7 @@
                         Edit info
                     </span>
                 </button>
-                <button class="button is-danger is-small is-rounded">
+                <button (click)="openConfirmationModal()" class="button is-danger is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-trash"></i>
                     </span>
@@ -99,10 +99,12 @@
     </app-resource-manager>
 
     <!-- the artist editor -->
-    <app-artist-creator (submitArtist)="updateArtistInfo($event)" [name]="artist.name" mode="editor" *ngIf="isArtistCreatorVisible" (close)="closeArtistCreatorModal()">
+    <app-artist-creator (submitArtist)="updateArtistInfo($event)" [name]="artist.name" mode="editor"
+        *ngIf="isArtistCreatorVisible" (close)="closeArtistCreatorModal()">
     </app-artist-creator>
 
     <!-- confirmation modal -->
-    <app-confirmation-modal  *ngIf="isConfirmationModalVisible"></app-confirmation-modal>
+    <app-confirmation-modal (confirm)="deleteArtist()" (close)="closeConfirmationModal()" *ngIf="isConfirmationModalVisible">
+    </app-confirmation-modal>
 
 </div>
