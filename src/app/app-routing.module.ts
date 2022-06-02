@@ -7,29 +7,45 @@ import { ArtistMainComponent } from './artists/smart-components/artist-main/arti
 
 // my routes
 const routes: Routes = [
-  // path for the 'albums' path
+  // path for the 'albums' module
   {
     path: 'albums',
-    component: AlbumsHomeComponent
+    component: AlbumsHomeComponent,
   },
   {
     path: 'albums/:albumId',
-    component: AlbumMainComponent
+    component: AlbumMainComponent,
   },
 
-  // path for the 'artists' path
+  // path for the 'artists' module
   {
     path: 'artists',
-    component: ArtistsHomeComponent
+    component: ArtistsHomeComponent,
   },
   {
     path: 'artists/:artistId',
-    component: ArtistMainComponent
-  }
+    component: ArtistMainComponent,
+  },
+
+  // path for the 'tracks' module
+  // {
+  //   path: 'tracks',
+  // },
+  // {
+  //   path: 'tracks/:trackId',
+  // },
+
+  // path for 'genres' module
+  // {
+  //   path: 'genres',
+  // },
+  // {
+  //   path: 'genres/:genreId',
+  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
