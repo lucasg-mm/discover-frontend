@@ -105,4 +105,9 @@ export class ArtistsService {
   getTracksByArtist(artistId: number): Observable<Track[]> {
     return this.http.get<Track[]>(`${this.artistApiUri}/${artistId}/tracks`);
   }
+
+  // updates the artist info (their name) 
+  updateArtistInfo(artistId: number, artist: Artist): Observable<Artist> {
+    return this.http.put<Artist>(`${this.artistApiUri}/${artistId}`, artist);
+  }
 }

@@ -31,6 +31,8 @@ export class ArtistMainComponent implements OnInit {
   resourceManagerFinalPage: number;
   resourcesToBeAttached: Resource[];
   alreadyAttachedResources: Resource[];
+  isConfirmationModalVisible: boolean = false;
+  isArtistCreatorVisible: boolean = false;
 
   constructor(
     private genreService: GenresService,
@@ -380,5 +382,27 @@ export class ArtistMainComponent implements OnInit {
 
       this.isResourceManagerLoading = false;
     });
+  }
+
+  openArtistCreatorModal(): void {
+    this.isArtistCreatorVisible = true;
+  }
+
+  closeArtistCreatorModal(): void {
+    this.isArtistCreatorVisible = false;
+  }
+
+  updateArtistInfo(artist: Artist): void {
+    console.log(this.artist.id);
+    
+    this.artistService
+      .updateArtistInfo(this.artist.id!, artist)
+      .pipe(mergeMap(() => this.loadArtistInfo(this.artist.id!)))
+      .subscribe(() => {
+        bulmaToast.toast({
+          message: "Artist's info updated!",
+          type: 'is-success',
+        });
+      });
   }
 }

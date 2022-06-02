@@ -49,7 +49,7 @@
                         Manage albums
                     </span>
                 </button>
-                <button class="button is-warning is-small is-rounded">
+                <button (click)="openArtistCreatorModal()" class="button is-warning is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-pen"></i>
                     </span>
@@ -97,5 +97,12 @@
         [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showGenreManager" resourceName="genres"
         (close)="closeResourceManager('genre')">
     </app-resource-manager>
+
+    <!-- the artist editor -->
+    <app-artist-creator (submitArtist)="updateArtistInfo($event)" [name]="artist.name" mode="editor" *ngIf="isArtistCreatorVisible" (close)="closeArtistCreatorModal()">
+    </app-artist-creator>
+
+    <!-- confirmation modal -->
+    <app-confirmation-modal  *ngIf="isConfirmationModalVisible"></app-confirmation-modal>
 
 </div>
