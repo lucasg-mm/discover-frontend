@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Track } from '../../models/track.model';
 import { TracksService } from '../../tracks.service';
+import * as bulmaToast from 'bulma-toast';
+
 
 @Component({
   selector: 'app-tracks-home',
@@ -16,6 +18,7 @@ export class TracksHomeComponent implements OnInit {
   // api calls, depending if the user is searching or not
   isSearching: boolean = false;
   lastSearchTerm: string = '';
+  isTrackCreatorVisible: boolean = false;
 
   constructor(
     private tracksService: TracksService,
@@ -48,9 +51,10 @@ export class TracksHomeComponent implements OnInit {
     return pageParam;
   }
 
+  // triggered when the user changes page using the paginator
   changeCurrentPage(pageNumber: number): void {
     if (this.isSearching) {
-      console.log('TODO: TRACK SEARCH!!!');
+      this.searchTracks(this.lastSearchTerm, pageNumber);
     } else {
       this.goToNextPage(pageNumber);
     }
@@ -60,18 +64,18 @@ export class TracksHomeComponent implements OnInit {
   searchTracks(searchTerm: string, pageNumber: number = 1) {
     // if the search term is empty, just returns the first page
     if (searchTerm === '') {
-      this.router.navigate(["/tracks"]);
+      this.router.navigate(['/tracks']);
       this.findTracksPaginated(1);
       this.isSearching = false;
       return;
     }
 
     // if the search term is not empty, stores the fact that it's searching
-    // and the search term  
+    // and the search term
     this.isSearching = true;
     this.lastSearchTerm = searchTerm;
 
-    // communicates to the api
+    // communicates to the api to get the results
     this.tracksService
       .searchTracks(searchTerm, pageNumber, 10)
       .subscribe((res) => {
@@ -81,7 +85,26 @@ export class TracksHomeComponent implements OnInit {
       });
   }
 
-  goToNextPage(pageNumber: number) {
+  goToNextPage(pageNumber: number): void {
     this.router.navigate(['/tracks'], { queryParams: { page: pageNumber } });
+  }
+
+  openTrackCreatorModal(): void {
+    this.isTrackCreatorVisible = true;
+  }
+
+  closeTrackCreatorModal(): void {
+    this.isTrackCreatorVisible = false;
+  }
+
+  // creates a new track
+  createTrack(trackToBeCreated: Track): void {
+    this.tracksService.createTrack(trackToBeCreated).subscribe((res) => {
+      bulmaToast.toast({
+        message: 'Track successfully created!',
+        type: 'is-success',
+      });
+      this.router.navigate([`/tracks/${res.id}`]);
+    });
   }
 }

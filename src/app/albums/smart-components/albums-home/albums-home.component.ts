@@ -11,17 +11,12 @@ import * as bulmaToast from 'bulma-toast';
 })
 export class AlbumsHomeComponent implements OnInit {
   displayedAlbums: Album[] = [];
-
   currPage: number = 1;
-
   finalPage: number = 10;
-
   isAlbumCreatorVisible: boolean = false;
-
   // the paginator change page triggers different
   // api calls, depending if the user is searching or not
   isSearching: boolean = false;
-
   lastSearchTerm: string = '';
 
   constructor(

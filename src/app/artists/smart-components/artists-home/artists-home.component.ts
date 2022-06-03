@@ -90,6 +90,7 @@ export class ArtistsHomeComponent implements OnInit {
     this.isArtistCreatorVisible = false;
   }
 
+  
 
   changeCurrentPage(pageNumber: number): void {
     if (this.isSearching) {

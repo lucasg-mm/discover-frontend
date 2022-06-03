@@ -1,7 +1,9 @@
 <div class="view">
-    <app-superior-bar (search)="searchTracks($event)"></app-superior-bar>
+    <app-superior-bar (search)="searchTracks($event)" (create)="openTrackCreatorModal()"></app-superior-bar>
     <div class="track-listing">
         <app-track-card *ngFor="let track of displayedTracks" [track]="track"></app-track-card>
     </div>
-    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="changeCurrentPage($event)"></app-paginator>
+    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="changeCurrentPage($event)">
+    </app-paginator>
+    <app-track-creator (submitTrack)="createTrack($event)" *ngIf="isTrackCreatorVisible" (close)="closeTrackCreatorModal()"></app-track-creator>
 </div>
