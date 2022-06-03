@@ -51,7 +51,7 @@ export class ArtistsHomeComponent implements OnInit {
     this.isSearching = true;
     this.lastSearchTerm = searchTerm;
 
-    // searches for artists
+    // communicates to the api
     this.artistsService
       .searchArtists(searchTerm, pageNumber, 10)
       .subscribe((res) => {
@@ -89,6 +89,7 @@ export class ArtistsHomeComponent implements OnInit {
   closeArtistCreatorModal() {
     this.isArtistCreatorVisible = false;
   }
+
 
   changeCurrentPage(pageNumber: number): void {
     if (this.isSearching) {
