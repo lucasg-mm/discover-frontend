@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlbumsService } from 'src/app/albums/albums.service';
 import { Track } from '../../models/track.model';
-import { TracksService } from '../../tracks.service';
 
 @Component({
   selector: 'app-track-card',

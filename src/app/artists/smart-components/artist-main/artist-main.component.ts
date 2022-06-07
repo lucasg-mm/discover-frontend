@@ -413,10 +413,10 @@ export class ArtistMainComponent implements OnInit {
     this.isConfirmationModalVisible = true;
   }
 
-  deleteArtist(): void{
+  deleteArtist(): void {
     this.artistService.deleteArtistById(this.artist.id!).subscribe(() => {
       bulmaToast.toast({ message: 'Artist deleted!', type: 'is-success' });
       this.router.navigate(['/artists']);
-    })
+    });
   }
 }

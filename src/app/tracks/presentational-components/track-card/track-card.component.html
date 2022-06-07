@@ -1,4 +1,4 @@
-<a class="box">
+<a class="box" [routerLink]="'/tracks/' + track.id">
     <div class="cover-container">
         <img class="cover-art" [src]="trackCoverUrl" (error)="insertDefaultTrackCover()">
     </div>

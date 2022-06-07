@@ -40,4 +40,9 @@ export class TracksService {
   createTrack(trackToBeCreated: Track): Observable<Track> {
     return this.http.post<Track>(this.trackApiUri, trackToBeCreated);
   }
+
+  // find a specific track by its id
+  findTrackById(trackId: number): Observable<Track>{
+    return this.http.get<Track>(`${this.trackApiUri}/${trackId}`);
+  }
 }
