@@ -1,3 +1,93 @@
-<img class="cover-art" [src]="trackCoverURL" (error)="insertDefaultTrackCover()">
-<h1>{{ formattedArtists }}</h1>
-<h1>{{ formattedGenres }}</h1>
+<div class="main-container" *ngIf="isTrackLoaded">
+    <div class="track-header">
+        <div class="cover-container">
+            <img height="300px" width="300px" class="cover-art" [src]="trackCoverURL"
+                (error)="insertDefaultTrackCover()">
+        </div>
+
+        <div class="track-info">
+            <h1 class="track-title title is-1">
+                {{ track.title }}
+            </h1>
+
+            <ul class="track-meta-info">
+                <li *ngIf="formattedArtists">
+                    <span class="icon is-right">
+                        <i class="fa-solid fa-user-group"></i>
+                    </span>
+                    {{ formattedArtists }}
+                </li>
+                <li *ngIf="formattedGenres">
+                    <span class="icon is-right">
+                        <i class="fa-solid fa-guitar"></i>
+                    </span>
+                    {{formattedGenres}}
+                </li>
+                <li *ngIf="formattedTrackLength">
+                    <span class="icon is-right">
+                        <i class="fa-solid fa-clock"></i>
+                    </span>
+                    {{ formattedTrackLength }}
+                </li>
+            </ul>
+            <div class="action-btns">
+                <button (click)="openResourceManager('album')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </span>
+                    <span>
+                        Manage Album
+                    </span>
+                </button>
+                <button (click)="openResourceManager('genre')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-guitar"></i>
+                    </span>
+                    <span>
+                        Manage genres
+                    </span>
+                </button>
+                <button (click)="openResourceManager('artist')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </span>
+                    <span>
+                        Manage artists
+                    </span>
+                </button>
+                <button (click)="openTrackCreatorModal()" class="button is-warning is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-pen"></i>
+                    </span>
+                    <span>
+                        Edit info
+                    </span>
+                </button>
+                <button (click)="openConfirmationModal()" class="button is-danger is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-trash"></i>
+                    </span>
+                    <span>
+                        Delete album
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- manager for albums -->
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachAlbumToTrack($event)"
+        (detach)="detachTrackFromAlbum($event)"
+        (pageChangeSearch)="searchAlbums($event['searchTerm'], $event['pageToGo'])" (search)="searchAlbums($event)"
+        (pageChangeAll)="loadAllAlbumsFromPage($event)" [currPage]="this.resourceManagerCurrPage"
+        [finalPage]="this.resourceManagerFinalPage" [resourcesToBeAttached]="resourcesToBeAttached"
+        [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showAlbumManager" resourceName="albums"
+        (close)="closeResourceManager('album')">
+    </app-resource-manager>
+    
+    <!-- manager for artists -->
+
+    <!-- manager for genres -->
+
+
+</div>

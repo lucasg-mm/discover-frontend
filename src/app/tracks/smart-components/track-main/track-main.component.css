@@ -1,0 +1,33 @@
+.main-container {
+  margin-top: 80px;
+}
+
+.track-header {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  align-items: center;
+}
+
+.track-info {
+  font-weight: bold;
+  padding: 55px;
+}
+
+.cover-art {
+  border-radius: 6px;
+}
+
+.track-meta-info {
+  list-style-type: none;
+  margin-left: 0;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.button {
+  margin-right: 15px;
+}
+
+.track-title {
+  font-weight: bold;
+}

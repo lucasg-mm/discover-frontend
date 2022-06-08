@@ -146,7 +146,7 @@ export class ArtistMainComponent implements OnInit {
     }
   }
 
-  // opens the resource manager modal, loading its relevant data
+  // closes the resource manager modal, loading its relevant data
   closeResourceManager(resourceType: string): void {
     if (resourceType === 'album') {
       this.showAlbumManager = false;
