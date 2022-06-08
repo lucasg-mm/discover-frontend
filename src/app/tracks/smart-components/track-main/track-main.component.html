@@ -84,8 +84,15 @@
         [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showAlbumManager" resourceName="albums"
         (close)="closeResourceManager('album')">
     </app-resource-manager>
-    
+
     <!-- manager for artists -->
+    <app-resource-manager [isLoading]="isResourceManagerLoading" resourceName="artists"
+        [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
+        (attach)="attachArtistToTrack($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
+        (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
+        (detach)="detachArtistFromTrack($event)" (search)="searchArtists($event)"
+        (close)="closeResourceManager('track')" *ngIf="showArtistsManager"></app-resource-manager>
 
     <!-- manager for genres -->
     <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachGenreToTrack($event)"
@@ -96,5 +103,11 @@
         [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showGenresManager" resourceName="genres"
         (close)="closeResourceManager('genre')">
     </app-resource-manager>
+
+
+    <!-- the track editor -->
+    <app-track-creator (submitTrack)="updateTrackInfo($event)" [length]="track.length" [title]="track.title"
+        mode="editor" *ngIf="isTrackCreatorVisible" (close)="closeTrackCreatorModal()">
+    </app-track-creator>
 
 </div>

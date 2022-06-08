@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Track } from '../../models/track.model';
 import { TracksService } from '../../tracks.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Artist } from 'src/app/artists/models/artists.model';
 import { Genre } from 'src/app/genres/models/genre.model';
 import { AlbumsService } from 'src/app/albums/albums.service';
@@ -11,6 +11,7 @@ import { Resource } from 'src/app/shared/models/resource.model';
 import { Album } from 'src/app/albums/models/album.model';
 import * as bulmaToast from 'bulma-toast';
 import { GenresService } from 'src/app/genres/genres.service';
+import { ArtistsService } from 'src/app/artists/artists.service';
 
 @Component({
   selector: 'app-track-main',
@@ -32,12 +33,14 @@ export class TrackMainComponent implements OnInit {
   resourceManagerCurrPage: number = 1;
   isResourceManagerLoading: boolean = false;
   resourceManagerFinalPage: number = 10;
+  isTrackCreatorVisible: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private tracksService: TracksService,
     private albumsService: AlbumsService,
-    private genreService: GenresService
+    private genreService: GenresService,
+    private artistService: ArtistsService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +60,22 @@ export class TrackMainComponent implements OnInit {
 
   updateTrackCover(albumId: number): void {
     this.trackCoverURL = this.albumsService.getCoverArtUrl(albumId);
+  }
+
+  updateTrackInfo(track: Track): void {
+    this.tracksService
+      .updateTrackInfo(this.track.id!, track)
+      .pipe(mergeMap(() => this.loadTrackInfo(this.track.id!)))
+      .subscribe(() => {
+        bulmaToast.toast({
+          message: "Track's info updated!",
+          type: 'is-success',
+        });
+      });
+  }
+
+  closeTrackCreatorModal(): void {
+    this.isTrackCreatorVisible = false;
   }
 
   insertDefaultTrackCover(): void {
@@ -117,6 +136,31 @@ export class TrackMainComponent implements OnInit {
     }
   }
 
+  // attaches artist to the track
+  attachArtistToTrack(artistId: number): void {
+    const trackId = this.track.id!;
+
+    // request to attach the artist
+    this.artistService
+      .attachTrackToArtist(artistId, trackId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
+      });
+  }
+
+  // detach an artist from the track
+  detachArtistFromTrack(artistId: number): void {
+    const trackId = this.track.id!;
+
+    this.artistService
+      .detachTrackFromArtist(trackId, artistId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist detached!', type: 'is-success' });
+      });
+  }
+
   loadAlreadyAttachedResources(resourceType: string) {
     if (resourceType === 'album') {
       this.loadTrackInfo(this.track.id!).subscribe(() => {
@@ -141,12 +185,41 @@ export class TrackMainComponent implements OnInit {
         }
       });
     } else if (resourceType === 'artist') {
-      // this.loadArtistInfo(this.artist.id!).subscribe(() => {
-      //   this.alreadyAttachedResources = this.parsesArtistOrGenreToResources(
-      //     this.artist.genres!
-      //   );
-      // });
+      this.loadTrackInfo(this.track.id!).subscribe(() => {
+        if (this.track.artists) {
+          this.alreadyAttachedResources = this.parsesArtistOrGenreToResources(
+            this.track.artists
+          );
+        } else {
+          this.alreadyAttachedResources = [];
+        }
+      });
     }
+  }
+
+  // search for artists in a paginated way
+  searchArtists(searchTerm: string, pageNumber: number = 1): void {
+    this.isResourceManagerLoading = true;
+
+    if (searchTerm === '') {
+      this.loadAllArtistsFromPage(1);
+      return;
+    }
+
+    this.artistService
+      .searchArtists(searchTerm, pageNumber, 5)
+      .subscribe((res) => {
+        // getting page information
+        this.resourceManagerCurrPage = pageNumber;
+        this.resourceManagerFinalPage = res.totalPages;
+
+        // the search input is for the resources to be attached
+        // so, we parse the track array to a resource array
+        this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+          res.items
+        );
+        this.isResourceManagerLoading = false;
+      });
   }
 
   loadToBeAttachedResource(resourceType: string) {
@@ -154,10 +227,28 @@ export class TrackMainComponent implements OnInit {
     if (resourceType === 'album') {
       this.loadAllAlbumsFromPage(1);
     } else if (resourceType === 'artist') {
-      // this.loadAllArtistsFromPage(1);
+      this.loadAllArtistsFromPage(1);
     } else if (resourceType === 'genre') {
       this.loadAllGenresFromPage(1);
     }
+  }
+
+  loadAllArtistsFromPage(pageNumber: number): void {
+    this.isResourceManagerLoading = true;
+    this.artistService.getAllArtists(pageNumber, 5).subscribe((res) => {
+      // getting the final page information
+      this.resourceManagerFinalPage = res.totalPages;
+
+      // changes the initial page
+      this.resourceManagerCurrPage = pageNumber;
+
+      // parses artists to resources
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+
+      this.isResourceManagerLoading = false;
+    });
   }
 
   // loads all genres from a certain page
@@ -317,7 +408,9 @@ export class TrackMainComponent implements OnInit {
     });
   }
 
-  openTrackCreatorModal() {}
+  openTrackCreatorModal() {
+    this.isTrackCreatorVisible = true;
+  }
 
   openConfirmationModal() {}
 }

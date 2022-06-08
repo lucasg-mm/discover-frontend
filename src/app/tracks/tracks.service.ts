@@ -41,8 +41,13 @@ export class TracksService {
     return this.http.post<Track>(this.trackApiUri, trackToBeCreated);
   }
 
+  // updates the track info
+  updateTrackInfo(trackId: number, track: Track): Observable<Track> {
+    return this.http.put<Track>(`${this.trackApiUri}/${trackId}`, track);
+  }
+
   // find a specific track by its id
-  findTrackById(trackId: number): Observable<Track>{
+  findTrackById(trackId: number): Observable<Track> {
     return this.http.get<Track>(`${this.trackApiUri}/${trackId}`);
   }
 }
