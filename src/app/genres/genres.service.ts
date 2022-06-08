@@ -54,8 +54,6 @@ export class GenresService {
 
   // attaches an artist to a genre
   attachArtistToGenre(genreId: number, artistId: number): Observable<Artist> {
-    console.log("PUT");
-    
     return this.http.put<Artist>(
       `${this.genreApiUri}/${genreId}/artists/${artistId}`,
       {}
@@ -63,11 +61,27 @@ export class GenresService {
   }
 
   // detaches an artist to a genre
-  detachArtistFromGenre(genreId: number, artistsId: number): Observable<Artist> {
-    console.log("DELETE");
-
+  detachArtistFromGenre(
+    genreId: number,
+    artistsId: number
+  ): Observable<Artist> {
     return this.http.delete<Artist>(
       `${this.genreApiUri}/${genreId}/artists/${artistsId}`
+    );
+  }
+
+  // attaches an track to a genre
+  attachTrackToGenre(genreId: number, trackId: number): Observable<Artist> {
+    return this.http.put<Artist>(
+      `${this.genreApiUri}/${genreId}/tracks/${trackId}`,
+      {}
+    );
+  }
+
+  // detaches an track to a genre
+  detachTrackFromGenre(genreId: number, trackId: number): Observable<Artist> {
+    return this.http.delete<Artist>(
+      `${this.genreApiUri}/${genreId}/tracks/${trackId}`
     );
   }
 }

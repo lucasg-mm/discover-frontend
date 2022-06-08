@@ -10,6 +10,7 @@ import { AlbumsService } from 'src/app/albums/albums.service';
 import { Resource } from 'src/app/shared/models/resource.model';
 import { Album } from 'src/app/albums/models/album.model';
 import * as bulmaToast from 'bulma-toast';
+import { GenresService } from 'src/app/genres/genres.service';
 
 @Component({
   selector: 'app-track-main',
@@ -35,7 +36,8 @@ export class TrackMainComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private tracksService: TracksService,
-    private albumsService: AlbumsService
+    private albumsService: AlbumsService,
+    private genreService: GenresService
   ) {}
 
   ngOnInit(): void {
@@ -129,10 +131,15 @@ export class TrackMainComponent implements OnInit {
         }
       });
     } else if (resourceType === 'genre') {
-      // this.artistService.getTracksByArtist(this.artist.id!).subscribe((res) => {
-      //   this.alreadyAttachedResources =
-      //     this.parsesTracksOrAlbumsToResources(res);
-      // });
+      this.loadTrackInfo(this.track.id!).subscribe(() => {
+        if (this.track.genres) {
+          this.alreadyAttachedResources = this.parsesArtistOrGenreToResources(
+            this.track.genres
+          );
+        } else {
+          this.alreadyAttachedResources = [];
+        }
+      });
     } else if (resourceType === 'artist') {
       // this.loadArtistInfo(this.artist.id!).subscribe(() => {
       //   this.alreadyAttachedResources = this.parsesArtistOrGenreToResources(
@@ -140,7 +147,6 @@ export class TrackMainComponent implements OnInit {
       //   );
       // });
     }
-    console.log(this.alreadyAttachedResources);
   }
 
   loadToBeAttachedResource(resourceType: string) {
@@ -150,8 +156,71 @@ export class TrackMainComponent implements OnInit {
     } else if (resourceType === 'artist') {
       // this.loadAllArtistsFromPage(1);
     } else if (resourceType === 'genre') {
-      // this.loadAllGenresFromPage(1);
+      this.loadAllGenresFromPage(1);
     }
+  }
+
+  // loads all genres from a certain page
+  loadAllGenresFromPage(pageNumber: number): void {
+    this.isResourceManagerLoading = true;
+
+    this.genreService.getAllGenres(pageNumber, 5).subscribe((res) => {
+      // getting the final page information
+      this.resourceManagerFinalPage = res.totalPages;
+      // changes the initial page
+      this.resourceManagerCurrPage = pageNumber;
+      // parses the results to resources
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+
+      this.isResourceManagerLoading = false;
+    });
+  }
+
+  // search for genres (the result is paginated)
+  searchGenres(searchTerm: string, pageNumber: number = 1): void {
+    this.isResourceManagerLoading = true;
+
+    if (searchTerm === '') {
+      this.loadAllGenresFromPage(1);
+      return;
+    }
+
+    this.genreService.searchGenres(searchTerm, pageNumber).subscribe((res) => {
+      // getting page information
+      this.resourceManagerCurrPage = pageNumber;
+      this.resourceManagerFinalPage = res.totalPages;
+
+      // the search input is for the resources to be attached
+      // so, we parse the Track array to a Resource array
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+
+      this.isResourceManagerLoading = false;
+    });
+  }
+
+  // attach a genre to the track
+  attachGenreToTrack(genreId: number): void {
+    const trackId = this.track.id!;
+
+    // request to attach the artist
+    this.genreService.attachTrackToGenre(genreId, trackId).subscribe(() => {
+      this.loadAlreadyAttachedResources('genre');
+      bulmaToast.toast({ message: 'Genre attached!', type: 'is-success' });
+    });
+  }
+
+  // detach an genre from the track
+  detachGenreFromTrack(genreId: number): void {
+    const trackId = this.track.id!;
+
+    this.genreService.detachTrackFromGenre(genreId, trackId).subscribe(() => {
+      this.loadAlreadyAttachedResources('genre');
+      bulmaToast.toast({ message: 'Genre detached!', type: 'is-success' });
+    });
   }
 
   loadAllAlbumsFromPage(page: number) {

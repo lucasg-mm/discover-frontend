@@ -88,6 +88,13 @@
     <!-- manager for artists -->
 
     <!-- manager for genres -->
-
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachGenreToTrack($event)"
+        (detach)="detachGenreFromTrack($event)"
+        (pageChangeSearch)="searchGenres($event['searchTerm'], $event['pageToGo'])" (search)="searchGenres($event)"
+        (pageChangeAll)="loadAllGenresFromPage($event)" [currPage]="this.resourceManagerCurrPage"
+        [finalPage]="this.resourceManagerFinalPage" [resourcesToBeAttached]="resourcesToBeAttached"
+        [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showGenresManager" resourceName="genres"
+        (close)="closeResourceManager('genre')">
+    </app-resource-manager>
 
 </div>
