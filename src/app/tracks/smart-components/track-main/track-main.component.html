@@ -104,10 +104,13 @@
         (close)="closeResourceManager('genre')">
     </app-resource-manager>
 
-
     <!-- the track editor -->
     <app-track-creator (submitTrack)="updateTrackInfo($event)" [length]="track.length" [title]="track.title"
         mode="editor" *ngIf="isTrackCreatorVisible" (close)="closeTrackCreatorModal()">
     </app-track-creator>
+
+    <!-- confirmation modal -->
+    <app-confirmation-modal (confirm)="deleteTrack()" (close)="closeConfirmationModal()" *ngIf="isConfirmationModalVisible">
+    </app-confirmation-modal>
 
 </div>

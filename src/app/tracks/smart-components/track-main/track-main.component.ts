@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Track } from '../../models/track.model';
 import { TracksService } from '../../tracks.service';
@@ -34,8 +34,10 @@ export class TrackMainComponent implements OnInit {
   isResourceManagerLoading: boolean = false;
   resourceManagerFinalPage: number = 10;
   isTrackCreatorVisible: boolean = false;
+  isConfirmationModalVisible: boolean = false;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private tracksService: TracksService,
     private albumsService: AlbumsService,
@@ -55,6 +57,17 @@ export class TrackMainComponent implements OnInit {
       } else {
         this.insertDefaultTrackCover();
       }
+    });
+  }
+
+  closeConfirmationModal(): void{
+    this.isConfirmationModalVisible = false;
+  }
+
+  deleteTrack(): void {
+    this.tracksService.deleteTrackById(this.track.id!).subscribe(() => {
+      bulmaToast.toast({ message: 'Track deleted!', type: 'is-success' });
+      this.router.navigate(['/tracks']);
     });
   }
 
@@ -412,5 +425,7 @@ export class TrackMainComponent implements OnInit {
     this.isTrackCreatorVisible = true;
   }
 
-  openConfirmationModal() {}
+  openConfirmationModal() {
+    this.isConfirmationModalVisible = true;
+  }
 }

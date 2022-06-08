@@ -50,4 +50,9 @@ export class TracksService {
   findTrackById(trackId: number): Observable<Track> {
     return this.http.get<Track>(`${this.trackApiUri}/${trackId}`);
   }
+
+  // deletes a track by their id
+  deleteTrackById(trackId: number): Observable<void> {
+    return this.http.delete<void>(`${this.trackApiUri}/${trackId}`);
+  }
 }
