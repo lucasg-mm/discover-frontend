@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { GenresPaginated } from './models/genres-paginated.model';
 import { Album } from '../albums/models/album.model';
 import { Artist } from '../artists/models/artists.model';
+import { Genre } from './models/genre.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,11 @@ export class GenresService {
     return this.http.get<GenresPaginated>(
       `${this.genreApiUri}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
+  }
+
+  // creates a new track
+  createGenre(genreToBeCreated: Genre): Observable<Genre> {
+    return this.http.post<Genre>(this.genreApiUri, genreToBeCreated);
   }
 
   // search genres

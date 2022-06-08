@@ -1,0 +1,26 @@
+<div class="modal is-active">
+    <div (click)="emitCloseEvent()" class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h1 class="title">{{ mode === 'creator' ? 'Create a genre' : 'Edit a genre\'s info'}}</h1>
+            <form [formGroup]="newGenreForm" (ngSubmit)="emitSubmitEvent(newGenreForm)">
+                <div class="field">
+                    <label class="label">Name<span class="red">*</span></label>
+                    <div class="control">
+                        <input formControlName="name" [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('name')}" type="text" placeholder="Genre's name">
+                    </div>
+                    <p *ngIf="isFieldInvalidAndInteracted('name')" class="help is-danger">Please, provide a name.</p>
+                </div>
+                <div class="btn-set field is-grouped">
+                    <div class="control">
+                        <button [disabled]="newGenreForm.invalid" class="button is-link">{{ mode === 'creator' ? 'Create' : 'Update' }}</button>
+                    </div>
+                    <div class="control">
+                        <button (click)="emitCloseEvent()" class="button is-link is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button (click)="emitCloseEvent()" class="modal-close is-large" aria-label="close"></button>
+</div>

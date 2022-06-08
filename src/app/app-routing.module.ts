@@ -6,6 +6,8 @@ import { ArtistsHomeComponent } from './artists/smart-components/artists-home/ar
 import { ArtistMainComponent } from './artists/smart-components/artist-main/artist-main.component';
 import { TracksHomeComponent } from './tracks/smart-components/tracks-home/tracks-home.component';
 import { TrackMainComponent } from './tracks/smart-components/track-main/track-main.component';
+import { GenresHomeComponent } from './genres/smart-components/genres-home/genres-home.component';
+import { GenresMainComponent } from './genres/smart-components/genres-main/genres-main.component';
 
 // my routes
 const routes: Routes = [
@@ -40,12 +42,14 @@ const routes: Routes = [
   },
 
   // path for 'genres' module
-  // {
-  //   path: 'genres',
-  // },
-  // {
-  //   path: 'genres/:genreId',
-  // },
+  {
+    path: 'genres',
+    component: GenresHomeComponent
+  },
+  {
+    path: 'genres/:genreId',
+    component: GenresMainComponent
+  },
 ];
 
 @NgModule({

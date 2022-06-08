@@ -1,0 +1,16 @@
+.box {
+  width: 200px;
+  padding-bottom: 40px;
+}
+
+.cover-container {
+  text-align: center;
+}
+
+.genre-art {
+  border-radius: 6px;
+}
+
+.title {
+  margin-top: 15px;
+}

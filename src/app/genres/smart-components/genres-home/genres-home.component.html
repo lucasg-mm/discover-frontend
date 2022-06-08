@@ -1,0 +1,10 @@
+<div class="view">
+    <app-superior-bar (search)="searchGenres($event)" (create)="openGenreCreatorModal()"></app-superior-bar>
+    <div class="genre-listing">
+        <app-genre-card *ngFor="let genre of displayedGenres" [genre]="genre"></app-genre-card>
+    </div>
+    <app-paginator [finalPage]="finalPage" [currPage]="currPage" (pageChange)="changeCurrentPage($event)">
+    </app-paginator>
+    <app-genre-creator *ngIf="isGenreCreatorVisible" (close)="closeGenreCreatorModal()"
+        (submitGenre)="createGenre($event)"></app-genre-creator>
+</div>

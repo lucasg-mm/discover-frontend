@@ -4,7 +4,6 @@ import { Track } from '../../models/track.model';
 import { TracksService } from '../../tracks.service';
 import * as bulmaToast from 'bulma-toast';
 
-
 @Component({
   selector: 'app-tracks-home',
   templateUrl: './tracks-home.component.html',
