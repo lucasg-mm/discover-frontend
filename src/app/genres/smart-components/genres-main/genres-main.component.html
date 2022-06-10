@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- manager for albums -->
     <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachAlbumToGenre($event)"
         (detach)="detachAlbumFromGenre($event)"
@@ -62,4 +62,13 @@
         [alreadyAttachedResources]="alreadyAttachedResources" *ngIf="showAlbumManager" resourceName="albums"
         (close)="closeResourceManager('album')">
     </app-resource-manager>
+
+    <!-- manager for artists -->
+    <app-resource-manager [isLoading]="isResourceManagerLoading" resourceName="artists"
+        [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+        [alreadyAttachedResources]="alreadyAttachedResources" [resourcesToBeAttached]="resourcesToBeAttached"
+        (attach)="attachArtistToGenre($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
+        (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
+        (detach)="detachArtistFromGenre($event)" (search)="searchArtists($event)"
+        (close)="closeResourceManager('artist')" *ngIf="showArtistsManager"></app-resource-manager>
 </div>

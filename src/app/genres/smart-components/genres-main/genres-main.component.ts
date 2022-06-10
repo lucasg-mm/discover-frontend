@@ -79,10 +79,53 @@ export class GenresMainComponent implements OnInit {
     if (resourceType === 'album') {
       this.loadAllAlbumsFromPage(1);
     } else if (resourceType === 'artist') {
-      // this.loadAllArtistsFromPage(1);
+      this.loadAllArtistsFromPage(1);
     } else if (resourceType === 'track') {
       // this.loadAllTracksFromPage(1);
     }
+  }
+
+  // search for artists in a paginated way
+  searchArtists(searchTerm: string, pageNumber: number = 1): void {
+    this.isResourceManagerLoading = true;
+
+    if (searchTerm === '') {
+      this.loadAllArtistsFromPage(1);
+      return;
+    }
+
+    this.artistService
+      .searchArtists(searchTerm, pageNumber, 5)
+      .subscribe((res) => {
+        // getting page information
+        this.resourceManagerCurrPage = pageNumber;
+        this.resourceManagerFinalPage = res.totalPages;
+
+        // the search input is for the resources to be attached
+        // so, we parse the track array to a resource array
+        this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+          res.items
+        );
+        this.isResourceManagerLoading = false;
+      });
+  }
+
+  loadAllArtistsFromPage(pageNumber: number): void {
+    this.isResourceManagerLoading = true;
+    this.artistService.getAllArtists(pageNumber, 5).subscribe((res) => {
+      // getting the final page information
+      this.resourceManagerFinalPage = res.totalPages;
+
+      // changes the initial page
+      this.resourceManagerCurrPage = pageNumber;
+
+      // parses artists to resources
+      this.resourcesToBeAttached = this.parsesArtistOrGenreToResources(
+        res.items
+      );
+
+      this.isResourceManagerLoading = false;
+    });
   }
 
   loadAlreadyAttachedResources(resourceType: string) {
@@ -94,6 +137,12 @@ export class GenresMainComponent implements OnInit {
             this.parsesTracksOrAlbumsToResources(res);
         });
     } else if (resourceType === 'artist') {
+      this.genreService
+        .getAllArtistsFromGenre(this.genre.id!)
+        .subscribe((res) => {
+          this.alreadyAttachedResources =
+            this.parsesArtistOrGenreToResources(res);
+        });
     } else if (resourceType === 'track') {
     }
   }
@@ -113,6 +162,24 @@ export class GenresMainComponent implements OnInit {
       .subscribe(() => {
         this.loadAlreadyAttachedResources('album');
         bulmaToast.toast({ message: 'Album detached!', type: 'is-success' });
+      });
+  }
+
+  attachArtistToGenre(artistId: number): void {
+    this.genreService
+      .attachArtistToGenre(this.genre.id!, artistId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
+      });
+  }
+
+  detachArtistFromGenre(artistId: number): void {
+    this.genreService
+      .detachArtistFromGenre(this.genre.id!, artistId)
+      .subscribe(() => {
+        this.loadAlreadyAttachedResources('artist');
+        bulmaToast.toast({ message: 'Artist detached!', type: 'is-success' });
       });
   }
 
