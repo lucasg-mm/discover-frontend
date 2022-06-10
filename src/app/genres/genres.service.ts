@@ -47,7 +47,7 @@ export class GenresService {
   }
 
   getAllTracksFromGenre(genreId: number): Observable<Track[]>{
-    return this.http.get<Track[]>(`${this.genreApiUri}/${genreId}/genres`);
+    return this.http.get<Track[]>(`${this.genreApiUri}/${genreId}/tracks`);
   }
 
   // search genres

@@ -70,5 +70,15 @@
         (attach)="attachArtistToGenre($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
         (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachArtistFromGenre($event)" (search)="searchArtists($event)"
-        (close)="closeResourceManager('artist')" *ngIf="showArtistsManager"></app-resource-manager>
+        (close)="closeResourceManager('artist')" *ngIf="showArtistsManager">
+    </app-resource-manager>
+
+    <!-- manager for tracks -->
+    <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachTrackToGenre($event)"
+        (detach)="detachTrackFromGenre($event)" (search)="searchTracks($event)"
+        (pageChangeSearch)="searchTracks($event['searchTerm'], $event['pageToGo'])"
+        (pageChangeAll)="loadAllTracksFromPage($event)" [isLoading]="isResourceManagerLoading"
+        [currPage]="this.resourceManagerCurrPage" [finalPage]="this.resourceManagerFinalPage"
+        [resourcesToBeAttached]="resourcesToBeAttached" [alreadyAttachedResources]="alreadyAttachedResources"
+        *ngIf="showTrackManager" resourceName="tracks" (close)="closeResourceManager('track')"></app-resource-manager>
 </div>
