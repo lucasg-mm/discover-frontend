@@ -343,7 +343,7 @@ export class TrackMainComponent implements OnInit {
   closeResourceManager(resourceType: string): void {
     if (resourceType === 'album') {
       this.showAlbumManager = false;
-    } else if (resourceType === 'track') {
+    } else if (resourceType === 'artist') {
       this.showArtistsManager = false;
     } else if (resourceType === 'genre') {
       this.showGenresManager = false;

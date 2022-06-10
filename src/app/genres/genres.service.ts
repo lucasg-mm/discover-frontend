@@ -6,6 +6,7 @@ import { GenresPaginated } from './models/genres-paginated.model';
 import { Album } from '../albums/models/album.model';
 import { Artist } from '../artists/models/artists.model';
 import { Genre } from './models/genre.model';
+import { Track } from '../tracks/models/track.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,18 @@ export class GenresService {
   // creates a new genre
   createGenre(genreToBeCreated: Genre): Observable<Genre> {
     return this.http.post<Genre>(this.genreApiUri, genreToBeCreated);
+  }
+
+  getAllAlbumsFromGenre(genreId: number): Observable<Album[]>{
+    return this.http.get<Album[]>(`${this.genreApiUri}/${genreId}/albums`);
+  }
+
+  getAllArtistsFromGenre(genreId: number): Observable<Artist[]>{
+    return this.http.get<Artist[]>(`${this.genreApiUri}/${genreId}/artists`);
+  }
+
+  getAllTracksFromGenre(genreId: number): Observable<Track[]>{
+    return this.http.get<Track[]>(`${this.genreApiUri}/${genreId}/genres`);
   }
 
   // search genres

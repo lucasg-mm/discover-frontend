@@ -92,7 +92,7 @@
         (attach)="attachArtistToTrack($event)" (pageChangeAll)="loadAllArtistsFromPage($event)"
         (pageChangeSearch)="searchArtists($event['searchTerm'], $event['pageToGo'])"
         (detach)="detachArtistFromTrack($event)" (search)="searchArtists($event)"
-        (close)="closeResourceManager('track')" *ngIf="showArtistsManager"></app-resource-manager>
+        (close)="closeResourceManager('artist')" *ngIf="showArtistsManager"></app-resource-manager>
 
     <!-- manager for genres -->
     <app-resource-manager [isLoading]="isResourceManagerLoading" (attach)="attachGenreToTrack($event)"
