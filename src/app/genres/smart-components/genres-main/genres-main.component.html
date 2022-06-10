@@ -1,1 +1,54 @@
-<p>genres-main works!</p>
+<div class="main-container" *ngIf="isGenreLoaded">
+    <div class="genre-header">
+        <div class="art-container">
+            <img height="300px" width="300px" class="genre-art" src="assets/images/default-genre-art.png">
+        </div>
+
+        <div class="genre-info">
+            <h1 class="genre-name title is-1">
+                {{ genre.name }}
+            </h1>
+            <div class="action-btns">
+                <button (click)="openResourceManager('album')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </span>
+                    <span>
+                        Manage album
+                    </span>
+                </button>
+                <button (click)="openResourceManager('track')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-music"></i>
+                    </span>
+                    <span>
+                        Manage tracks
+                    </span>
+                </button>
+                <button (click)="openResourceManager('artist')" class="button is-success is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </span>
+                    <span>
+                        Manage artists
+                    </span>
+                </button>
+                <button (click)="openGenreCreatorModal()" class="button is-warning is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-pen"></i>
+                    </span>
+                    <span>
+                        Edit info
+                    </span>
+                </button>
+                <button (click)="openConfirmationModal()" class="button is-danger is-small is-rounded">
+                    <span class="icon">
+                        <i class="fa-solid fa-trash"></i>
+                    </span>
+                    <span>
+                        Delete genre
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>

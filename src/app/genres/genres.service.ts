@@ -27,7 +27,12 @@ export class GenresService {
     );
   }
 
-  // creates a new track
+  // find a specific genre by its id
+  findGenreById(genreId: number): Observable<Genre> {
+    return this.http.get<Genre>(`${this.genreApiUri}/${genreId}`);
+  }
+
+  // creates a new genre
   createGenre(genreToBeCreated: Genre): Observable<Genre> {
     return this.http.post<Genre>(this.genreApiUri, genreToBeCreated);
   }
@@ -76,7 +81,7 @@ export class GenresService {
     );
   }
 
-  // attaches an track to a genre
+  // attaches a track to a genre
   attachTrackToGenre(genreId: number, trackId: number): Observable<Artist> {
     return this.http.put<Artist>(
       `${this.genreApiUri}/${genreId}/tracks/${trackId}`,
@@ -84,7 +89,7 @@ export class GenresService {
     );
   }
 
-  // detaches an track to a genre
+  // detaches a track to a genre
   detachTrackFromGenre(genreId: number, trackId: number): Observable<Artist> {
     return this.http.delete<Artist>(
       `${this.genreApiUri}/${genreId}/tracks/${trackId}`
