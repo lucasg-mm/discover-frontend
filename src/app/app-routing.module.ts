@@ -11,6 +11,13 @@ import { GenresMainComponent } from './genres/smart-components/genres-main/genre
 
 // my routes
 const routes: Routes = [
+  // redirect root path to 'albums'
+  {
+    path: '',
+    redirectTo: 'albums',
+    pathMatch: 'full'
+  },
+
   // path for the 'albums' module
   {
     path: 'albums',
@@ -38,17 +45,17 @@ const routes: Routes = [
   },
   {
     path: 'tracks/:trackId',
-    component: TrackMainComponent
+    component: TrackMainComponent,
   },
 
   // path for 'genres' module
   {
     path: 'genres',
-    component: GenresHomeComponent
+    component: GenresHomeComponent,
   },
   {
     path: 'genres/:genreId',
-    component: GenresMainComponent
+    component: GenresMainComponent,
   },
 ];
 
