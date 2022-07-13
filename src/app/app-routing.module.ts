@@ -8,7 +8,7 @@ import { TracksHomeComponent } from './tracks/smart-components/tracks-home/track
 import { TrackMainComponent } from './tracks/smart-components/track-main/track-main.component';
 import { GenresHomeComponent } from './genres/smart-components/genres-home/genres-home.component';
 import { GenresMainComponent } from './genres/smart-components/genres-main/genres-main.component';
-import { LoginFormComponent } from './login/presentational-components/login-form/login-form.component';
+import { LoginMainComponent } from './login/smart-components/login-main/login-main.component';
 
 // my routes
 const routes: Routes = [
@@ -62,7 +62,7 @@ const routes: Routes = [
   // path for 'login' module
   {
     path: 'login',
-    component: LoginFormComponent,
+    component: LoginMainComponent,
   }
 ];
 
