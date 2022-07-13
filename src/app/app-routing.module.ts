@@ -8,6 +8,7 @@ import { TracksHomeComponent } from './tracks/smart-components/tracks-home/track
 import { TrackMainComponent } from './tracks/smart-components/track-main/track-main.component';
 import { GenresHomeComponent } from './genres/smart-components/genres-home/genres-home.component';
 import { GenresMainComponent } from './genres/smart-components/genres-main/genres-main.component';
+import { LoginFormComponent } from './login/presentational-components/login-form/login-form.component';
 
 // my routes
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'albums',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 
   // path for the 'albums' module
@@ -57,6 +58,12 @@ const routes: Routes = [
     path: 'genres/:genreId',
     component: GenresMainComponent,
   },
+
+  // path for 'login' module
+  {
+    path: 'login',
+    component: LoginFormComponent,
+  }
 ];
 
 @NgModule({
