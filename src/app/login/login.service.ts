@@ -13,8 +13,14 @@ export class LoginService {
     this.loginApiUri = `${environment.apiUrl}/user`;
   }
 
+  // sets the session by storing the jwt token in local storage
   private setSession(JWTToken: string) {
-    console.log('This is the JWT token', JWTToken);
+    localStorage.setItem("jwt_token", JWTToken);
+  }
+
+  // removes the token from local storage
+  logout() {
+    localStorage.removeItem('jwt_token');
   }
 
   // authenticates a user with their credentials
