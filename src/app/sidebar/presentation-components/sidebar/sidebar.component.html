@@ -7,7 +7,7 @@
             </div>
         </a>
         <ul class="menu-list">
-            <li>
+            <li *ngIf="!isLogged()">
                 <a routerLink="/login">
                     <span class="icon is-right">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>
@@ -15,8 +15,8 @@
                     Login
                 </a>
             </li>
-            <li>
-                <a routerLink="/albums">
+            <li *ngIf="isLogged()">
+                <a (click)="logout()">
                     <span class="icon is-right">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </span>

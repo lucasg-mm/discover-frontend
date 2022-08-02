@@ -8,6 +8,7 @@ import { map, Observable } from 'rxjs';
 })
 export class LoginService {
   loginApiUri: string;
+  loggedIn: boolean;
 
   constructor(private http: HttpClient) {
     this.loginApiUri = `${environment.apiUrl}/user`;
@@ -16,11 +17,19 @@ export class LoginService {
   // sets the session by storing the jwt token in local storage
   private setSession(JWTToken: string) {
     localStorage.setItem("jwt_token", JWTToken);
+    this.loggedIn = true;
+  }
+
+  isLoggedIn(): boolean{
+    return this.loggedIn;
   }
 
   // removes the token from local storage
-  logout() {
+  // the user will need authentication again
+  // in order to generate another one
+  removeSession() {
     localStorage.removeItem('jwt_token');
+    this.loggedIn = false;
   }
 
   // authenticates a user with their credentials
