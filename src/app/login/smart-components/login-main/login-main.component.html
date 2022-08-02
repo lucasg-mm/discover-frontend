@@ -3,7 +3,7 @@
         <div class="content">
             <div class="title is-1">Sign in</div>
             <p>
-                New to Discover? <a>Create an Account</a>
+                New to Discover? <a [routerLink]="'/signup'">Create an Account</a>
             </p>
         </div>
         <app-login-form (login)="login($event)"></app-login-form>

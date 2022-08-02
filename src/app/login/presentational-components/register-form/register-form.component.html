@@ -1,0 +1,39 @@
+<form [formGroup]="newUserForm" (ngSubmit)="emitSignUpEvent(newUserForm)">
+    <div class="field">
+        <div class="control has-icons-left has-icons-right">
+            <input [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('username')}"
+                formControlName="username" class="input" type="text" placeholder="Username">
+            <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+        </div>
+        <p *ngIf="isFieldInvalidAndInteracted('username')" class="help is-danger">Please, provide a username.</p>
+    </div>
+    <div class="field">
+        <div class="control has-icons-left">
+            <input [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('password')}"
+                formControlName="password" class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </div>
+        <p *ngIf="isFieldInvalidAndInteracted('password')" class="help is-danger">Please, provide a password.</p>
+    </div>
+    <div class="field">
+        <div class="control has-icons-left">
+            <input [class]="{'input': true, 'is-danger': isFieldInvalidAndInteracted('confirmPassword')}"
+                formControlName="confirmPassword" class="input" type="password" placeholder="Confirm password">
+            <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </div>
+        <p *ngIf="isFieldInvalidAndInteracted('confirmPassword')" class="help is-danger">Please, correctly confirm the provided password.</p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button class="button is-success is-fullwidth">
+                Register
+            </button>
+        </p>
+    </div>
+</form>

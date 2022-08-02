@@ -9,6 +9,7 @@ import { TrackMainComponent } from './tracks/smart-components/track-main/track-m
 import { GenresHomeComponent } from './genres/smart-components/genres-home/genres-home.component';
 import { GenresMainComponent } from './genres/smart-components/genres-main/genres-main.component';
 import { LoginMainComponent } from './login/smart-components/login-main/login-main.component';
+import { RegisterMainComponent } from './login/smart-components/register-main/register-main.component';
 
 // my routes
 const routes: Routes = [
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginMainComponent,
+  },
+  {
+    path: 'signup',
+    component: RegisterMainComponent,
   }
 ];
 
