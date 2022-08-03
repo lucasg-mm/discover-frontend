@@ -8,10 +8,12 @@ import { map, Observable } from 'rxjs';
 })
 export class LoginService {
   loginApiUri: string;
+  registerApiUri: string;
   loggedIn: boolean;
 
   constructor(private http: HttpClient) {
     this.loginApiUri = `${environment.apiUrl}/user`;
+    this.registerApiUri = `${environment.apiUrl}/register`;
   }
 
   // sets the session by storing the jwt token in local storage
@@ -57,5 +59,10 @@ export class LoginService {
           this.setSession(JWTToken);
         })
       );
+  }
+
+  // registers a new user
+  registerNewUser(newUser: any){
+    return this.http.post(this.registerApiUri, newUser);
   }
 }

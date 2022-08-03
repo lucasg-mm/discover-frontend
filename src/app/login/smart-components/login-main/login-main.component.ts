@@ -20,7 +20,5 @@ export class LoginMainComponent implements OnInit {
     this.loginService.authenticate(userCredentials).subscribe(() => {
       this.router.navigateByUrl('/');
     });
-
-    //
   }
 }

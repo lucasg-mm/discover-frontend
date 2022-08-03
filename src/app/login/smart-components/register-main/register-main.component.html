@@ -6,6 +6,6 @@
                 Already have an account? <a [routerLink]="'/login'">Sign in</a>
             </p>
         </div>
-        <app-register-form></app-register-form>
+        <app-register-form (signUp)="registerUser($event)"></app-register-form>
     </div>
 </div>
