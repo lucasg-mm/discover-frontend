@@ -17,21 +17,41 @@ export class LoginService {
   }
 
   // sets the session by storing the jwt token in local storage
-  private setSession(JWTToken: string) {
-    localStorage.setItem("jwt_token", JWTToken);
-    this.loggedIn = true;
+  private setSession(sessionData: any) {
+    localStorage.setItem('session_data', JSON.stringify(sessionData));
   }
 
-  isLoggedIn(): boolean{
-    return this.loggedIn;
+  isLoggedIn(): boolean {
+    return localStorage.getItem('session_data') == null ? false : true;
   }
 
   // removes the token from local storage
   // the user will need authentication again
   // in order to generate another one
   removeSession() {
-    localStorage.removeItem('jwt_token');
-    this.loggedIn = false;
+    localStorage.removeItem('session_data');
+  }
+
+  isAdmin() {
+    if (this.isLoggedIn()) {
+      const sessionData: any = JSON.parse(
+        localStorage.getItem('session_data')!
+      );
+
+      return sessionData.role == "ADMIN";
+    } else {
+      return false;
+    }
+  }
+
+  getJWT() {
+    if (this.isLoggedIn()) {
+      const sessionData: any = JSON.parse(
+        localStorage.getItem('session_data')!
+      );
+      return sessionData.JWTToken;
+    }
+    return null;
   }
 
   // authenticates a user with their credentials
@@ -51,18 +71,33 @@ export class LoginService {
         withCredentials: true,
       })
       .pipe(
-        map((res) => {
+        map((res: any) => {
+          const responseBody: any = res.body;
+
+          // gets the role
+          const role: any = responseBody.authorities[0].authority;
+
+          // gets the username
+          const username: string = responseBody.principal;
+
           // gets the JWT token from the header
           const JWTToken: string = res.headers.get('Authorization') || '';
 
+          const sessionData: any = {
+            username,
+            role,
+            JWTToken,
+          };
+
           // sets the session with the token
-          this.setSession(JWTToken);
+          this.setSession(sessionData);
+          console.log(this.isAdmin());
         })
       );
   }
 
   // registers a new user
-  registerNewUser(newUser: any){
+  registerNewUser(newUser: any) {
     return this.http.post(this.registerApiUri, newUser);
   }
 }

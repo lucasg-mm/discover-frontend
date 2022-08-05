@@ -7,15 +7,18 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginService } from '../login/login.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private loginService: LoginService) {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // retrieves the token from the local storage
-    const JWTToken = localStorage.getItem('jwt_token');
+    const JWTToken = this.loginService.getJWT();
 
     // if the JWT token exists in local storage
     if (JWTToken) {
