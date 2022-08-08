@@ -12,6 +12,7 @@ import { Album } from 'src/app/albums/models/album.model';
 import * as bulmaToast from 'bulma-toast';
 import { GenresService } from 'src/app/genres/genres.service';
 import { ArtistsService } from 'src/app/artists/artists.service';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-track-main',
@@ -38,6 +39,7 @@ export class TrackMainComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private tracksService: TracksService,
     private albumsService: AlbumsService,
@@ -60,7 +62,7 @@ export class TrackMainComponent implements OnInit {
     });
   }
 
-  closeConfirmationModal(): void{
+  closeConfirmationModal(): void {
     this.isConfirmationModalVisible = false;
   }
 
@@ -154,12 +156,10 @@ export class TrackMainComponent implements OnInit {
     const trackId = this.track.id!;
 
     // request to attach the artist
-    this.artistService
-      .attachTrackToArtist(artistId, trackId)
-      .subscribe(() => {
-        this.loadAlreadyAttachedResources('artist');
-        bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
-      });
+    this.artistService.attachTrackToArtist(artistId, trackId).subscribe(() => {
+      this.loadAlreadyAttachedResources('artist');
+      bulmaToast.toast({ message: 'Artist attached!', type: 'is-success' });
+    });
   }
 
   // detach an artist from the track

@@ -12,6 +12,7 @@ import { Track } from 'src/app/tracks/models/track.model';
 import { Album } from 'src/app/albums/models/album.model';
 import { TracksService } from 'src/app/tracks/tracks.service';
 import { GenresService } from 'src/app/genres/genres.service';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-artist-main',
@@ -37,6 +38,7 @@ export class ArtistMainComponent implements OnInit {
   constructor(
     private router: Router,
     private genreService: GenresService,
+    public loginService: LoginService,
     private artistService: ArtistsService,
     private albumService: AlbumsService,
     private trackService: TracksService,

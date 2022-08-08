@@ -30,7 +30,7 @@
                     {{ formattedTrackLength }}
                 </li>
             </ul>
-            <div class="action-btns">
+            <div class="action-btns" *ngIf="loginService.isAdmin()">
                 <button (click)="openResourceManager('album')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-compact-disc"></i>

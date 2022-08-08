@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-superior-bar',
@@ -7,7 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class SuperiorBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loginService: LoginService) {
+  }
 
   @Input()
   isLoading: boolean = false;

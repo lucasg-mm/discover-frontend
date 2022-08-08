@@ -8,7 +8,7 @@
             <h1 class="genre-name title is-1">
                 {{ genre.name }}
             </h1>
-            <div class="action-btns">
+            <div class="action-btns" *ngIf="loginService.isAdmin()">
                 <button (click)="openResourceManager('album')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-compact-disc"></i>

@@ -11,6 +11,7 @@ import { TracksService } from 'src/app/tracks/tracks.service';
 import { GenresService } from '../../genres.service';
 import { Genre } from '../../models/genre.model';
 import * as bulmaToast from 'bulma-toast';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-genres-main',
@@ -32,7 +33,7 @@ export class GenresMainComponent implements OnInit {
   isConfirmationModalVisible: boolean = false;
 
   constructor(
-    private router: Router,
+    public loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private tracksService: TracksService,
     private albumsService: AlbumsService,

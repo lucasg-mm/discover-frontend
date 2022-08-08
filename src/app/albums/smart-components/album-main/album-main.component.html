@@ -4,7 +4,7 @@
             <img class="cover-art" height="300px" width="300px" [src]="albumCoverArtUrl"
                 (error)="insertDefaultAlbumCover()">
 
-            <div class="overlay">
+            <div *ngIf="loginService.isAdmin()" class="overlay">
                 <input class="file-input" type="file" accept=".jpg, .png, .jpeg" (change)="onFileSelect($event)">
                 <i class="fa-solid fa-pen"></i>
                 <b>
@@ -43,7 +43,7 @@
                     {{ albumLabel }}
                 </li>
             </ul>
-            <div class="action-btns">
+            <div class="action-btns" *ngIf="loginService.isAdmin()">
                 <button (click)="openResourceManager('track')" class="button is-success is-small is-rounded">
                     <span class="icon">
                         <i class="fa-solid fa-music"></i>

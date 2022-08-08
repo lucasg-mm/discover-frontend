@@ -12,6 +12,7 @@ import { Album } from '../../models/album.model';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { GenresService } from 'src/app/genres/genres.service';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-album-main',
@@ -49,6 +50,7 @@ export class AlbumMainComponent implements OnInit {
     private trackService: TracksService,
     private artistService: ArtistsService,
     private genreService: GenresService,
+    public loginService: LoginService,
     private router: Router
   ) {}
 

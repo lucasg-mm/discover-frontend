@@ -7,6 +7,7 @@ import { SearchResourceBarComponent } from './presentational-components/search-r
 import { AlbumPaginatorComponent } from './presentational-components/album-paginator/album-paginator/album-paginator.component';
 import { ConfirmationModalComponent } from './presentational-components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 import { SuperiorBarComponent } from './presentational-components/superior-bar/superior-bar.component';
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { SuperiorBarComponent } from './presentational-components/superior-bar/s
     ConfirmationModalComponent,
     SuperiorBarComponent
   ],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoginModule],
   exports: [
     ResourceManagerComponent,
     AlbumPaginatorComponent,

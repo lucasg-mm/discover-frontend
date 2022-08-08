@@ -8,6 +8,7 @@ import { GenresHomeComponent } from './smart-components/genres-home/genres-home.
 import { GenresMainComponent } from './smart-components/genres-main/genres-main.component';
 import { GenreCardComponent } from './presentational-components/genre-card/genre-card.component';
 import { GenreCreatorComponent } from './presentational-components/genre-creator/genre-creator.component';
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { GenreCreatorComponent } from './presentational-components/genre-creator
     RouterModule,
     ReactiveFormsModule,
     SharedModule,
+    LoginModule
   ],
 })
 export class GenresModule {}
