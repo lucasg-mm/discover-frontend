@@ -12,7 +12,7 @@ export class LoginService {
   loggedIn: boolean;
 
   constructor(private http: HttpClient) {
-    this.loginApiUri = `${environment.apiUrl}/user`;
+    this.loginApiUri = `${environment.apiUrl}/login`;
     this.registerApiUri = `${environment.apiUrl}/register`;
   }
 
