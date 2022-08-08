@@ -91,7 +91,6 @@ export class LoginService {
 
           // sets the session with the token
           this.setSession(sessionData);
-          console.log(this.isAdmin());
         })
       );
   }
