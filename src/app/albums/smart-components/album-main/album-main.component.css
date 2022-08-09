@@ -2,6 +2,10 @@
   margin-top: 80px;
 }
 
+.like-btn{
+  vertical-align: middle;
+}
+
 .album-info {
   font-weight: bold;
   padding: 55px;
