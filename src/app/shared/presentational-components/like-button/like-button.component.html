@@ -1,0 +1,5 @@
+<button (click)="toggleLike()" class="button is-white">
+    <span [ngClass]="{'icon': true, 'has-text-danger': isLiked}">
+        <i [ngClass]="{'fa-solid': isLiked, 'fa-regular': !isLiked, 'fa-heart': true}"></i>
+    </span>
+</button>

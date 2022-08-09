@@ -8,6 +8,7 @@ import { AlbumPaginatorComponent } from './presentational-components/album-pagin
 import { ConfirmationModalComponent } from './presentational-components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 import { SuperiorBarComponent } from './presentational-components/superior-bar/superior-bar.component';
 import { LoginModule } from '../login/login.module';
+import { LikeButtonComponent } from './presentational-components/like-button/like-button.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginModule } from '../login/login.module';
     SearchResourceBarComponent,
     AlbumPaginatorComponent,
     ConfirmationModalComponent,
-    SuperiorBarComponent
+    SuperiorBarComponent,
+    LikeButtonComponent
   ],
   imports: [CommonModule, FormsModule, LoginModule],
   exports: [
@@ -24,7 +26,8 @@ import { LoginModule } from '../login/login.module';
     AlbumPaginatorComponent,
     ConfirmationModalComponent,
     SearchResourceBarComponent,
-    SuperiorBarComponent
+    SuperiorBarComponent,
+    LikeButtonComponent
   ]
 })
 export class SharedModule {}
