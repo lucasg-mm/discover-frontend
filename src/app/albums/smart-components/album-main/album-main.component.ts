@@ -62,6 +62,16 @@ export class AlbumMainComponent implements OnInit {
     this.loadTracklist().subscribe();
   }
 
+  likeAlbum(){
+    const username: string = this.loginService.getUsername();
+    this.albumService.likeAlbum(username, this.albumId).subscribe();
+  }
+
+  dislikeAlbum(){
+    const username: string = this.loginService.getUsername();
+    this.albumService.dislikeAlbum(username, this.albumId).subscribe();
+  }
+
   // triggered when file is selected
   onFileSelect(event: any): void {
     const file: File = event.target.files[0];

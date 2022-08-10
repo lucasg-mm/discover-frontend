@@ -54,6 +54,16 @@ export class LoginService {
     return null;
   }
 
+  getUsername() {
+    if (this.isLoggedIn()) {
+      const sessionData: any = JSON.parse(
+        localStorage.getItem('session_data')!
+      );
+      return sessionData.username;
+    }
+    return null;
+  }
+
   // authenticates a user with their credentials
   authenticate(credentials: any) {
     // put the credentials inside the header (initial authentication happens through

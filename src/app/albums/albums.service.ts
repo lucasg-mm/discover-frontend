@@ -11,9 +11,11 @@ import { Track } from '../tracks/models/track.model';
 })
 export class AlbumsService {
   albumApiUri: string;
+  userApiUri: string;
 
   constructor(private http: HttpClient) {
     this.albumApiUri = `${environment.apiUrl}/albums`;
+    this.userApiUri = `${environment.apiUrl}/users`;
   }
 
   // find every album
@@ -89,5 +91,13 @@ export class AlbumsService {
     return this.http.get<AlbumsPaginated>(
       `${this.albumApiUri}/search?title=${searchTerm}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
+  }
+
+  likeAlbum(username: string, albumId: number): Observable<Album>{
+    return this.http.put<Album>(`${this.userApiUri}/${username}/albums/${albumId}`, {});
+  }
+
+  dislikeAlbum(username: string, albumId: number): Observable<void>{
+    return this.http.delete<void>(`${this.userApiUri}/${username}/albums/${albumId}`);
   }
 }
