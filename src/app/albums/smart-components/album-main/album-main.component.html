@@ -16,7 +16,7 @@
         <div class="album-info">
             <h1 class="album-title title is-1">
                 {{albumTitle}}
-                <app-like-button (like)="likeAlbum()" (dislike)="dislikeAlbum()" class="like-btn"></app-like-button>
+                <app-like-button [isLiked]="this.isLiked" (like)="likeAlbum()" (dislike)="dislikeAlbum()" class="like-btn"></app-like-button>
             </h1>
             <ul class="album-meta-info">
                 <li>

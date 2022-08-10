@@ -100,4 +100,9 @@ export class AlbumsService {
   dislikeAlbum(username: string, albumId: number): Observable<void>{
     return this.http.delete<void>(`${this.userApiUri}/${username}/albums/${albumId}`);
   }
+
+  getLikedAlbums(username: string): Observable<Album[]>{
+    return this.http.get<Album[]>(`${this.userApiUri}/${username}/albums`);
+  } 
+
 }

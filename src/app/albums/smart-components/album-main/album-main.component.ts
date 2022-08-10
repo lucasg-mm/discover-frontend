@@ -43,6 +43,7 @@ export class AlbumMainComponent implements OnInit {
   artists: Artist[];
   isAlbumCreatorVisible: boolean = false; // the creator modal is also used to update the album's data
   showConfirmationModal: boolean = false;
+  isLiked: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,16 +59,17 @@ export class AlbumMainComponent implements OnInit {
     this.albumId = Number(
       this.activatedRoute.snapshot.paramMap.get('albumId')!
     );
+
     this.loadAlbumInfo().subscribe();
     this.loadTracklist().subscribe();
   }
 
-  likeAlbum(){
+  likeAlbum() {
     const username: string = this.loginService.getUsername();
     this.albumService.likeAlbum(username, this.albumId).subscribe();
   }
 
-  dislikeAlbum(){
+  dislikeAlbum() {
     const username: string = this.loginService.getUsername();
     this.albumService.dislikeAlbum(username, this.albumId).subscribe();
   }
@@ -194,9 +196,19 @@ export class AlbumMainComponent implements OnInit {
         this.albumCoverArtUrl = this.albumService.getCoverArtUrl(res.id!);
         this.genres = res.genres!;
         this.artists = res.artists!;
+        const username: string = this.loginService.getUsername();
+        this.albumService.getLikedAlbums(username).subscribe((res) => {
+          const albumIds = res.map((album) => album.id);
 
-        // changes flag to indicate the album loaded
-        this.isAlbumLoaded = true;
+          if (albumIds.includes(this.albumId)) {
+            this.isLiked = true;
+          } else {
+            this.isLiked = false;
+          }
+
+          // changes flag to indicate the album loaded
+          this.isAlbumLoaded = true;
+        });
       })
     );
   }

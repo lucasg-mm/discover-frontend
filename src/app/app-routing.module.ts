@@ -10,6 +10,7 @@ import { GenresHomeComponent } from './genres/smart-components/genres-home/genre
 import { GenresMainComponent } from './genres/smart-components/genres-main/genres-main.component';
 import { LoginMainComponent } from './login/smart-components/login-main/login-main.component';
 import { RegisterMainComponent } from './login/smart-components/register-main/register-main.component';
+import { ProfileMainComponent } from './profile/smart-components/profile-main/profile-main.component';
 
 // my routes
 const routes: Routes = [
@@ -68,7 +69,13 @@ const routes: Routes = [
   {
     path: 'signup',
     component: RegisterMainComponent,
-  }
+  },
+
+  // path for 'profile' module
+  {
+    path: 'profile',
+    component: ProfileMainComponent,
+  },
 ];
 
 @NgModule({

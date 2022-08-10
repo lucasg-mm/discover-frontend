@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 EventEmitter
 
 @Component({
@@ -8,6 +8,7 @@ EventEmitter
 })
 export class LikeButtonComponent implements OnInit {
 
+  @Input()
   isLiked: boolean = false;
 
   constructor() { }
