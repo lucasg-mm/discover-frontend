@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/login/login.service';
 })
 export class ProfileMainComponent implements OnInit {
   likedAlbums: Album[];
+  username: string;
 
   constructor(
     private albumService: AlbumsService,
@@ -17,8 +18,8 @@ export class ProfileMainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const username: string = this.loginService.getUsername();
-    this.albumService.getLikedAlbums(username).subscribe((res) => {
+    this.username = this.loginService.getUsername();
+    this.albumService.getLikedAlbums(this.username).subscribe((res) => {
       console.log(res);
     });
   }

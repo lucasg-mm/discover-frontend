@@ -1,0 +1,21 @@
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  clip-path: circle();
+}
+
+.main-container {
+  margin-top: 80px;
+}
+
+.user-info {
+  font-weight: bold;
+  padding: 55px;
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  align-items: center;
+}
