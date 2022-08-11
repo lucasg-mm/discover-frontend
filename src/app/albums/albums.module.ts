@@ -24,6 +24,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  exports: [
+    AlbumCardComponent
   ]
 })
 export class AlbumsModule { }

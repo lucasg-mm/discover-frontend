@@ -20,7 +20,7 @@ export class ProfileMainComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.loginService.getUsername();
     this.albumService.getLikedAlbums(this.username).subscribe((res) => {
-      console.log(res);
+      this.likedAlbums = res;
     });
   }
 }

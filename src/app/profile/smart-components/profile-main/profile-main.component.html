@@ -10,4 +10,17 @@
             </h1>
         </div>
     </div>
+    <div class="tabs is-left">
+        <ul>
+            <li class="is-active">
+                <a>
+                    <span class="icon is-small"><i class="fa-solid fa-record-vinyl"></i></span>
+                    <span>Liked albums</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="album-listing">
+        <app-album-card *ngFor="let album of likedAlbums" [album]="album"></app-album-card>
+    </div>
 </div>

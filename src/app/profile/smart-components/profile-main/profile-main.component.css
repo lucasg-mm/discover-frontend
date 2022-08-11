@@ -15,7 +15,15 @@
 }
 
 .profile-header {
+  margin-left: 32px;
   display: grid;
   grid-template-columns: 2fr 8fr;
   align-items: center;
+}
+
+.album-listing {
+  margin-left: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-row-gap: 40px;
 }

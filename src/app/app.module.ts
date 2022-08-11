@@ -11,6 +11,7 @@ import { GenresModule } from './genres/genres.module';
 import { LoginModule } from './login/login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     TracksModule,
     GenresModule,
     LoginModule,
+    ProfileModule
   ],
   providers: [
     {
