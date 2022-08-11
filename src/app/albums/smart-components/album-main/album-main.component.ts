@@ -197,18 +197,22 @@ export class AlbumMainComponent implements OnInit {
         this.genres = res.genres!;
         this.artists = res.artists!;
         const username: string = this.loginService.getUsername();
-        this.albumService.getLikedAlbums(username).subscribe((res) => {
-          const albumIds = res.map((album) => album.id);
+        if (this.loginService.isLoggedIn()) {
+          this.albumService.getLikedAlbums(username).subscribe((res) => {
+            const albumIds = res.map((album) => album.id);
 
-          if (albumIds.includes(this.albumId)) {
-            this.isLiked = true;
-          } else {
-            this.isLiked = false;
-          }
+            if (albumIds.includes(this.albumId)) {
+              this.isLiked = true;
+            } else {
+              this.isLiked = false;
+            }
 
-          // changes flag to indicate the album loaded
+            // changes flag to indicate the album loaded
+            this.isAlbumLoaded = true;
+          });
+        } else {
           this.isAlbumLoaded = true;
-        });
+        }
       })
     );
   }
